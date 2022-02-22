@@ -112,8 +112,9 @@ public class TestController {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public DataResponse changePassword(@Valid @RequestBody DataRequest dataRequest) {
         Integer userId= CommonMethod.getUserId();
-        if(userId == null)
+        if(userId == null) {
             return CommonMethod.getReturnMessageError("lang.comm.loginError");
+        }
         String oldPassword = dataRequest.getString("oldPassword");
         String newPassword = dataRequest.getString("newPassword");
         User u = userRepository.findById(userId).get();
@@ -130,8 +131,9 @@ public class TestController {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public DataResponse tableOne(@Valid @RequestBody DataRequest dataRequest) {
         Integer userId= CommonMethod.getUserId();
-        if(userId == null)
+        if(userId == null) {
             return CommonMethod.getReturnMessageError("lang.comm.loginError");
+        }
 
         List tableList = new ArrayList();
         Map m = new HashMap();
@@ -154,8 +156,9 @@ public class TestController {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public DataResponse tableTwo(@Valid @RequestBody DataRequest dataRequest) {
         Integer userId= CommonMethod.getUserId();
-        if(userId == null)
+        if(userId == null) {
             return CommonMethod.getReturnMessageError("lang.comm.loginError");
+        }
 
         List tableList = new ArrayList();
         Map m = new HashMap();
@@ -181,8 +184,9 @@ public class TestController {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public DataResponse querytableOne(@Valid @RequestBody DataRequest dataRequest) {
         Integer userId= CommonMethod.getUserId();
-        if(userId == null)
+        if(userId == null) {
             return CommonMethod.getReturnMessageError("lang.comm.loginError");
+        }
         String perName = dataRequest.getString("perName");
         String perType = dataRequest.getString("perType");
         System.out.println(perName+perType);
@@ -193,8 +197,9 @@ public class TestController {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public DataResponse formOne(@Valid @RequestBody DataRequest dataRequest) {
         Integer userId= CommonMethod.getUserId();
-        if(userId == null)
+        if(userId == null) {
             return CommonMethod.getReturnMessageError("lang.comm.loginError");
+        }
         Map form = new HashMap();
         form.put("name","郭文学");
         form.put("phoneNum","17854258214");
@@ -210,8 +215,9 @@ public class TestController {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public DataResponse sumitFormformOne(@Valid @RequestBody DataRequest dataRequest) {
         Integer userId= CommonMethod.getUserId();
-        if(userId == null)
+        if(userId == null) {
             return CommonMethod.getReturnMessageError("lang.comm.loginError");
+        }
         return CommonMethod.getReturnMessageOK();
     }
 
@@ -219,8 +225,9 @@ public class TestController {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public DataResponse formOnedetail(@Valid @RequestBody DataRequest dataRequest) {
         Integer userId= CommonMethod.getUserId();
-        if(userId == null)
+        if(userId == null) {
             return CommonMethod.getReturnMessageError("lang.comm.loginError");
+        }
         String id = dataRequest.getString("id");
         Map form = new HashMap();
         form.put("name","郭文学");
@@ -234,8 +241,9 @@ public class TestController {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public DataResponse tableOneedit(@Valid @RequestBody DataRequest dataRequest) {
         Integer userId= CommonMethod.getUserId();
-        if(userId == null)
+        if(userId == null) {
             return CommonMethod.getReturnMessageError("lang.comm.loginError");
+        }
         String id = dataRequest.getString("id");
         Map form = new HashMap();
         form.put("name","郭文学");
@@ -249,8 +257,9 @@ public class TestController {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public DataResponse sumitFormtableOneedit(@Valid @RequestBody DataRequest dataRequest) {
         Integer userId= CommonMethod.getUserId();
-        if(userId == null)
+        if(userId == null) {
             return CommonMethod.getReturnMessageError("lang.comm.loginError");
+        }
         return CommonMethod.getReturnMessageOK();
     }
 
@@ -260,8 +269,9 @@ public class TestController {
     public DataResponse deleteItemtableOne(@Valid @RequestBody DataRequest dataRequest) {
         Integer userId= CommonMethod.getUserId();
         String id = dataRequest.getString("id");
-        if(userId == null)
+        if(userId == null) {
             return CommonMethod.getReturnMessageError("lang.comm.loginError");
+        }
         return CommonMethod.getReturnMessageOK();
     }
 }

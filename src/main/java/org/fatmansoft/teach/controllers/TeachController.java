@@ -130,10 +130,11 @@ public class TeachController {
         if(s == null) {
             s = new Student();   //不存在 创建实体对象
             id = studentRepository.getMaxId();  // 查询最大的id
-            if(id == null)
+            if(id == null) {
                 id = 1;
-            else
+            } else {
                 id = id+1;
+            }
             s.setId(id);  //设置新的id
         }
         s.setStudentNum(studentNum);  //设置属性
