@@ -1,0 +1,58 @@
+uims:
+  menu:
+    - name: student
+      title: 学生管理
+  page:
+    - name: student
+      type: table
+      title: 学生管理
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: sex
+          label: 性别
+        - type: text
+          prop: age
+          label: 年龄
+        - type: text
+          prop: birthday
+          label: 出生日期
+        - type: opers
+          label: 操作
+          opers:
+            - name: edit
+            - name: delete
+      query:
+        - type: input
+          prop: numName
+          label: 请输入学号或姓名
+    - name: studentEdit
+      type: form
+      title: 学生信息
+      item:
+        - type: input
+          prop: studentNum
+          label: 学号
+        - type: input
+          prop: studentName
+          label: 姓名
+        - type: select
+          prop: sex
+          label: 性别
+          option:
+            - value: 1
+              label: 男
+            - value: 2
+              label: 女
+        - type: input
+          prop: age
+          label: 年龄
+        - type: date
+          prop: birthday
+          label: 出生日期
