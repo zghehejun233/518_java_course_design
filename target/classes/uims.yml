@@ -84,3 +84,45 @@ uims:
         - type: text
           prop: time
           label: 获得时间
+    - name: achievementEdit
+      type: form
+      title: 荣誉信息
+      item:
+        - type: input
+          prop: studentNum
+          label: 学号
+        - type: input
+          prop: studentName
+          label: 姓名
+        - type: input
+          prop: achievementName
+          label: 荣誉名称
+        - type: select
+          prop: achievementType
+          label: 奖项类型
+          option:
+            - value: 1
+              label: 奖学金
+            - value: 2
+              label: 证书
+        - type: input
+          prop: organization
+          label: 颁发机构
+        - type: select
+          prop: level
+          label: 荣誉等级
+          option:
+            - value: 1
+              label: 院级以下
+            - value: 2
+              label: 院级
+            - value: 3
+              label: 校级
+            - value: 4
+              label: 地市级
+            - value: 5
+              label: 省级
+            - value: 6
+              label: 国级
+            - value: 7
+              label: 国级以上
