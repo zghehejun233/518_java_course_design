@@ -115,6 +115,12 @@ feat: 添加了xxx功能
 | ~/studentEdit    | path/studentEditInit   |
 | ~/studentEdit/?  | path/studentEditSubmit |
 
+可以发现，api由前端描述自动生成
+
+其基本原理就是对page下的name，name下的opers操作根据驼峰命名法进行组合
+
+特别的，一些type的page会自带query、submit等操作，也会自动生成相应的操作
+
 ### 前端页面的生成
 
 #### uims.yml前端配置文件
