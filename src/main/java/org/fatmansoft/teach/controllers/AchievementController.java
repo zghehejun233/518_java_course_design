@@ -1,5 +1,6 @@
 package org.fatmansoft.teach.controllers;
 
+import org.fatmansoft.teach.models.Achievement;
 import org.fatmansoft.teach.models.Student;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
@@ -23,11 +24,29 @@ public class AchievementController {
     @Autowired
     private AchievementRepository achievementRepository;
 
+    public List getAchievementMapList(String numName){
+        List dataList = new ArrayList();
+        List<Achievement> aList = achievementRepository.findAchievementListByNumName(numName);
+        if(aList == null ||aList.size() ==0){
+            return dataList;
+        }
+        Achievement a;
+        Map m;
+        for (int i=0;i<aList.size();i++){
+            a = aList.get(i);
+            m = new HashMap();
+            m.put("id",a.getId());
+            m.put("studentName",a.getStudentName());
+            dataList.add(m);
+        }
+        return dataList;
+    }
+
     @PostMapping("/achievementInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse achievementInit(@Valid @RequestBody DataRequest datarequest) {
-        String s = "Hello World";
-        return CommonMethod.getReturnData(s);
+        List dataList = getAchievementMapList("");
+        return CommonMethod.getReturnData(dataList);
     }
 
     @PostMapping("/achievementQuery")
