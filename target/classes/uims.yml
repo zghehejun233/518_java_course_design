@@ -2,6 +2,8 @@ uims:
   menu:
     - name: student
       title: 学生管理
+    - name: achievement
+      title: 学生荣誉
   page:
     - name: student
       type: table
@@ -56,3 +58,29 @@ uims:
         - type: date
           prop: birthday
           label: 出生日期
+    - name: achievement
+      type: table
+      title: 学生荣誉
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: achievementName
+          label: 荣誉名称
+        - type: text
+          prop: achievementType
+          label: 荣誉类型
+        - type: text
+          prop: organization
+          label: 颁发机构
+        - type: text
+          prop: level
+          label: 荣誉等级
+        - type: text
+          prop: time
+          label: 获得时间
