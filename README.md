@@ -125,6 +125,10 @@ IoC可以简单的理解为这种操作
 Spring拖过注释，可以将这个操作交给框架实现，再通过`@autowired`注释
 注入获得的对象
 
+#### AOP
+
+
+
 ### 后端结构简介
 
 #### controllers、models和repository
