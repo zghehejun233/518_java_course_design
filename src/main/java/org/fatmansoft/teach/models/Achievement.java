@@ -1,24 +1,31 @@
 package org.fatmansoft.teach.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.Date;
+
+// 本model用于需求（4）学生荣誉信息管理，包括获得的各种称号奖励等的实现
+// 以下称呼本类为成就，包含的荣誉信息有荣誉称号、奖学金等等
 
 @Entity
-@Table(	name = "achievement",
+@Table(name = "achievement",
         uniqueConstraints = {
         })
 public class Achievement {
     @Id
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name="studentId")
-    private Student student;
+    @NotBlank
+    @Size(max = 20)
+    private String studentNum;
+    @Size(max = 50)
+    private String studentName;
 
-    @ManyToOne
-    @JoinColumn(name="courseId")
-    private Student course;
-
-    private Double score;
+    private String achievementType;
+    private String achievementName;
+    private String organization;
+    private String level;
 
     public Integer getId() {
         return id;
@@ -28,27 +35,61 @@ public class Achievement {
         this.id = id;
     }
 
-    public Student getStudent() {
-        return student;
+    public String getStudentNum() {
+        return studentNum;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudentNum(String studentNum) {
+        this.studentNum = studentNum;
     }
 
-    public Student getCourse() {
-        return course;
+    public String getStudentName() {
+        return studentName;
     }
 
-    public void setCourse(Student course) {
-        this.course = course;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
     }
 
-    public Double getScore() {
-        return score;
+    public String getAchievementType() {
+        return achievementType;
     }
 
-    public void setScore(Double score) {
-        this.score = score;
+    public void setAchievementType(String achievementType) {
+        this.achievementType = achievementType;
     }
+
+    public String getAchievementName() {
+        return achievementName;
+    }
+
+    public void setAchievementName(String achievementName) {
+        this.achievementName = achievementName;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
+
+    private Date time;
 }
