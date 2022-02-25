@@ -84,6 +84,13 @@ uims:
         - type: text
           prop: time
           label: 获得日期
+      query:
+        - type: input
+          prop: studentName
+          label: 输入姓名
+        - type: input
+          prop: achievementName
+          label: 输入荣誉名称
     - name: achievementEdit
       type: form
       title: 荣誉信息

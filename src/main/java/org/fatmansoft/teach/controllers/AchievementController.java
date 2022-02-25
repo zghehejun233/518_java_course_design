@@ -30,6 +30,12 @@ public class AchievementController {
         return CommonMethod.getReturnData(s);
     }
 
+    @PostMapping("/achievementQuery")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse achievementQuery(@Valid @RequestBody DataRequest dataRequest){
+        return null;
+    }
+
     @PostMapping("/achievementEditInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse achievementEditInit(@Valid @RequestBody DataRequest dataRequest) {

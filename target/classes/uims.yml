@@ -83,7 +83,14 @@ uims:
           label: 荣誉等级
         - type: text
           prop: time
-          label: 获得时间
+          label: 获得日期
+      query:
+        - type: input
+          prop: studentName
+          label: 输入姓名
+        - type: input
+          prop: achievementName
+          label: 输入荣誉名称
     - name: achievementEdit
       type: form
       title: 荣誉信息
@@ -126,3 +133,6 @@ uims:
               label: 国级
             - value: 7
               label: 国级以上
+        - type: date
+          prop: time
+          label: 获得日期
