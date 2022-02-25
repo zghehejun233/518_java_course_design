@@ -32,7 +32,6 @@ git commit 提交样式规范：
 # 主要type
 feat:     增加新功能
 fix:      修复bug
-data:     添加新数据
 
 # 特殊type
 docs:     只改动了文档相关的内容

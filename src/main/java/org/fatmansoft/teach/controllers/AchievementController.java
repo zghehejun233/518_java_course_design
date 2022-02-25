@@ -33,7 +33,14 @@ public class AchievementController {
     @PostMapping("/achievementEditInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse achievementEditInit(@Valid @RequestBody DataRequest dataRequest) {
-        String s = "hello";
+        String s = "hello World";
+        return CommonMethod.getReturnData(s);
+    }
+
+    @PostMapping("/achievementEditSubmit")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse achievementEditSubmit(@Valid @RequestBody DataRequest dataRequest){
+        String s = "Hello World";
         return CommonMethod.getReturnData(s);
     }
 }
