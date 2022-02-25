@@ -22,10 +22,11 @@ public class Achievement {
     @Size(max = 50)
     private String studentName;
 
-    private String achievementType;
     private String achievementName;
+    private String achievementType;
     private String organization;
     private String level;
+    private Date time;
 
     public Integer getId() {
         return id;
@@ -51,20 +52,20 @@ public class Achievement {
         this.studentName = studentName;
     }
 
-    public String getAchievementType() {
-        return achievementType;
-    }
-
-    public void setAchievementType(String achievementType) {
-        this.achievementType = achievementType;
-    }
-
     public String getAchievementName() {
         return achievementName;
     }
 
     public void setAchievementName(String achievementName) {
         this.achievementName = achievementName;
+    }
+
+    public String getAchievementType() {
+        return achievementType;
+    }
+
+    public void setAchievementType(String achievementType) {
+        this.achievementType = achievementType;
     }
 
     public String getOrganization() {
@@ -90,6 +91,4 @@ public class Achievement {
     public void setTime(Date time) {
         this.time = time;
     }
-
-    private Date time;
 }
