@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.*;
 
-@CrossOrigin(origins = "*",maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/teach")
 
@@ -25,8 +25,15 @@ public class AchievementController {
 
     @PostMapping("/achievementInit")
     @PreAuthorize("hasRole('ADMIN')")
-    public DataResponse achievementInit(@Valid @RequestBody DataRequest datarequest){
+    public DataResponse achievementInit(@Valid @RequestBody DataRequest datarequest) {
         String s = "Hello World";
+        return CommonMethod.getReturnData(s);
+    }
+
+    @PostMapping("/achievementEditInit")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse achievementEditInit(@Valid @RequestBody DataRequest dataRequest) {
+        String s = "hello";
         return CommonMethod.getReturnData(s);
     }
 }
