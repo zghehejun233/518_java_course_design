@@ -89,17 +89,17 @@ public class AchievementController {
         Integer id = dataRequest.getInteger("id");
         Achievement a = null;
         Optional<Achievement> op;
-        if(id!=null){
+        if (id != null) {
             op = achievementRepository.findById(id);
-            if (op.isPresent()){
+            if (op.isPresent()) {
                 a = op.get();
             }
         }
         Map form = new HashMap();
-        if (a!=null){
-            form.put("id",a.getId());
-            form.put("studentNum",a.getStudentNum());
-            form.put("level",a.getLevel());
+        if (a != null) {
+            form.put("id", a.getId());
+            form.put("studentNum", a.getStudentNum());
+            form.put("level", a.getLevel());
         }
         return CommonMethod.getReturnData(form);
     }
