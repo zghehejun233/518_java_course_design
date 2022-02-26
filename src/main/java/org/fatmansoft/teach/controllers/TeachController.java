@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.*;
 
-// origins： 允许可访问的域列表
-// maxAge:准备响应前的缓存持续的最大时间（以秒为单位）。
+// origins： 允许可访问的域列表 *通配符表示全部
+// maxAge:准备响应前的缓存持续的最大时间（以秒为单位）
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/teach")

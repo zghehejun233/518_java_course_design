@@ -84,6 +84,9 @@ uims:
         - type: text
           prop: time
           label: 获得日期
+          opers:
+            - name: edit
+            - name: delete
       query:
         - type: input
           prop: studentName
