@@ -70,11 +70,12 @@ public class AchievementController {
     @PostMapping("/achievementInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse achievementInit(@Valid @RequestBody DataRequest datarequest) {
+        // 调用getAchievementMapList()方法
         List dataList = getAchievementMapList("");
         return CommonMethod.getReturnData(dataList);
     }
 
-    // achievement页面查询方法
+    // achievement页面查询方法，还没有写
     @PostMapping("/achievementQuery")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse achievementQuery(@Valid @RequestBody DataRequest dataRequest) {
@@ -104,7 +105,6 @@ public class AchievementController {
             form.put("organization", a.getOrganization());
             form.put("level", a.getLevel());
             form.put("time", a.getTime());
-            form.put("level", a.getLevel());
         }
         return CommonMethod.getReturnData(form);
     }
