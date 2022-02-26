@@ -67,7 +67,6 @@ public class AchievementController {
     }
 
     // achievement页面初始化
-    // 有bug，现在会去查student表
     @PostMapping("/achievementInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse achievementInit(@Valid @RequestBody DataRequest datarequest) {
@@ -75,14 +74,14 @@ public class AchievementController {
         return CommonMethod.getReturnData(dataList);
     }
 
-    // achievement页面查询方法，未实现
+    // achievement页面查询方法
     @PostMapping("/achievementQuery")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse achievementQuery(@Valid @RequestBody DataRequest dataRequest) {
         return null;
     }
 
-    // achievementEdit页面初始化，未实现
+    //achievementEdit页面初始化
     @PostMapping("/achievementEditInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse achievementEditInit(@Valid @RequestBody DataRequest dataRequest) {
@@ -99,16 +98,73 @@ public class AchievementController {
         if (a != null) {
             form.put("id", a.getId());
             form.put("studentNum", a.getStudentNum());
+            form.put("studentName", a.getStudentName());
+            form.put("achievementName", a.getAchievementName());
+            form.put("achievementType", a.getAchievementType());
+            form.put("organization", a.getOrganization());
+            form.put("level", a.getLevel());
+            form.put("time", a.getTime());
             form.put("level", a.getLevel());
         }
         return CommonMethod.getReturnData(form);
     }
 
-    // 荣誉信息提交，未完成
+    //  荣誉信息提交
     @PostMapping("/achievementEditSubmit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse achievementEditSubmit(@Valid @RequestBody DataRequest dataRequest) {
-        String s = "Hello World";
-        return CommonMethod.getReturnData(s);
+        // 根据提交的form信息生成Map
+        Map form = dataRequest.getMap("form");
+        // 读取数据
+        Integer id = CommonMethod.getInteger(form, "id");
+        String studentNum = CommonMethod.getString(form, "studentNum");
+        String studentName = CommonMethod.getString(form, "studentName");
+        String achievementName = CommonMethod.getString(form, "achievementName");
+        String achievementType = CommonMethod.getString(form, "achievementType");
+        String organization = CommonMethod.getString(form, "organization");
+        String level = CommonMethod.getString(form, "level");
+        Date time = CommonMethod.getDate(form, "time");
+
+        // 声明空对象引用变量
+        Achievement a = null;
+        Optional<Achievement> op;
+
+        // 判断是否在对某条记录操作
+        // 如果是对某条记录操作，就会携带一个id信息，进入这条分支
+        if (id != null) {
+            // 根据id寻找这条记录
+            op = achievementRepository.findById(id);
+            // 将对象引用变量通过ORM结构的性质a指向对应的记录
+            if (op.isPresent()) {
+                a = op.get();
+            }
+        }
+
+        // 如果是添加一条新的记录，那么a就是null
+        if (a == null) {
+            // 实例化一个Achievement对象
+            a = new Achievement();
+            // 获取最大id
+            id = achievementRepository.getMaxId();
+            //  如果id为null,说明表中还没有记录,否则就递增一个
+            if (id == null) {
+                id = 1;
+            } else {
+                id += 1;
+            }
+            // 设置对象a的id
+            a.setId(id);
+        }
+        a.setStudentNum(studentNum);
+        a.setStudentName(studentName);
+        a.setAchievementName(achievementName);
+        a.setAchievementType(achievementType);
+        a.setOrganization(organization);
+        a.setLevel(level);
+        a.setTime(time);
+        // 调用achievementRepository中的方法保存实例a
+        achievementRepository.save(a);
+        // 返回id下的数据
+        return CommonMethod.getReturnData(a.getId());
     }
 }

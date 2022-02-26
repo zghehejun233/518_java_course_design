@@ -84,6 +84,8 @@ uims:
         - type: text
           prop: time
           label: 获得日期
+        - type: opers
+          label: 操作
           opers:
             - name: edit
             - name: delete

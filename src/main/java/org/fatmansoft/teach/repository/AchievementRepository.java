@@ -8,5 +8,6 @@ import java.util.List;
 
 
 public interface AchievementRepository extends JpaRepository<Achievement, Integer> {
-
+    @Query(value = "select max(id) from Achievement")
+    Integer getMaxId();
 }
