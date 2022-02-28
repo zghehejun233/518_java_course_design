@@ -20,7 +20,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/teach")
 
-public class TeachController {
+public class StudentController {
     //Java 对象的注入 我们定义的这下Java的操作对象都不能自己管理是由有Spring框架来管理的， TeachController 中要使用StudentRepository接口的实现类对象，
     // 需要下列方式注入，否则无法使用， studentRepository 相当于StudentRepository接口实现对象的一个引用，由框架完成对这个引用的复制，
     // TeachController中的方法可以直接使用
