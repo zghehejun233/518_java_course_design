@@ -17,8 +17,6 @@ public class Achievement {
     private Integer id;
 
     @NotBlank
-    @Size(max = 20)
-    private String studentNum;
     @Size(max = 50)
     private String studentName;
 
@@ -34,14 +32,6 @@ public class Achievement {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getStudentNum() {
-        return studentNum;
-    }
-
-    public void setStudentNum(String studentNum) {
-        this.studentNum = studentNum;
     }
 
     public String getStudentName() {
