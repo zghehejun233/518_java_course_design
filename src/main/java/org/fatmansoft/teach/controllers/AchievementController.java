@@ -52,6 +52,7 @@ public class AchievementController {
             m = new HashMap();
             // 使用m.put()方法在返回数据dataList的单位成员m中添加信息
             m.put("id", a.getId());
+            m.put("studentNum", achievementRepository.getStudentNum(a.getStudentName()));
             m.put("studentName", a.getStudentName());
             m.put("achievementName", a.getAchievementName());
             m.put("achievementType", a.getAchievementType());
@@ -97,6 +98,7 @@ public class AchievementController {
         Map form = new HashMap();
         if (a != null) {
             form.put("id", a.getId());
+            form.put("studentNum", achievementRepository.getStudentNum(a.getStudentName()));
             form.put("studentName", a.getStudentName());
             form.put("achievementName", a.getAchievementName());
             form.put("achievementType", a.getAchievementType());

@@ -89,20 +89,10 @@ uims:
           opers:
             - name: edit
             - name: delete
-      query:
-        - type: input
-          prop: studentName
-          label: 输入姓名
-        - type: input
-          prop: achievementName
-          label: 输入荣誉名称
     - name: achievementEdit
       type: form
       title: 荣誉信息
       item:
-        - type: input
-          prop: studentNum
-          label: 学号
         - type: input
           prop: studentName
           label: 姓名
