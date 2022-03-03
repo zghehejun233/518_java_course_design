@@ -26,3 +26,4 @@ java.db
 hs_err_pid*
 !/java.db
 /.idea/dataSources.xml
+/.idea/libraries/Maven__org_projectlombok_lombok_1_18_22.xml

@@ -2,13 +2,23 @@ package org.fatmansoft.teach.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import lombok.Setter;
+import lombok.Getter;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.data.relational.core.sql.Insert;
+
 import java.util.Date;
 
 @Entity
 @Table(name = "student",
         uniqueConstraints = {
         })
+@Setter
+@Getter
 public class Student {
     @Id
     private Integer id;
@@ -24,51 +34,10 @@ public class Student {
     private Integer age;
     private Date birthday;
 
-    public Integer getId() {
-        return id;
-    }
+    @NotBlank(message = "手机号码不能为空", groups = {Insert.class})
+    @NotNull(message = "手机号不能为空", groups = {Insert.class})
+    @Length(min = 11, max = 11, message = "手机号只能为11位")
+    @Pattern(regexp = "^[1][3,4 ,5, 6,7,8,9][0-9]{9}$", message = "手机号格式有误")
+    private String phoneNumber;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getStudentNum() {
-        return studentNum;
-    }
-
-    public void setStudentNum(String studentNum) {
-        this.studentNum = studentNum;
-    }
-
-    public String getStudentName() {
-        return studentName;
-    }
-
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
 }
