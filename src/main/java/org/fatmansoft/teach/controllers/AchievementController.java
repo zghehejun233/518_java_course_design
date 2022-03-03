@@ -53,7 +53,6 @@ public class AchievementController {
             // 使用m.put()方法在返回数据dataList的单位成员m中添加信息
             m.put("id", a.getId());
             m.put("studentName", a.getStudentName());
-            m.put("studentNum", a.getStudentNum());
             m.put("achievementName", a.getAchievementName());
             m.put("achievementType", a.getAchievementType());
             m.put("organization", a.getOrganization());
@@ -98,7 +97,6 @@ public class AchievementController {
         Map form = new HashMap();
         if (a != null) {
             form.put("id", a.getId());
-            form.put("studentNum", a.getStudentNum());
             form.put("studentName", a.getStudentName());
             form.put("achievementName", a.getAchievementName());
             form.put("achievementType", a.getAchievementType());
@@ -155,7 +153,6 @@ public class AchievementController {
             // 设置对象a的id
             a.setId(id);
         }
-        a.setStudentNum(studentNum);
         a.setStudentName(studentName);
         a.setAchievementName(achievementName);
         a.setAchievementType(achievementType);
