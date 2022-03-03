@@ -14,18 +14,11 @@ import org.springframework.data.relational.core.sql.Insert;
 import java.util.Date;
 
 @Entity
-@Table(name = "family_information",uniqueConstraints = {})
-@Setter
-@Getter
-public class FamilyInformation {
+@Table(name = "society_information",uniqueConstraints = {})
+public class SocietyInformation {
     @Id
     private Integer id;
 
-    @NotBlank
     private String studentName;
-    private String name;
-    private String relation;
-    private String sex;
-    private Integer age;
-    private String educationDegree;
+    private Integer militaryService;
 }
