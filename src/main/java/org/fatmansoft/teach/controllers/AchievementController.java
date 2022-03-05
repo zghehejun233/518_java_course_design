@@ -117,7 +117,6 @@ public class AchievementController {
         Map form = dataRequest.getMap("form");
         // 读取数据
         Integer id = CommonMethod.getInteger(form, "id");
-        String studentNum = CommonMethod.getString(form, "studentNum");
         String studentName = CommonMethod.getString(form, "studentName");
         String achievementName = CommonMethod.getString(form, "achievementName");
         String achievementType = CommonMethod.getString(form, "achievementType");
