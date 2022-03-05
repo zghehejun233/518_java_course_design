@@ -6,6 +6,7 @@ import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.repository.PracticeActivityRepository;
 import org.fatmansoft.teach.util.CommonMethod;
+import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -41,8 +42,8 @@ public class PracticeActivityController {
             m.put("practiceName", p.getPracticeName());
             m.put("teamMember",p.getTeamMember());
             m.put("location", p.getLocation());
-            m.put("startTime", p.getStartTime());
-            m.put("endTime", p.getEndTime());
+            m.put("startTime", DateTimeTool.parseDateTime(p.getStartTime(),"yyyy-MM-dd"));
+            m.put("endTime", DateTimeTool.parseDateTime(p.getEndTime(),"yyyy-MM-dd"));
             dataList.add(m);
         }
         return dataList;

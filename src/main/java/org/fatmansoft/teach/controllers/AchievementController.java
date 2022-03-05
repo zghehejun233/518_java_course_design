@@ -5,6 +5,7 @@ import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.repository.AchievementRepository;
 import org.fatmansoft.teach.util.CommonMethod;
+import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -58,7 +59,7 @@ public class AchievementController {
             m.put("achievementType", a.getAchievementType());
             m.put("organization", a.getOrganization());
             m.put("level", a.getLevel());
-            m.put("time", a.getTime());
+            m.put("time", DateTimeTool.parseDateTime(a.getTime(),"yyyy-MM-dd"));
             // 向dataList中添加m
             dataList.add(m);
         }
