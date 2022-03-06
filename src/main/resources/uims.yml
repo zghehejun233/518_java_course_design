@@ -202,7 +202,7 @@ uims:
     - name: dailyActivity
       type: table
       title: 日常活动
-      showadd: 1
+      showAdd: 1
       item:
         - type: text
           prop: studentNum
@@ -230,7 +230,6 @@ uims:
     - name: dailyActivityEdit
       type: form
       title: 活动管理
-      showadd: 1
       item:
         - type: input
           prop: studentName
