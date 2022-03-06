@@ -8,6 +8,8 @@ uims:
       title: 社会实践
     - name: dailyActivity
       title: 日常活动
+    - name: leave
+      title: 外出请假
   page:
     - name: student
       type: table
@@ -251,3 +253,39 @@ uims:
         - type: date
           prop: time
           label: 日期
+    - name: leave
+      type: table
+      title: 外出请假
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: reason
+          label: 请假原因
+        - type: text
+          prop: startTime
+          label: 开始时间
+        - type: text
+          prop: endTime
+          label: 结束时间
+    - name: leaveEdit
+      type: form
+      title: 请假管理
+      item:
+        - type: input
+          prop: studentName
+          label: 姓名
+        - type: input
+          prop: reason
+          label: 请假原因
+        - type: date
+          prop: startTime
+          label: 开始时间
+        - type: date
+          prop: endTime
+          label: 结束时间
