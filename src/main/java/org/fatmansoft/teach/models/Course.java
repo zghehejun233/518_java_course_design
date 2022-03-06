@@ -1,5 +1,8 @@
 package org.fatmansoft.teach.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -10,6 +13,8 @@ import javax.validation.constraints.Size;
 @Table(	name = "course",
         uniqueConstraints = {
         })
+@Setter
+@Getter
 public class Course {
     @Id
     private Integer id;
@@ -20,27 +25,4 @@ public class Course {
     @Size(max = 50)
     private String courseName;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getCourseNum() {
-        return courseNum;
-    }
-
-    public void setCourseNum(String courseNum) {
-        this.courseNum = courseNum;
-    }
-
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
 }

@@ -1,5 +1,8 @@
 package org.fatmansoft.teach.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -12,6 +15,8 @@ import java.util.Date;
 @Table(name = "achievement",
         uniqueConstraints = {
         })
+@Setter
+@Getter
 public class Achievement {
     @Id
     private Integer id;
@@ -25,60 +30,4 @@ public class Achievement {
     private String organization;
     private String level;
     private Date time;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getStudentName() {
-        return studentName;
-    }
-
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
-    }
-
-    public String getAchievementName() {
-        return achievementName;
-    }
-
-    public void setAchievementName(String achievementName) {
-        this.achievementName = achievementName;
-    }
-
-    public String getAchievementType() {
-        return achievementType;
-    }
-
-    public void setAchievementType(String achievementType) {
-        this.achievementType = achievementType;
-    }
-
-    public String getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(String organization) {
-        this.organization = organization;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
 }
