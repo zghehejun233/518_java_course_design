@@ -8,9 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(	name = "course",
+@Table(name = "course",
         uniqueConstraints = {
         })
 @Setter
@@ -25,4 +28,7 @@ public class Course {
     @Size(max = 50)
     private String courseName;
 
+    private String teacherName;
+    private String classroom;
+    private Date time;
 }
