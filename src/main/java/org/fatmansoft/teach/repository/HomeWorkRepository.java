@@ -1,7 +1,7 @@
 package org.fatmansoft.teach.repository;
 
 
-import org.fatmansoft.teach.controllers.HomeWork;
+import org.fatmansoft.teach.models.HomeWork;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

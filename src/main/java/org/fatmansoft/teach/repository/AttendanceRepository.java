@@ -9,6 +9,4 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Integer>
     @Query(value = "select max(id) from Attendance ")
     Integer getMaxId();
 
-    @Query(value = "select a.check from Attendance a where a.id=?1")
-    boolean isCheck(Integer id);
 }

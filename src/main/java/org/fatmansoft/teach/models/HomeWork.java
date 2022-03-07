@@ -1,4 +1,4 @@
-package org.fatmansoft.teach.controllers;
+package org.fatmansoft.teach.models;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +16,7 @@ public class HomeWork {
     private Integer id;
     private String studentName;
     private String courseName;
-    private boolean Done;
-    private boolean Right;
+    private String done;
+    private String right;
     private Integer score;
 }
