@@ -12,6 +12,8 @@ uims:
       title: 外出请假
     - name: course
       title: 课程管理
+    - name: courseSelection
+      title: 选课管理
   page:
     - name: student
       type: table
@@ -341,3 +343,35 @@ uims:
         - type: date
           prop: time
           label: 上课时间
+    - name: courseSelection
+      type: table
+      title: 选课管理
+      showAdd: 1
+      item:
+        - type: text
+          prop: stuentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: courseNum
+          label: 课程号
+        - type: text
+          prop: courseName
+          label: 课程名称
+        - type: opers
+          label: 操作
+          opers:
+            - name: edit
+            - name: delete
+    - name: courseSelectionEdit
+      type: form
+      title: 选课编辑
+      item:
+        - type: input
+          prop: studentName
+          label: 姓名
+        - type: input
+          prop: courseName
+          label: 课程名称
