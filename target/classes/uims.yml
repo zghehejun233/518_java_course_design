@@ -31,6 +31,9 @@ uims:
         - type: text
           prop: birthday
           label: 出生日期
+        - type: text
+          prop: phoneNumber
+          label: 联系电话
         - type: opers
           label: 操作
           opers:
@@ -61,6 +64,9 @@ uims:
         - type: input
           prop: age
           label: 年龄
+        - type: input
+          prop: phoneNumber
+          label: 联系电话
         - type: date
           prop: birthday
           label: 出生日期
