@@ -21,6 +21,7 @@ import java.util.List;
 public class Course {
     @Id
     private Integer id;
+
     @NotBlank
     @Size(max = 20)
     private String courseNum;
@@ -28,7 +29,15 @@ public class Course {
     @Size(max = 50)
     private String courseName;
 
+    @NotBlank
+    @Size(min = 1,max = 5)
     private String teacherName;
+
+    @NotBlank
     private String classroom;
+
+    // 一周要上好几次课呀。。
+    // 这可怎么设计
+    // 回头看看i山大咋写的。。
     private Date time;
 }
