@@ -39,7 +39,30 @@ public class PracticeActivityController {
             m.put("id", p.getId());
             m.put("studentNum", practiceActivityRepository.getStudentNum(p.getStudentName()));
             m.put("studentName", p.getStudentName());
-            m.put("practiceType", p.getPracticeType());
+            String type = p.getPracticeType();
+            switch (type) {
+                case "1":
+                    m.put("practiceType", "社会实践");
+                    break;
+                case "2":
+                    m.put("practiceType", "学科竞赛");
+                    break;
+                case "3":
+                    m.put("practiceType", "科技成果");
+                    break;
+                case "4":
+                    m.put("practiceType", "培训讲座");
+                    break;
+                case "5":
+                    m.put("practiceType", "创新项目");
+                    break;
+                case "6":
+                    m.put("practiceType", "校外实习");
+                    break;
+                default:
+                    m.put("practiceType", "未指定");
+                    break;
+            }
             m.put("practiceName", p.getPracticeName());
             m.put("teamMember",p.getTeamMember());
             m.put("location", p.getLocation());
@@ -104,7 +127,7 @@ public class PracticeActivityController {
 
     @PostMapping("/practiceActivityEditSubmit")
     @PreAuthorize("hasRole('ADMIN')")
-    public DataResponse practiceActivityEditSubit(@Valid @RequestBody DataRequest dataRequest) {
+    public DataResponse practiceActivityEditSubmit(@Valid @RequestBody DataRequest dataRequest) {
         // 根据提交的form信息生成Map
         Map form = dataRequest.getMap("form");
         // 读取数据

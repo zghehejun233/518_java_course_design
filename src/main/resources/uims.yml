@@ -14,6 +14,8 @@ uims:
       title: 课程管理
     - name: courseSelection
       title: 选课管理
+    - name: cost
+      title: 消费支出
   page:
     - name: student
       type: table
@@ -149,7 +151,7 @@ uims:
           label: 获得日期
     - name: practiceActivity
       type: table
-      title: 社会实践
+      title: 实践信息
       showAdd: 1
       item:
         - type: text
@@ -160,7 +162,7 @@ uims:
           label: 姓名
         - type: text
           prop: practiceType
-          label: 活动类型
+          label: 实践类型
         - type: text
           prop: practiceName
           label: 活动名称
@@ -183,7 +185,7 @@ uims:
             - name: delete
     - name: practiceActivityEdit
       type: form
-      title: 实践信息
+      title: 实践管理
       item:
         - type: input
           prop: studentName
@@ -193,9 +195,17 @@ uims:
           label: 活动类型
           option:
             - value: 1
-              label: abaaba
+              label: 社会实践
             - value: 2
-              label: x
+              label: 学科竞赛
+            - value: 3
+              label: 科技成果
+            - value: 4
+              label: 培训讲座
+            - value: 5
+              label: 创新项目
+            - value: 6
+              label: 校外实习
         - type: input
           prop: practiceName
           label: 活动名称
@@ -237,8 +247,8 @@ uims:
         - type: opers
           label: 操作
           opers:
-            - edit
-            - delete
+            - name: edit
+            - name: delete
     - name: dailyActivityEdit
       type: form
       title: 活动管理
@@ -251,9 +261,13 @@ uims:
           label: 活动类型
           option:
             - value: 1
-              label: ss
+              label: 体育活动
             - value: 2
-              label: s
+              label: 外出旅游
+            - value: 3
+              label: 文艺演出
+            - value: 4
+              label: 聚会
         - type: input
           prop: activityName
           label: 活动名称
@@ -283,6 +297,11 @@ uims:
         - type: text
           prop: endTime
           label: 结束时间
+        - type: opers
+          label: 操作
+          opers:
+            - name: edit
+            - name: delete
     - name: leaveEdit
       type: form
       title: 请假管理
@@ -343,6 +362,11 @@ uims:
         - type: date
           prop: time
           label: 上课时间
+        - type: opers
+          label: 操作
+          opers:
+            - name: edit
+            - name: delete
     - name: courseSelection
       type: table
       title: 选课管理
@@ -375,3 +399,35 @@ uims:
         - type: input
           prop: courseName
           label: 课程名称
+    - name: cost
+      type: table
+      title: 日常消费
+      showAdd: 1
+      item:
+        - type: text
+          prop: costName
+          label: 支出用途
+        - type: text
+          prop: costNum
+          label: 支出
+        - type: text
+          prop: time
+          label: 时间
+        - type: opers
+          label: 操作
+          opers:
+            - name: edit
+            - name: delete
+    - name: costEdit
+      type: form
+      title: 消费管理
+      item:
+        - type: input
+          prop: costName
+          label: 支出用途
+        - type: input
+          prop: costMoney
+          label: 支出
+        - type: date
+          prop: time
+          label: 时间

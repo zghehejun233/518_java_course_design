@@ -42,7 +42,23 @@ public class DailyActivityController {
             m.put("id", d.getId());
             m.put("studentNum",dailyActivityRepository.getStudentNum(d.getStudentName()));
             m.put("studentName",d.getStudentName());
-            m.put("activityType",d.getActivityType());
+            String type = d.getActivityType();
+            switch (type){
+                case "1":
+                    m.put("activityType","体育活动");
+                    break;
+                case "2":
+                    m.put("activityType","外出旅游");
+                    break;
+                case "3":
+                    m.put("activityType","文艺演出");
+                    break;
+                case "4":
+                    m.put("activityType","聚会");
+                    break;
+                default:
+                    m.put("activityType","未指定");
+            }
             m.put("activityName",d.getActivityName());
             m.put("location",d.getLocation());
             m.put("time", DateTimeTool.parseDateTime(d.getTime(),"yyyy-MM-dd"));
