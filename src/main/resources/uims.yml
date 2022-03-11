@@ -5,7 +5,7 @@ uims:
     - name: achievement
       title: 学生荣誉
     - name: practiceActivity
-      title: 社会实践
+      title: 实践信息
     - name: dailyActivity
       title: 日常活动
     - name: leave
@@ -15,7 +15,7 @@ uims:
     - name: courseSelection
       title: 选课管理
     - name: cost
-      title: 消费支出
+      title: 日常消费
   page:
     - name: student
       type: table
@@ -362,18 +362,13 @@ uims:
         - type: date
           prop: time
           label: 上课时间
-        - type: opers
-          label: 操作
-          opers:
-            - name: edit
-            - name: delete
     - name: courseSelection
       type: table
       title: 选课管理
       showAdd: 1
       item:
         - type: text
-          prop: stuentNum
+          prop: studentNum
           label: 学号
         - type: text
           prop: studentName
@@ -408,7 +403,7 @@ uims:
           prop: costName
           label: 支出用途
         - type: text
-          prop: costNum
+          prop: costMoney
           label: 支出
         - type: text
           prop: time
