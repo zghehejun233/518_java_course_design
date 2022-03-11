@@ -1,6 +1,7 @@
 package org.fatmansoft.teach.controllers;
 
 import org.fatmansoft.teach.models.Achievement;
+import org.fatmansoft.teach.models.CourseSelection;
 import org.fatmansoft.teach.models.PracticeActivity;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
@@ -81,6 +82,24 @@ public class PracticeActivityController {
             form.put("endTime",p.getEndTime());
         }
         return CommonMethod.getReturnData(form);
+    }
+
+    @PostMapping("practiceActivityDelete")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse practiceActivityDelete(@Valid @RequestBody DataRequest dataRequest){
+        Integer id = dataRequest.getInteger("id");
+        PracticeActivity p = null;
+        Optional<PracticeActivity> op;
+        if (id != null) {
+            op = practiceActivityRepository.findById(id);
+            if (op.isPresent()) {
+                p = op.get();
+            }
+        }
+        if (p != null) {
+            practiceActivityRepository.delete(p);
+        }
+        return CommonMethod.getReturnMessageOK();
     }
 
     @PostMapping("/practiceActivityEditSubmit")

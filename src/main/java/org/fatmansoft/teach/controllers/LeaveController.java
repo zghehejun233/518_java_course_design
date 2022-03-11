@@ -1,5 +1,6 @@
 package org.fatmansoft.teach.controllers;
 
+import org.fatmansoft.teach.models.CourseSelection;
 import org.fatmansoft.teach.models.DailyActivity;
 import org.fatmansoft.teach.models.Leave;
 import org.fatmansoft.teach.payload.request.DataRequest;
@@ -76,6 +77,24 @@ public class LeaveController {
             form.put("endTime", DateTimeTool.parseDateTime(l.getEndTime(), "yyyy-MM-dd"));
         }
         return CommonMethod.getReturnData(form);
+    }
+
+    @PostMapping("leaveDelete")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse leaveDelete(@Valid @RequestBody DataRequest dataRequest){
+        Integer id = dataRequest.getInteger("id");
+        Leave l = null;
+        Optional<Leave> op;
+        if (id != null) {
+            op = leaveRepository.findById(id);
+            if (op.isPresent()) {
+                l = op.get();
+            }
+        }
+        if (l != null) {
+            leaveRepository.delete(l);
+        }
+        return CommonMethod.getReturnMessageOK();
     }
 
     @PostMapping("leaveEditSubmit")
