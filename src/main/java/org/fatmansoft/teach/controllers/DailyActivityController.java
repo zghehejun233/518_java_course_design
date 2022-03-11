@@ -1,6 +1,7 @@
 package org.fatmansoft.teach.controllers;
 
 import org.fatmansoft.teach.models.Achievement;
+import org.fatmansoft.teach.models.CourseSelection;
 import org.fatmansoft.teach.models.DailyActivity;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
@@ -80,6 +81,24 @@ public class DailyActivityController {
             form.put("time",DateTimeTool.parseDateTime(d.getTime(),"yyyy-MM-dd"));
         }
         return CommonMethod.getReturnData(form);
+    }
+
+    @PostMapping("/dailyActivityDelete")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse dailyActivityDelete(@Valid @RequestBody DataRequest dataRequest){
+        Integer id = dataRequest.getInteger("id");
+        DailyActivity d = null;
+        Optional<DailyActivity> op;
+        if (id != null) {
+            op = dailyActivityRepository.findById(id);
+            if (op.isPresent()) {
+                d = op.get();
+            }
+        }
+        if (d != null) {
+            dailyActivityRepository.delete(d);
+        }
+        return CommonMethod.getReturnMessageOK();
     }
 
     @PostMapping("/dailyActivityEditSubmit")
