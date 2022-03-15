@@ -45,6 +45,7 @@ uims:
           opers:
             - name: edit
             - name: delete
+            - name: detail
       query:
         - type: input
           prop: numName
@@ -107,6 +108,7 @@ uims:
           opers:
             - name: edit
             - name: delete
+            - name: detail
     - name: achievementEdit
       type: form
       title: 荣誉信息
@@ -183,6 +185,7 @@ uims:
           opers:
             - name: edit
             - name: delete
+            - name: detail
     - name: practiceActivityEdit
       type: form
       title: 实践管理
@@ -249,6 +252,7 @@ uims:
           opers:
             - name: edit
             - name: delete
+            - name: detail
     - name: dailyActivityEdit
       type: form
       title: 活动管理
@@ -302,6 +306,7 @@ uims:
           opers:
             - name: edit
             - name: delete
+            - name: detail
     - name: leaveEdit
       type: form
       title: 请假管理
@@ -343,6 +348,7 @@ uims:
           opers:
             - name: edit
             - name: delete
+            - name: detail
     - name: courseEdit
       type: form
       title: 课程编辑
@@ -384,6 +390,7 @@ uims:
           opers:
             - name: edit
             - name: delete
+            - name: detail
     - name: courseSelectionEdit
       type: form
       title: 选课编辑
@@ -413,6 +420,7 @@ uims:
           opers:
             - name: edit
             - name: delete
+            - name: detail
     - name: costEdit
       type: form
       title: 消费管理
