@@ -61,6 +61,7 @@ public class AchievementController {
             m.put("organization", a.getOrganization());
             m.put("level", a.getLevel());
             m.put("time", DateTimeTool.parseDateTime(a.getTime(),"yyyy-MM-dd"));
+            m.put("studentNameParas","model=studentEdit&id="+a.getId());
             // 向dataList中添加m
             dataList.add(m);
         }

@@ -37,6 +37,7 @@ public class CourseSelectionController {
             m.put("studentName", c.getStudentName());
             m.put("courseNum", courseSelectionRepository.getCourseNum(c.getCourseName()));
             m.put("courseName", c.getCourseName());
+            m.put("studentNameParas","model=studentEdit&id="+c.getId());
             dataList.add(m);
         }
         return dataList;

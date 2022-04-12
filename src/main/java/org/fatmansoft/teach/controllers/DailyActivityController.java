@@ -42,6 +42,7 @@ public class DailyActivityController {
             m.put("id", d.getId());
             m.put("studentNum",dailyActivityRepository.getStudentNum(d.getStudentName()));
             m.put("studentName",d.getStudentName());
+            m.put("studentNameParas","model=studentEdit&id="+d.getId());
             String type = d.getActivityType();
             switch (type){
                 case "1":

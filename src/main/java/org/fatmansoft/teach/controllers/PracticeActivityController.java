@@ -39,6 +39,7 @@ public class PracticeActivityController {
             m.put("id", p.getId());
             m.put("studentNum", practiceActivityRepository.getStudentNum(p.getStudentName()));
             m.put("studentName", p.getStudentName());
+            m.put("studentNameParas","model=studentEdit&id="+p.getId());
             String type = p.getPracticeType();
             switch (type) {
                 case "1":

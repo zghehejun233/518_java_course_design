@@ -43,6 +43,7 @@ public class LeaveController {
             m.put("reason", l.getReason());
             m.put("startTime", DateTimeTool.parseDateTime(l.getStartTime(), "yyyy-MM-dd"));
             m.put("endTime", DateTimeTool.parseDateTime(l.getEndTime(), "yyyy-MM-dd"));
+            m.put("studentNameParas","model=studentEdit&id="+l.getId());
             // 向dataList中添加m
             dataList.add(m);
         }
