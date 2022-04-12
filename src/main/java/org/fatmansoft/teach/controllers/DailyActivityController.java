@@ -1,7 +1,5 @@
 package org.fatmansoft.teach.controllers;
 
-import org.fatmansoft.teach.models.Achievement;
-import org.fatmansoft.teach.models.CourseSelection;
 import org.fatmansoft.teach.models.DailyActivity;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
@@ -13,7 +11,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.xml.crypto.Data;
 import java.util.*;
 
 // origins： 允许可访问的域列表 *通配符表示全部
@@ -114,7 +111,7 @@ public class DailyActivityController {
         if (d != null) {
             dailyActivityRepository.delete(d);
         }
-        return CommonMethod.getReturnMessageOK();
+        return CommonMethod.getReturnMessageOk();
     }
 
     @PostMapping("/dailyActivityEditSubmit")

@@ -1,14 +1,11 @@
 package org.fatmansoft.teach.controllers;
 
 import org.fatmansoft.teach.models.CourseSelection;
-import org.fatmansoft.teach.models.Student;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.repository.CourseSelectionRepository;
 import org.fatmansoft.teach.util.CommonMethod;
-import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -116,6 +113,6 @@ public class CourseSelectionController {
         if (cs != null) {
             courseSelectionRepository.delete(cs);
         }
-        return CommonMethod.getReturnMessageOK();
+        return CommonMethod.getReturnMessageOk();
     }
 }

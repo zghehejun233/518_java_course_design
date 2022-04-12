@@ -1,7 +1,6 @@
 package org.fatmansoft.teach.controllers;
 
 import org.fatmansoft.teach.models.Cost;
-import org.fatmansoft.teach.models.PracticeActivity;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.repository.CostRepository;
@@ -12,7 +11,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.xml.crypto.Data;
 import java.util.*;
 
 @CrossOrigin(origins = "*",maxAge = 3600)
@@ -86,7 +84,7 @@ public class CostController {
         if (c != null) {
             costRepository.delete(c);
         }
-        return CommonMethod.getReturnMessageOK();
+        return CommonMethod.getReturnMessageOk();
     }
 
     @PostMapping("costEditSubmit")

@@ -5,7 +5,6 @@ import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.repository.UserRepository;
 import org.fatmansoft.teach.util.CommonMethod;
-import org.fatmansoft.teach.util.UimsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -123,7 +122,7 @@ public class TestController {
         }
         u.setPassword(encoder.encode(newPassword));
         userRepository.save(u);
-        return CommonMethod.getReturnMessageOK();
+        return CommonMethod.getReturnMessageOk();
     }
 
 
@@ -190,7 +189,7 @@ public class TestController {
         String perName = dataRequest.getString("perName");
         String perType = dataRequest.getString("perType");
         System.out.println(perName+perType);
-        return CommonMethod.getReturnMessageOK();
+        return CommonMethod.getReturnMessageOk();
     }
 
     @PostMapping("/formOneInit")
@@ -218,7 +217,7 @@ public class TestController {
         if(userId == null) {
             return CommonMethod.getReturnMessageError("lang.comm.loginError");
         }
-        return CommonMethod.getReturnMessageOK();
+        return CommonMethod.getReturnMessageOk();
     }
 
     @PostMapping("/tableOneDetail")
@@ -260,7 +259,7 @@ public class TestController {
         if(userId == null) {
             return CommonMethod.getReturnMessageError("lang.comm.loginError");
         }
-        return CommonMethod.getReturnMessageOK();
+        return CommonMethod.getReturnMessageOk();
     }
 
 
@@ -272,6 +271,6 @@ public class TestController {
         if(userId == null) {
             return CommonMethod.getReturnMessageError("lang.comm.loginError");
         }
-        return CommonMethod.getReturnMessageOK();
+        return CommonMethod.getReturnMessageOk();
     }
 }

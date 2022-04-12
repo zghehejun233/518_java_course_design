@@ -1,18 +1,15 @@
 package org.fatmansoft.teach.controllers;
 
 import org.fatmansoft.teach.models.Course;
-import org.fatmansoft.teach.models.Student;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.repository.CourseRepository;
 import org.fatmansoft.teach.util.CommonMethod;
-import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.xml.crypto.Data;
 import java.util.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -126,6 +123,6 @@ public class CourseController {
         if(c != null) {
             courseRepository.delete(c);    //数据库永久删除
         }
-        return CommonMethod.getReturnMessageOK();
+        return CommonMethod.getReturnMessageOk();
     }
 }
