@@ -11,7 +11,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.xml.crypto.Data;
 import java.util.*;
 
 // origins： 允许可访问的域列表 *通配符表示全部
@@ -127,7 +126,7 @@ public class AchievementController {
         if(a != null) {
             achievementRepository.delete(a);    //数据库永久删除
         }
-        return CommonMethod.getReturnMessageOK();
+        return CommonMethod.getReturnMessageOk();
     }
     //  荣誉信息提交
     @PostMapping("/achievementEditSubmit")

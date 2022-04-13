@@ -7,6 +7,9 @@ import org.springframework.session.config.annotation.web.http.EnableSpringHttpSe
 
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * @author teacher
+ */
 @EnableSpringHttpSession
 @Configuration
 public class SpringHttpSessionConfig {

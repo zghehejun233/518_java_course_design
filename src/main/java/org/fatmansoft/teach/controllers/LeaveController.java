@@ -1,7 +1,5 @@
 package org.fatmansoft.teach.controllers;
 
-import org.fatmansoft.teach.models.CourseSelection;
-import org.fatmansoft.teach.models.DailyActivity;
 import org.fatmansoft.teach.models.Leave;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
@@ -13,7 +11,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.xml.crypto.Data;
 import java.util.*;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -95,7 +92,7 @@ public class LeaveController {
         if (l != null) {
             leaveRepository.delete(l);
         }
-        return CommonMethod.getReturnMessageOK();
+        return CommonMethod.getReturnMessageOk();
     }
 
     @PostMapping("leaveEditSubmit")

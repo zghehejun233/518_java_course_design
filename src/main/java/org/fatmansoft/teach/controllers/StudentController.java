@@ -167,7 +167,7 @@ public class StudentController {
         if(s != null) {
             studentRepository.delete(s);    //数据库永久删除
         }
-        return CommonMethod.getReturnMessageOK();  //通知前端操作正常
+        return CommonMethod.getReturnMessageOk();  //通知前端操作正常
     }
 
     //  学生个人简历页面

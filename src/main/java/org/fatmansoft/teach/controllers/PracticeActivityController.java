@@ -1,7 +1,5 @@
 package org.fatmansoft.teach.controllers;
 
-import org.fatmansoft.teach.models.Achievement;
-import org.fatmansoft.teach.models.CourseSelection;
 import org.fatmansoft.teach.models.PracticeActivity;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
@@ -123,7 +121,7 @@ public class PracticeActivityController {
         if (p != null) {
             practiceActivityRepository.delete(p);
         }
-        return CommonMethod.getReturnMessageOK();
+        return CommonMethod.getReturnMessageOk();
     }
 
     @PostMapping("/practiceActivityEditSubmit")
