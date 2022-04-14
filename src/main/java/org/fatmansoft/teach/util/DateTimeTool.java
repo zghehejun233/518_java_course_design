@@ -10,8 +10,9 @@ public class DateTimeTool {
         SimpleDateFormat sdFormat = new SimpleDateFormat(f);
         sdFormat.setLenient(true);
         try {
-            if (timeSrc == null || timeSrc.trim().equals(""))
-                return null;
+            if (timeSrc == null || timeSrc.trim().equals("")) {
+
+            }
 
             Date tmpDate = sdFormat.parse(timeSrc);
             return tmpDate;
@@ -22,14 +23,16 @@ public class DateTimeTool {
         }
     }
     public static String parseDateTime(Date timeSrc, String f) {
-        if (timeSrc == null)
+        if (timeSrc == null) {
             return null;
+        }
         SimpleDateFormat sdFormat = new SimpleDateFormat(f);
         String result = sdFormat.format(timeSrc);
-        if (result != null)
+        if (result != null) {
             return result;
-        else
+        } else {
             return "";
+        }
     }
 
     public static Date nextDay(Date date) {
@@ -38,19 +41,22 @@ public class DateTimeTool {
             c1.setTime(date);
             c1.add(Calendar.DAY_OF_MONTH, 1);
             return c1.getTime();
-        } else
+        } else {
             return null;
+        }
     }
     public static Date nextDay(Date date, int num) {
         if (date != null) {
-            if(num == 0)
+            if(num == 0) {
                 return date;
+            }
             Calendar c1 = Calendar.getInstance();
             c1.setTime(date);
             c1.add(Calendar.DAY_OF_MONTH, num);
             return c1.getTime();
-        } else
+        } else {
             return null;
+        }
     }
 
     public static Date prevDay(Date date) {
@@ -59,8 +65,9 @@ public class DateTimeTool {
             c1.setTime(date);
             c1.add(Calendar.DAY_OF_MONTH, -1);
             return c1.getTime();
-        } else
+        } else {
             return null;
+        }
 
     }
     public static Date prevDay(Date date, int n) {
@@ -69,8 +76,9 @@ public class DateTimeTool {
             c1.setTime(date);
             c1.add(Calendar.DAY_OF_MONTH, -n);
             return c1.getTime();
-        } else
+        } else {
             return null;
+        }
     }
 
     public static Date nextWeek(Date date) {
@@ -79,8 +87,9 @@ public class DateTimeTool {
             c1.setTime(date);
             c1.add(Calendar.DAY_OF_MONTH, 7);
             return c1.getTime();
-        } else
+        } else {
             return null;
+        }
     }
 
     public static Date prevWeek(Date date) {
@@ -89,8 +98,9 @@ public class DateTimeTool {
             c1.setTime(date);
             c1.add(Calendar.DAY_OF_MONTH, -7);
             return c1.getTime();
-        } else
+        } else {
             return null;
+        }
     }
 
     public static Date nextMonth(Date date) {
@@ -99,8 +109,9 @@ public class DateTimeTool {
             c1.setTime(date);
             c1.add(Calendar.MONTH, 1);
             return c1.getTime();
-        } else
+        } else {
             return null;
+        }
     }
     public static Date nextMonth(Date date,int n) {
         if (date != null) {
@@ -108,8 +119,9 @@ public class DateTimeTool {
             c1.setTime(date);
             c1.add(Calendar.MONTH, n);
             return c1.getTime();
-        } else
+        } else {
             return null;
+        }
     }
 
     public static Date prevMonth(Date date) {
@@ -118,8 +130,9 @@ public class DateTimeTool {
             c1.setTime(date);
             c1.add(Calendar.MONTH, -1);
             return c1.getTime();
-        } else
+        } else {
             return null;
+        }
     }
     public static Date prevMonth(Date date, int n) {
         if (date != null) {
@@ -127,8 +140,9 @@ public class DateTimeTool {
             c1.setTime(date);
             c1.add(Calendar.MONTH, -n);
             return c1.getTime();
-        } else
+        } else {
             return null;
+        }
     }
 
     public static Date nextYear(Date date,int n) {
@@ -137,8 +151,9 @@ public class DateTimeTool {
             c1.setTime(date);
             c1.add(Calendar.YEAR, n);
             return c1.getTime();
-        } else
+        } else {
             return null;
+        }
     }
 
     public static Date prevYear(Date date) {
@@ -147,8 +162,9 @@ public class DateTimeTool {
             c1.setTime(date);
             c1.add(Calendar.YEAR, -1);
             return c1.getTime();
-        } else
+        } else {
             return null;
+        }
     }
 
     public static int getCurrentWeekDay(){

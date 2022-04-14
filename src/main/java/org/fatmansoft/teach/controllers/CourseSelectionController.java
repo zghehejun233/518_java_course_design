@@ -22,8 +22,9 @@ public class CourseSelectionController {
     public List getCourseSelectionMapList(String numName) {
         List dataList = new ArrayList();
         List<CourseSelection> cList = courseSelectionRepository.findAll();  //数据库查询操作
-        if (cList == null || cList.size() == 0)
+        if (cList == null || cList.size() == 0) {
             return dataList;
+        }
         CourseSelection c;
         Map m;
         for (int i = 0; i < cList.size(); i++) {

@@ -15,10 +15,12 @@ public class TestService {
     public void createStudent(){
         Student s;
         Integer id = studentRepository.getMaxId();
-        if(id == null)
+        if(id == null) {
             id = 1;
-        else
-            id = id+1;
+        }
+        else {
+            id = id + 1;
+        }
         s = new Student();
         s.setStudentId(id);
         s.setStudentNum("001");

@@ -37,8 +37,9 @@ public class StudentController {
     public List getStudentMapList(String numName) {
         List dataList = new ArrayList();
         List<Student> sList = studentRepository.findStudentListByNumName(numName);  //数据库查询操作
-        if(sList == null || sList.size() == 0)
+        if(sList == null || sList.size() == 0) {
             return dataList;
+        }
         Student s;
         Map m;
         for(int i = 0; i < sList.size();i++) {
