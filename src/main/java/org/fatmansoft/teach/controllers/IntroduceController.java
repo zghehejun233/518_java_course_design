@@ -3,9 +3,6 @@ package org.fatmansoft.teach.controllers;
 import com.openhtmltopdf.extend.FSSupplier;
 import com.openhtmltopdf.extend.impl.FSDefaultCacheStore;
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
-import org.fatmansoft.teach.models.Course;
-import org.fatmansoft.teach.models.Score;
-import org.fatmansoft.teach.models.Student;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.service.IntroduceService;
@@ -24,7 +21,6 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 
 import javax.validation.Valid;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

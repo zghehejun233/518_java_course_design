@@ -1,7 +1,7 @@
 package org.fatmansoft.teach.service;
 
-import org.fatmansoft.teach.models.Student;
-import org.fatmansoft.teach.repository.StudentRepository;
+import org.fatmansoft.teach.models.student_basic.Student;
+import org.fatmansoft.teach.repository.student_basic.StudentRepository;
 import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
