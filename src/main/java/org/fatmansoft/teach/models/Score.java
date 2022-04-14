@@ -1,5 +1,6 @@
 package org.fatmansoft.teach.models;
 
+
 import lombok.Getter;
 import lombok.Setter;
 

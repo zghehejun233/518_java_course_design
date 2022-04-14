@@ -4,7 +4,6 @@ import org.fatmansoft.teach.models.Student;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.repository.StudentRepository;
-import org.fatmansoft.teach.service.IntroduceService;
 import org.fatmansoft.teach.util.CommonMethod;
 import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +25,6 @@ public class StudentController {
     // TeachController中的方法可以直接使用
     @Autowired
     private StudentRepository studentRepository;
-    @Autowired
-    private IntroduceService introduceService;
 
 
     //getStudentMapList 查询所有学号或姓名与numName相匹配的学生信息，并转换成Map的数据格式存放到List
@@ -47,7 +44,7 @@ public class StudentController {
         for(int i = 0; i < sList.size();i++) {
             s = sList.get(i);
             m = new HashMap();
-            m.put("id", s.getId());
+            m.put("id", s.getStudentId());
             m.put("studentNum",s.getStudentNum());
             m.put("studentName",s.getStudentName());
             if("1".equals(s.getSex())) {    //数据库存的是编码，显示是名称
@@ -97,7 +94,7 @@ public class StudentController {
         }
         Map form = new HashMap();
         if(s != null) {
-            form.put("id",s.getId());
+            form.put("id",s.getStudentId());
             form.put("studentNum",s.getStudentNum());
             form.put("studentName",s.getStudentName());
             form.put("sex",s.getSex());  //这里不需要转换
@@ -138,7 +135,7 @@ public class StudentController {
             } else {
                 id = id+1;
             }
-            s.setId(id);  //设置新的id
+            s.setStudentId(id);  //设置新的id
         }
         s.setStudentNum(studentNum);  //设置属性
         s.setStudentName(studentName);
@@ -147,7 +144,7 @@ public class StudentController {
         s.setPhoneNumber(phoneNumber);
         s.setBirthday(birthday);
         studentRepository.save(s);  //新建和修改都调用save方法
-        return CommonMethod.getReturnData(s.getId());  // 将记录的id返回前端
+        return CommonMethod.getReturnData(s.getStudentId());  // 将记录的id返回前端
     }
 
     //  学生信息删除方法
@@ -170,13 +167,5 @@ public class StudentController {
         return CommonMethod.getReturnMessageOk();  //通知前端操作正常
     }
 
-    //  学生个人简历页面
-    //在系统在主界面内点击个人简历，后台准备个人简历所需要的各类数据组成的段落数据，在前端显示
-    @PostMapping("/getStudentIntroduceData")
-    @PreAuthorize(" hasRole('ADMIN')")
-    public DataResponse getStudentIntroduceData(@Valid @RequestBody DataRequest dataRequest) {
-        Map data = introduceService.getIntroduceDataMap();
-        return CommonMethod.getReturnData(data);  //返回前端个人简历数据
-    }
 
 }

@@ -4,7 +4,6 @@ import org.fatmansoft.teach.models.Student;
 import org.fatmansoft.teach.repository.StudentRepository;
 import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -21,7 +20,7 @@ public class TestService {
         else
             id = id+1;
         s = new Student();
-        s.setId(id);
+        s.setStudentId(id);
         s.setStudentNum("001");
         s.setStudentName("张三");
         s.setSex("1");

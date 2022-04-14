@@ -1,8 +1,14 @@
 package org.fatmansoft.teach.controllers;
 
+import com.openhtmltopdf.extend.FSSupplier;
+import com.openhtmltopdf.extend.impl.FSDefaultCacheStore;
+import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.util.CommonMethod;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,9 +18,12 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,12 +32,15 @@ import java.util.Map;
 @RequestMapping("/api/html")
 public class HtmlController {
     //  http://localhost:9090/test.html
+    @Autowired
+    private ResourceLoader resourceLoader;
+    private FSDefaultCacheStore fSDefaultCacheStore = new FSDefaultCacheStore();
 
 
     public String getHtmlString() {
         String contnet = "";
         contnet += "<h5 align='center'>段落p标记对齐方式</h5>";
-        contnet += "<hr color='blue'>";
+        contnet += "<hr color='blue'/>";
         contnet += "<p align='left'>网页的外观是否美观，很大程度上取决于其排版。</p>";
         contnet += "<p align='center'>网页的外观是否美观，很大程度上取决于其排版。</p>";
         contnet += "<p align='right'>网页的外观是否美观，很大程度上取决于其排版。</p>";
@@ -118,13 +130,78 @@ public class HtmlController {
         String c = "87,90";
         return c;
     }
-    @PostMapping("/submitAchievement")
-    public String submitAchievement(@Valid @RequestBody Map request) {
+
+    @PostMapping("/getInfoImage")
+    public Map getInfoImage(@Valid @RequestBody Map request) {
         String name = (String)request.get("name");
         String maths = (String)request.get("maths");
         String physics = (String)request.get("physics");
-        String c = "姓名:"+name+",数学:"+maths+"，物理:"+physics;
-        return c;
+        String info = "姓名:"+name+",数学:"+maths+"，物理:"+physics;
+        String imgUrl="";
+        Resource resource = resourceLoader.getResource("classpath:image/shanda.jpg");
+        try {
+            InputStream in = resource.getInputStream();
+            int size = (int)resource.contentLength();
+            byte[] data = new byte[size];
+            in.read(data);
+            imgUrl = "data:image/png;base64,";
+            String s = new String(Base64.getEncoder().encode(data));
+            imgUrl = imgUrl + s;
+        }catch(Exception e){
+        }
+        Map data = new HashMap();
+        data.put("info",info);
+        data.put("imgUrl",imgUrl);
+        return data;
     }
+
+
+    public ResponseEntity<StreamingResponseBody> getPdfDataFromHtml(String htmlContent) {
+        try {
+            PdfRendererBuilder builder = new PdfRendererBuilder();
+            builder.withHtmlContent(htmlContent, null);
+            builder.useFastMode();
+            builder.useCacheStore(PdfRendererBuilder.CacheStore.PDF_FONT_METRICS, fSDefaultCacheStore);
+            Resource resource = resourceLoader.getResource("classpath:font/SourceHanSansSC-Regular.ttf");
+            InputStream fontInput = resource.getInputStream();
+            builder.useFont(new FSSupplier<InputStream>() {
+                @Override
+                public InputStream supply() {
+                    return fontInput;
+                }
+            }, "SourceHanSansSC");
+            StreamingResponseBody stream = outputStream -> {
+                builder.toStream(outputStream);
+                builder.run();
+            };
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(stream);
+
+        }
+        catch (Exception e) {
+            return  ResponseEntity.internalServerError().build();
+        }
+    }
+    @PostMapping("/getHtmlPdf")
+    public ResponseEntity<StreamingResponseBody> getHtmlPdf(Map dataRequest) {
+        String content= "<!DOCTYPE html>";
+        content += "<html>";
+        content += "<head>";
+        content += "<style>";
+        content += "html { font-family: \"SourceHanSansSC\", \"Open Sans\";}";
+        content += "</style>";
+        content += "<meta charset='UTF-8' />";
+        content += "<title>Insert title here</title>";
+        content += "</head>";
+        content += getHtmlString();
+        content += "<body>";
+        content += "</body>";
+        content += "</html>";
+        return getPdfDataFromHtml(content);
+    }
+
+
 
 }

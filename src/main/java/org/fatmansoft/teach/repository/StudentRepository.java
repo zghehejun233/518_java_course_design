@@ -11,7 +11,7 @@ public interface StudentRepository extends JpaRepository<Student,Integer> {
     Optional<Student> findByStudentNum(String studentNum);
     List<Student> findByStudentName(String studentName);
 
-    @Query(value = "select max(id) from Student  ")
+    @Query(value = "select max(studentId) from Student  ")
     Integer getMaxId();
 
     @Query(value = "from Student where ?1='' or studentNum like %?1% or studentName like %?1% ")
