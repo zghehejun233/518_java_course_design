@@ -38,7 +38,7 @@ public class StudentImpl {
             } else if (Integer.valueOf(2).equals(student.getSex())) {
                 tempMap.put("sex", "女");
             } else {
-                tempMap.put("sex", "不明");
+                tempMap.put("sex", "性少数");
             }
             tempMap.put("age", student.getAge());
             tempMap.put("phoneNumber", student.getPhoneNumber());
