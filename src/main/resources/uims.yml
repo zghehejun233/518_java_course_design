@@ -35,14 +35,11 @@ uims:
           prop: age
           label: 年龄
         - type: text
-          prop: birthday
-          label: 出生日期
-        - type: text
           prop: phoneNumber
           label: 联系电话
-        - type: text
-          prop: email
-          label: 邮箱
+        - type: link
+          prop: socialRelation
+          label: 社会关系
         - type: link
           prop: family
           label: 家庭信息
@@ -488,6 +485,27 @@ uims:
         - type: input
           prop: age
           label: 年龄
+        - type: input
+          prop: description
+          label: 备注
+    - name: socialRelation
+      type: table
+      label: 社会关系
+      showAdd: 1
+      item:
+        - type: text
+          prop: description
+          label: 备注
+        - type: opers
+          label: 操作
+          opers:
+            - name: edit
+            - name: detail
+            - name: delete
+    - name: socialRelationEdit
+      type: form
+      label: 社会关系
+      item:
         - type: input
           prop: description
           label: 备注

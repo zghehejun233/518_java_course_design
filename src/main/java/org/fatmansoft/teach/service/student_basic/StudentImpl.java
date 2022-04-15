@@ -1,6 +1,7 @@
 package org.fatmansoft.teach.service.student_basic;
 
 import org.fatmansoft.teach.models.student_basic.Family;
+import org.fatmansoft.teach.models.student_basic.SocialRelation;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;
 import org.fatmansoft.teach.util.DateTimeTool;
@@ -41,12 +42,16 @@ public class StudentImpl {
             }
             tempMap.put("age", student.getAge());
             tempMap.put("phoneNumber", student.getPhoneNumber());
-            tempMap.put("birthday", DateTimeTool.parseDateTime(student.getBirthday(), "yyyy-MM-dd"));
-            tempMap.put("email", student.getEmail());
+
             String familyParas = "model=family&studentId=" + student.getStudentId();
             Set<Family> families = student.getFamilies();
             tempMap.put("family", "共有" + families.size() + "个家庭成员");
             tempMap.put("familyParas", familyParas);
+
+            String socialRelationParas = "model=socialRelation&studentId="+student.getStudentId();
+            Set<SocialRelation> socialRelations=student.getSocialRelations();
+            tempMap.put("socialRelation","共有" + socialRelations.size() + "条社会关系");
+            tempMap.put("socialRelationParas",socialRelationParas);
 
             result.add(tempMap);
         }

@@ -1,9 +1,11 @@
 package org.fatmansoft.teach.controllers;
 
 import org.fatmansoft.teach.models.student_basic.Family;
+import org.fatmansoft.teach.models.student_basic.SocialRelation;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.service.student_basic.FamilyService;
+import org.fatmansoft.teach.service.student_basic.SocialRelationService;
 import org.fatmansoft.teach.service.student_basic.StudentService;
 import org.fatmansoft.teach.util.CommonMethod;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -84,8 +86,18 @@ public class StudentBasicController {
 
     @PostMapping("/familyDelete")
     @PreAuthorize("hasRole('ADMIN')")
-    public DataResponse familyDelete(@Valid @RequestBody DataRequest dataRequest){
+    public DataResponse familyDelete(@Valid @RequestBody DataRequest dataRequest) {
         familyService.deleteFamily(dataRequest);
         return CommonMethod.getReturnMessageOk();
+    }
+
+    @Resource
+    private SocialRelationService socialRelationService;
+
+    @PostMapping("/socialRelationInit")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse socialRelationInit(@Valid @RequestBody DataRequest dataRequest) {
+        List<Object> result = socialRelationService.getAllSocialRelation(dataRequest);
+        return CommonMethod.getReturnData(result);
     }
 }
