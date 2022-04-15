@@ -469,9 +469,9 @@ uims:
         - type: opers
           label: 操作
           opers:
-            - edit
-            - delete
-            - detail
+            - name: edit
+            - name: delete
+            - name: detail
     - name: familyEdit
       type: form
       title: 家庭关系

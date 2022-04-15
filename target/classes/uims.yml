@@ -466,6 +466,12 @@ uims:
         - type: text
           prop: description
           label: 备注
+        - type: opers
+          label: 操作
+          opers:
+            - name: edit
+            - name: delete
+            - name: detail
     - name: familyEdit
       type: form
       title: 家庭关系
