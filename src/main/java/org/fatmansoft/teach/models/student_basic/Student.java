@@ -17,11 +17,13 @@ import java.util.Set;
  * @author guosurui
  */
 @Entity
-@Table(name = "student",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"student_id","student_num"})
-        })
-@Data
+@Table(name = "student", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"student_id", "student_num"})
+})
+
 @NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
 public class Student {
     @Id
@@ -42,12 +44,12 @@ public class Student {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "student",cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "student",cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
     private Set<Family> families;
 
-    @OneToMany(mappedBy = "student",cascade = CascadeType.REFRESH)
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<SocialRelation> socialRelations;
 
-    @OneToMany(mappedBy = "student",cascade =CascadeType.MERGE)
+    @OneToMany(mappedBy = "student",cascade =CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<EducationExperience> educationExperiences;
 }

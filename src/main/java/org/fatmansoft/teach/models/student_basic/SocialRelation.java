@@ -8,9 +8,13 @@ import javax.persistence.*;
  * @author guosurui
  */
 @Entity
-@Table(name = "social_relation",uniqueConstraints = {@UniqueConstraint(columnNames = "social_relation_id")})
-@Data
+@Table(name = "social_relation", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"social_relation_id"})
+})
+
 @NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
 public class SocialRelation {
     @Id

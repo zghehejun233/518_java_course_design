@@ -12,11 +12,14 @@ import java.util.Set;
  * @author guosurui
  */
 @Entity
-@Table(name = "education_experience", uniqueConstraints = {@UniqueConstraint(columnNames = "education_experience_id")
+@Table(name = "education_experience", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"education_experience_id"})
 })
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class EducationExperience {
     @Id
     @Column(name = "education_experience_id")

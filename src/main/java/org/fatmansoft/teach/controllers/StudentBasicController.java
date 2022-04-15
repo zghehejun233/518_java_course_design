@@ -1,5 +1,6 @@
 package org.fatmansoft.teach.controllers;
 
+import org.fatmansoft.teach.models.student_basic.Family;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.service.student_basic.StudentBasicService;
@@ -40,6 +41,21 @@ public class StudentBasicController {
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse familyInit(@Valid @RequestBody DataRequest dataRequest) {
         List result = studentBasicService.getAllFamily(dataRequest);
+        return CommonMethod.getReturnData(result);
+    }
+    
+    @PostMapping("/familyEditInit")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse familyEditInit(@Valid @RequestBody DataRequest dataRequest){
+        Map result = studentBasicService.getFamilyDetail(dataRequest);
+        return CommonMethod.getReturnData(result);
+    }
+
+    @PostMapping("/familyEditSubmit")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse familyEditSubmit(@Valid @RequestBody DataRequest dataRequest){
+        System.out.println("controller OK");
+        Integer result = studentBasicService.saveFamily(dataRequest);
         return CommonMethod.getReturnData(result);
     }
 }

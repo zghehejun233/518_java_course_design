@@ -2,6 +2,7 @@ package org.fatmansoft.teach.service.student_basic;
 
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;
+import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -36,7 +37,7 @@ public class StudentImpl {
             }
             tempMap.put("age", student.getAge());
             tempMap.put("phoneNumber", student.getPhoneNumber());
-            tempMap.put("birthday", student.getBirthday());
+            tempMap.put("birthday", DateTimeTool.parseDateTime(student.getBirthday(),"yyyy-MM-dd"));
             tempMap.put("email", student.getEmail());
             String familyParas = "model=family&studentId=" + student.getStudentId();
             tempMap.put("family","Test");
@@ -56,7 +57,7 @@ public class StudentImpl {
             if (op.isPresent()) {
                 student = op.get();
             }
-            ;
+
         }
         Map<String, Object> resultMap = new HashMap<>(16);
         if (student != null) {

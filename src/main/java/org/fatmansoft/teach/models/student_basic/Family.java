@@ -9,9 +9,13 @@ import lombok.*;
  * @author guosurui
  */
 @Entity
-@Table(name = "family",uniqueConstraints = {@UniqueConstraint(columnNames = "family_id")})
-@Data
+@Table(name = "family", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"family_id"})
+})
+
 @NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
 public class Family {
     @Id
