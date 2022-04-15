@@ -49,8 +49,8 @@ public class StudentBasicController {
     @PostMapping("/studentDelete")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse studentDelete(@Valid @RequestBody DataRequest dataRequest){
-        //TODO
-        return CommonMethod.getReturnData("OK");
+        studentService.deleteStudent(dataRequest);
+        return CommonMethod.getReturnMessageOk();
     }
 
     @PostMapping("/studentQuery")

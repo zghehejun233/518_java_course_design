@@ -108,4 +108,18 @@ public class StudentImpl {
         studentRepository.save(student);
         return maxStudentId;
     }
+
+    public void deleteStudent(Integer studentId){
+        Student student=null;
+        Optional<Student> op;
+        if (studentId!=null){
+            op=studentRepository.findById(studentId);
+            if (op.isPresent()){
+                student=op.get();
+            }
+        }
+        if (student!=null){
+            studentRepository.delete(student);
+        }
+    }
 }

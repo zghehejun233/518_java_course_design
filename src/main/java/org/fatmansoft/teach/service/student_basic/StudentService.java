@@ -62,4 +62,8 @@ public class StudentService {
         return student.saveStudent(studentData);
     }
 
+    public void deleteStudent(DataRequest dataRequest){
+        Integer id = dataRequest.getInteger("id");
+        student.deleteStudent(id);
+    }
 }
