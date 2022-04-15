@@ -31,6 +31,12 @@ public class StudentService {
         return student.getStudentMapList("");
     }
 
+    public List<Object> getSelectedMapList(DataRequest dataRequest) {
+        String requirement = dataRequest.getString("numName");
+        return student.getStudentMapList(requirement);
+    }
+
+
     /**
      * 传回某个学生的详细信息
      *

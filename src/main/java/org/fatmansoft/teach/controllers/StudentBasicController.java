@@ -36,28 +36,29 @@ public class StudentBasicController {
     @PostMapping("studentEditInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse studentEditInit(@Valid @RequestBody DataRequest dataRequest) {
-        Map<String,Object> result = studentService.getStudentDetail(dataRequest);
+        Map<String, Object> result = studentService.getStudentDetail(dataRequest);
         return CommonMethod.getReturnData(result);
     }
+
     @PostMapping("/studentEditSubmit")
     @PreAuthorize("hasRole('ADMIN')")
-    public DataResponse studentEditSubmit(@Valid @RequestBody DataRequest dataRequest){
+    public DataResponse studentEditSubmit(@Valid @RequestBody DataRequest dataRequest) {
         Integer result = studentService.saveStudent(dataRequest);
         return CommonMethod.getReturnData(result);
     }
 
     @PostMapping("/studentDelete")
     @PreAuthorize("hasRole('ADMIN')")
-    public DataResponse studentDelete(@Valid @RequestBody DataRequest dataRequest){
+    public DataResponse studentDelete(@Valid @RequestBody DataRequest dataRequest) {
         studentService.deleteStudent(dataRequest);
         return CommonMethod.getReturnMessageOk();
     }
 
     @PostMapping("/studentQuery")
     @PreAuthorize("hasRole('ADMIN')")
-    public DataResponse studentQuery(@Valid @RequestBody DataRequest dataRequest){
-        //TODO
-        return CommonMethod.getReturnData("OK");
+    public DataResponse studentQuery(@Valid @RequestBody DataRequest dataRequest) {
+        List<Object> result = studentService.getSelectedMapList(dataRequest);
+        return CommonMethod.getReturnData(result);
     }
 
     @PostMapping("/familyInit")
@@ -70,7 +71,7 @@ public class StudentBasicController {
     @PostMapping("/familyEditInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse familyEditInit(@Valid @RequestBody DataRequest dataRequest) {
-        Map<String,Object> result = familyService.getFamilyDetail(dataRequest);
+        Map<String, Object> result = familyService.getFamilyDetail(dataRequest);
         return CommonMethod.getReturnData(result);
     }
 
