@@ -16,18 +16,18 @@ public class StudentImpl {
     @Resource
     private StudentRepository studentRepository;
 
-    public List getStudentMapList(String numName) {
-        List result = new ArrayList();
+    public List<Object> getStudentMapList(String numName) {
+        List<Object> result = new ArrayList<>();
         List<Student> studentList = studentRepository.findStudentListByNumName(numName);
         if (studentList==null||studentList.size() == 0) {
             return result;
         }
         Student student;
-        Map tempMap;
-        for (int i = 0; i < studentList.size(); i++) {
-            student = studentList.get(i);
-            tempMap = new HashMap();
-            tempMap.put("id",student.getStudentId());
+        Map<String,Object> tempMap;
+        for (Student value : studentList) {
+            student = value;
+            tempMap = new HashMap<>();
+            tempMap.put("id", student.getStudentId());
             tempMap.put("studentNum", student.getStudentNum());
             tempMap.put("studentName", student.getStudentName());
             if ("1".equals(student.getSex())) {
@@ -37,11 +37,11 @@ public class StudentImpl {
             }
             tempMap.put("age", student.getAge());
             tempMap.put("phoneNumber", student.getPhoneNumber());
-            tempMap.put("birthday", DateTimeTool.parseDateTime(student.getBirthday(),"yyyy-MM-dd"));
+            tempMap.put("birthday", DateTimeTool.parseDateTime(student.getBirthday(), "yyyy-MM-dd"));
             tempMap.put("email", student.getEmail());
             String familyParas = "model=family&studentId=" + student.getStudentId();
-            tempMap.put("family","Test");
-            tempMap.put("familyParas",familyParas);
+            tempMap.put("family", "Test");
+            tempMap.put("familyParas", familyParas);
 
             result.add(tempMap);
         }

@@ -6,7 +6,6 @@ import org.fatmansoft.teach.models.student_basic.Family;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.repository.student_basic.FamilyRepository;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;
-import org.fatmansoft.teach.util.CommonMethod;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,30 +25,30 @@ public class FamilyImpl {
 
     public Integer studentId;
 
-    public List getFamilyMapList(){
-        List result = new ArrayList();
+    public List<Object> getFamilyMapList() {
+        List<Object> result = new ArrayList<>();
         List<Family> familyList = familyRepository.findAll();
-        if (familyList==null||familyList.size() == 0) {
+        if (familyList.size() == 0) {
             return result;
         }
         Family family;
-        Map tempMap;
-        for (int i = 0; i < familyList.size(); i++) {
-            family = familyList.get(i);
-            tempMap = new HashMap();
-            tempMap.put("id",family.getFamilyId());
-            tempMap.put("name",family.getName());
-            tempMap.put("relation" ,family.getRelation());
-            tempMap.put("sex",family.getSex());
-            tempMap.put("age",family.getAge());
-            tempMap.put("description",family.getDescription());
+        Map<String,Object> tempMap;
+        for (Family value : familyList) {
+            family = value;
+            tempMap = new HashMap<>();
+            tempMap.put("id", family.getFamilyId());
+            tempMap.put("name", family.getName());
+            tempMap.put("relation", family.getRelation());
+            tempMap.put("sex", family.getSex());
+            tempMap.put("age", family.getAge());
+            tempMap.put("description", family.getDescription());
             result.add(tempMap);
         }
         return result;
     }
 
     Map<String, Object> getFamilyDetail(Integer id) {
-        Family family=null;
+        Family family = null;
         Optional<Family> op;
         if (id != null) {
             op = familyRepository.findById(id);
@@ -60,33 +59,33 @@ public class FamilyImpl {
         }
         Map<String, Object> resultMap = new HashMap<>(16);
         if (family != null) {
-            resultMap.put("id",family.getFamilyId());
-            resultMap.put("name",family.getName());
-            resultMap.put("relation" ,family.getRelation());
-            resultMap.put("sex",family.getSex());
-            resultMap.put("age",family.getAge());
-            resultMap.put("description",family.getDescription());
+            resultMap.put("id", family.getFamilyId());
+            resultMap.put("name", family.getName());
+            resultMap.put("relation", family.getRelation());
+            resultMap.put("sex", family.getSex());
+            resultMap.put("age", family.getAge());
+            resultMap.put("description", family.getDescription());
         }
         return resultMap;
     }
 
-    public Integer saveFamily(Family familyData){
-        Family family=null;
+    public Integer saveFamily(Family familyData) {
+        Family family = null;
         Optional<Family> op;
-        if (familyData.getFamilyId()!=null){
+        if (familyData.getFamilyId() != null) {
             op = familyRepository.findById(familyData.getFamilyId());
-            if (op.isPresent()){
-                family=op.get();
+            if (op.isPresent()) {
+                family = op.get();
             }
         }
-        Integer maxFamilyId=null;
-        if (family==null){
+        Integer maxFamilyId = null;
+        if (family == null) {
             family = new Family();
-             maxFamilyId= familyRepository.getMaxId();
-            if (maxFamilyId==null){
-                maxFamilyId=1;
-            }else {
-                maxFamilyId+=1;
+            maxFamilyId = familyRepository.getMaxId();
+            if (maxFamilyId == null) {
+                maxFamilyId = 1;
+            } else {
+                maxFamilyId += 1;
             }
             family.setFamilyId(maxFamilyId);
         }
@@ -97,9 +96,9 @@ public class FamilyImpl {
         family.setDescription(familyData.getDescription());
 
         Student relatedStudent;
-        Optional<Student> opStudent=studentRepository.findById(studentId);
-        if (opStudent.isPresent()){
-            relatedStudent=opStudent.get();
+        Optional<Student> opStudent = studentRepository.findById(studentId);
+        if (opStudent.isPresent()) {
+            relatedStudent = opStudent.get();
             family.setStudent(relatedStudent);
         }
         familyRepository.save(family);

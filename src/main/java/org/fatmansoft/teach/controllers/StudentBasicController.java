@@ -1,6 +1,5 @@
 package org.fatmansoft.teach.controllers;
 
-import org.fatmansoft.teach.models.student_basic.Family;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.service.student_basic.StudentBasicService;
@@ -26,34 +25,34 @@ public class StudentBasicController {
     @PostMapping("/studentInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse studentInit(@Valid @RequestBody DataRequest dataRequest) {
-        List result = studentBasicService.getAllStudent(dataRequest);
+        List<Object> result = studentBasicService.getAllStudent(dataRequest);
         return CommonMethod.getReturnData(result);
     }
 
     @PostMapping("studentEditInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse studentEditInit(@Valid @RequestBody DataRequest dataRequest) {
-        Map result = studentBasicService.getStudentDetail(dataRequest);
+        Map<String,Object> result = studentBasicService.getStudentDetail(dataRequest);
         return CommonMethod.getReturnData(result);
     }
 
     @PostMapping("/familyInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse familyInit(@Valid @RequestBody DataRequest dataRequest) {
-        List result = studentBasicService.getAllFamily(dataRequest);
+        List<Object> result = studentBasicService.getAllFamily(dataRequest);
         return CommonMethod.getReturnData(result);
     }
-    
+
     @PostMapping("/familyEditInit")
     @PreAuthorize("hasRole('ADMIN')")
-    public DataResponse familyEditInit(@Valid @RequestBody DataRequest dataRequest){
-        Map result = studentBasicService.getFamilyDetail(dataRequest);
+    public DataResponse familyEditInit(@Valid @RequestBody DataRequest dataRequest) {
+        Map<String,Object> result = studentBasicService.getFamilyDetail(dataRequest);
         return CommonMethod.getReturnData(result);
     }
 
     @PostMapping("/familyEditSubmit")
     @PreAuthorize("hasRole('ADMIN')")
-    public DataResponse familyEditSubmit(@Valid @RequestBody DataRequest dataRequest){
+    public DataResponse familyEditSubmit(@Valid @RequestBody DataRequest dataRequest) {
         Integer result = studentBasicService.saveFamily(dataRequest);
         return CommonMethod.getReturnData(result);
     }
