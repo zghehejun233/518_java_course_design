@@ -1,8 +1,11 @@
 package org.fatmansoft.teach.service.student_basic;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.fatmansoft.teach.models.student_basic.SocialRelation;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.repository.student_basic.SocialRelationRepository;
+import org.fatmansoft.teach.repository.student_basic.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -12,9 +15,15 @@ import java.util.*;
  * @author GuoSurui
  */
 @Service
+@Setter
+@Getter
 public class SocialRelationImpl {
     @Resource
     private SocialRelationRepository socialRelationRepository;
+    @Resource
+    private StudentRepository studentRepository;
+
+    public Integer studentId;
 
     public List<Object> getSocialRelationList(){
         List<Object> result = new ArrayList<>();
@@ -72,6 +81,13 @@ public class SocialRelationImpl {
             socialRelation.setSocialRelationId(maxSocialRelationId);
         }
         socialRelation.setDescription(socialRelationData.getDescription());
+
+        Student relatedStudent;
+        Optional<Student> opStudent = studentRepository.findById(studentId);
+        if (opStudent.isPresent()) {
+            relatedStudent = opStudent.get();
+            socialRelation.setStudent(relatedStudent);
+        }
         socialRelationRepository.save(socialRelation);
         return maxSocialRelationId;
     }

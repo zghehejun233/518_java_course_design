@@ -24,6 +24,7 @@ public class SocialRelationService {
      * @return 返回数组
      */
     public List<Object> getAllSocialRelation(DataRequest dataRequest){
+        socialRelation.setStudentId(dataRequest.getInteger("studentId"));
         return socialRelation.getSocialRelationList();
     }
 
