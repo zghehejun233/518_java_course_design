@@ -446,3 +446,42 @@ uims:
         - type: date
           prop: time
           label: 时间
+    - name: family
+      type: table
+      title: 家庭关系
+      showAdd: 1
+      item:
+        - type: text
+          prop: name
+          label: 姓名
+        - type: text
+          prop: relation
+          label: 关系
+        - type: text
+          prop: sex
+          label: 性别
+        - type: text
+          prop: age
+          label: 年龄
+        - type: text
+          prop: description
+          label: 备注
+    - name: familyEdit
+      type: form
+      title: 家庭关系
+      item:
+        - type: input
+          prop: name
+          label: 姓名
+        - type: input
+          prop: relation
+          label: 关系
+        - type: input
+          prop: sex
+          label: 性别
+        - type: input
+          prop: age
+          label: 年龄
+        - type: input
+          prop: description
+          label: 备注

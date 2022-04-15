@@ -24,15 +24,22 @@ public class StudentBasicController {
 
     @PostMapping("/studentInit")
     @PreAuthorize("hasRole('ADMIN')")
-    public DataResponse studentInit(@Valid @RequestBody DataRequest dataRequest){
+    public DataResponse studentInit(@Valid @RequestBody DataRequest dataRequest) {
         List result = studentBasicService.getAllStudent(dataRequest);
         return CommonMethod.getReturnData(result);
     }
 
     @PostMapping("studentEditInit")
     @PreAuthorize("hasRole('ADMIN')")
-    public DataResponse studentEditInit(@Valid @RequestBody DataRequest dataRequest){
-        Map result =studentBasicService.getStudentDetail(dataRequest);
+    public DataResponse studentEditInit(@Valid @RequestBody DataRequest dataRequest) {
+        Map result = studentBasicService.getStudentDetail(dataRequest);
+        return CommonMethod.getReturnData(result);
+    }
+
+    @PostMapping("/familyInit")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse familyInit(@Valid @RequestBody DataRequest dataRequest) {
+        List result = studentBasicService.getAllFamily(dataRequest);
         return CommonMethod.getReturnData(result);
     }
 }

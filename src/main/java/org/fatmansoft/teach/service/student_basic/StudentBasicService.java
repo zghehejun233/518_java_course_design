@@ -35,4 +35,10 @@ public class StudentBasicService {
         Integer studentId= dataRequest.getInteger("id");
         return student.getStudentDetail(studentId);
     }
+
+    @Resource
+    private FamilyImpl family;
+    public List getAllFamily(DataRequest dataRequest){
+        return family.getFamilyMapList();
+    }
 }
