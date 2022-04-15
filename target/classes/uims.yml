@@ -40,6 +40,12 @@ uims:
         - type: text
           prop: phoneNumber
           label: 联系电话
+        - type: text
+          prop: email
+          label: 邮箱
+        - type: link
+          prop: family
+          label: 家庭信息
         - type: opers
           label: 操作
           opers:
@@ -77,6 +83,12 @@ uims:
         - type: date
           prop: birthday
           label: 出生日期
+        - type: input
+          prop: phoneNumber
+          label: 联系电话
+        - type: input
+          prop: email
+          label: 邮箱
     - name: achievement
       type: table
       title: 学生荣誉
