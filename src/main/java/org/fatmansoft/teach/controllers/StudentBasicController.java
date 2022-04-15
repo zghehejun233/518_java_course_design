@@ -1,8 +1,10 @@
 package org.fatmansoft.teach.controllers;
 
+import org.fatmansoft.teach.models.student_basic.Family;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
-import org.fatmansoft.teach.service.student_basic.StudentBasicService;
+import org.fatmansoft.teach.service.student_basic.FamilyService;
+import org.fatmansoft.teach.service.student_basic.StudentService;
 import org.fatmansoft.teach.util.CommonMethod;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -20,25 +22,27 @@ import java.util.Map;
 @RequestMapping("/api/teach")
 public class StudentBasicController {
     @Resource
-    private StudentBasicService studentBasicService;
+    private StudentService studentService;
+    @Resource
+    private FamilyService familyService;
 
     @PostMapping("/studentInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse studentInit(@Valid @RequestBody DataRequest dataRequest) {
-        List<Object> result = studentBasicService.getAllStudent(dataRequest);
+        List<Object> result = studentService.getAllStudent(dataRequest);
         return CommonMethod.getReturnData(result);
     }
 
     @PostMapping("studentEditInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse studentEditInit(@Valid @RequestBody DataRequest dataRequest) {
-        Map<String,Object> result = studentBasicService.getStudentDetail(dataRequest);
+        Map<String,Object> result = studentService.getStudentDetail(dataRequest);
         return CommonMethod.getReturnData(result);
     }
     @PostMapping("/studentEditSubmit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse studentEditSubmit(@Valid @RequestBody DataRequest dataRequest){
-        Integer result = studentBasicService.saveStudent(dataRequest);
+        Integer result = studentService.saveStudent(dataRequest);
         return CommonMethod.getReturnData(result);
     }
 
@@ -59,21 +63,21 @@ public class StudentBasicController {
     @PostMapping("/familyInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse familyInit(@Valid @RequestBody DataRequest dataRequest) {
-        List<Object> result = studentBasicService.getAllFamily(dataRequest);
+        List<Object> result = familyService.getAllFamily(dataRequest);
         return CommonMethod.getReturnData(result);
     }
 
     @PostMapping("/familyEditInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse familyEditInit(@Valid @RequestBody DataRequest dataRequest) {
-        Map<String,Object> result = studentBasicService.getFamilyDetail(dataRequest);
+        Map<String,Object> result = familyService.getFamilyDetail(dataRequest);
         return CommonMethod.getReturnData(result);
     }
 
     @PostMapping("/familyEditSubmit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse familyEditSubmit(@Valid @RequestBody DataRequest dataRequest) {
-        Integer result = studentBasicService.saveFamily(dataRequest);
+        Integer result = familyService.saveFamily(dataRequest);
         return CommonMethod.getReturnData(result);
     }
 }

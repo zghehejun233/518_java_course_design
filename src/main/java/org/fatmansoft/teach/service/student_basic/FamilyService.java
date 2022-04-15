@@ -15,7 +15,7 @@ import java.util.Map;
  * @author GuoSurui
  */
 @Service
-public class StudentBasicService {
+public class FamilyService {
     @Resource
     private StudentImpl student;
     @Resource
