@@ -54,6 +54,7 @@ public class StudentBasicService {
      * @return 返回家庭成员组成的数组
      */
     public List getAllFamily(DataRequest dataRequest){
+        family.setStudentId(dataRequest.getInteger("studentId"));
         return family.getFamilyMapList();
     }
 
@@ -77,9 +78,6 @@ public class StudentBasicService {
      */
     public Integer saveFamily(DataRequest dataRequest){
         Map form = dataRequest.getMap("form");
-        System.out.println("getMap Ok");
-        System.out.println(form.toString());
-        System.out.println(dataRequest);
         Family familyData = new Family();
         familyData.setFamilyId(CommonMethod.getInteger(form,"id"));
         familyData.setName(CommonMethod.getString(form,"name"));
@@ -88,6 +86,6 @@ public class StudentBasicService {
         familyData.setSex(CommonMethod.getString(form,"sex"));
         familyData.setDescription(CommonMethod.getString(form,"description"));
         System.out.print(CommonMethod.getMap(form,"data"));
-        return  family.saveFamily(familyData,CommonMethod.getInteger(form,"studentId"));
+        return  family.saveFamily(familyData);
     }
 }

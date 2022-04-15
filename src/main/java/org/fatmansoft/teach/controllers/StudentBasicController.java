@@ -54,7 +54,6 @@ public class StudentBasicController {
     @PostMapping("/familyEditSubmit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse familyEditSubmit(@Valid @RequestBody DataRequest dataRequest){
-        System.out.println("controller OK");
         Integer result = studentBasicService.saveFamily(dataRequest);
         return CommonMethod.getReturnData(result);
     }

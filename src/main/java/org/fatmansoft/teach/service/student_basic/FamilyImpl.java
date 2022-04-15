@@ -1,5 +1,7 @@
 package org.fatmansoft.teach.service.student_basic;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.fatmansoft.teach.models.student_basic.Family;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.repository.student_basic.FamilyRepository;
@@ -14,11 +16,15 @@ import java.util.*;
  * @author GuoSurui
  */
 @Service
+@Setter
+@Getter
 public class FamilyImpl {
     @Resource
     private FamilyRepository familyRepository;
     @Resource
     private StudentRepository studentRepository;
+
+    public Integer studentId;
 
     public List getFamilyMapList(){
         List result = new ArrayList();
@@ -64,7 +70,7 @@ public class FamilyImpl {
         return resultMap;
     }
 
-    public Integer saveFamily(Family familyData,Integer studentId){
+    public Integer saveFamily(Family familyData){
         Family family=null;
         Optional<Family> op;
         if (familyData.getFamilyId()!=null){
