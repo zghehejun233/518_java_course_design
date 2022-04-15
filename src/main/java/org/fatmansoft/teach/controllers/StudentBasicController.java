@@ -35,6 +35,26 @@ public class StudentBasicController {
         Map<String,Object> result = studentBasicService.getStudentDetail(dataRequest);
         return CommonMethod.getReturnData(result);
     }
+    @PostMapping("/studentEditSubmit")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse studentEditSubmit(@Valid @RequestBody DataRequest dataRequest){
+        Integer result = studentBasicService.saveStudent(dataRequest);
+        return CommonMethod.getReturnData(result);
+    }
+
+    @PostMapping("/studentDelete")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse studentDelete(@Valid @RequestBody DataRequest dataRequest){
+        //TODO
+        return CommonMethod.getReturnData("OK");
+    }
+
+    @PostMapping("/studentQuery")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse studentQuery(@Valid @RequestBody DataRequest dataRequest){
+        //TODO
+        return CommonMethod.getReturnData("OK");
+    }
 
     @PostMapping("/familyInit")
     @PreAuthorize("hasRole('ADMIN')")

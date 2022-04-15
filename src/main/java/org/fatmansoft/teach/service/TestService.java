@@ -25,7 +25,7 @@ public class TestService {
         s.setStudentId(id);
         s.setStudentNum("001");
         s.setStudentName("张三");
-        s.setSex("1");
+        //s.setSex("1");
         s.setAge(12);
         s.setBirthday(new Date());
         studentRepository.save(s);

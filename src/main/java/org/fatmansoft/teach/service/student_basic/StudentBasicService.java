@@ -1,6 +1,7 @@
 package org.fatmansoft.teach.service.student_basic;
 
 import org.fatmansoft.teach.models.student_basic.Family;
+import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.util.CommonMethod;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,26 @@ public class StudentBasicService {
     }
 
     /**
+     * 持久化学生信息
+     *
+     * @param dataRequest 接受请求内容
+     * @return 返回建立的学生id
+     */
+    public Integer saveStudent(DataRequest dataRequest){
+        Map<String,Object> form = dataRequest.getMap("form");
+        Student studentData = new Student();
+        studentData.setStudentId(CommonMethod.getInteger(form,"id"));
+        studentData.setStudentNum(CommonMethod.getString(form,"studentNum"));
+        studentData.setStudentName(CommonMethod.getString(form,"studentName"));
+        studentData.setSex(CommonMethod.getInteger(form,"sex"));
+        studentData.setAge(CommonMethod.getInteger(form,"age"));
+        studentData.setPhoneNumber(CommonMethod.getString(form,"phoneNumber"));
+        studentData.setBirthday(CommonMethod.getDate(form,"birthday"));
+        studentData.setEmail(CommonMethod.getString(form,"email"));
+        return student.saveStudent(studentData);
+    }
+
+    /**
      * 获取所有家庭成员的信息
      *
      * @param dataRequest 接受请求数据
@@ -78,7 +99,6 @@ public class StudentBasicService {
         familyData.setSex(CommonMethod.getString(form, "sex"));
         familyData.setSex(CommonMethod.getString(form, "sex"));
         familyData.setDescription(CommonMethod.getString(form, "description"));
-        System.out.print(CommonMethod.getMap(form, "data"));
         return family.saveFamily(familyData);
     }
 }

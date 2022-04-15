@@ -70,7 +70,7 @@ public class StudentController {
     }
     //student页面点击查询按钮请求
     //Table界面初始是请求列表的数据，从请求对象里获得前端界面输入的字符串，作为参数传递给方法getStudentMapList，返回所有学生数据，
-    @PostMapping("/studentQuery")
+    //@PostMapping("/studentQuery")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse studentQuery(@Valid @RequestBody DataRequest dataRequest) {
         String numName= dataRequest.getString("numName");
@@ -109,7 +109,7 @@ public class StudentController {
     //相应提交请求的方法，前端把所有数据打包成一个Json对象作为参数传回后端，后端直接可以获得对应的Map对象form, 再从form里取出所有属性，复制到
     //实体对象里，保存到数据库里即可，如果是添加一条记录， id 为空，这是先 new Student 计算新的id， 复制相关属性，保存，如果是编辑原来的信息，
     //id 不为空。则查询出实体对象，复制相关属性，保存后修改数据库信息，永久修改
-    @PostMapping("/studentEditSubmit")
+    //@PostMapping("/studentEditSubmit")
     @PreAuthorize(" hasRole('ADMIN')")
     public DataResponse studentEditSubmit(@Valid @RequestBody DataRequest dataRequest) {
         Map form = dataRequest.getMap("form"); //参数获取Map对象
@@ -140,7 +140,7 @@ public class StudentController {
         }
         s.setStudentNum(studentNum);  //设置属性
         s.setStudentName(studentName);
-        s.setSex(sex);
+        //s.setSex(sex);
         s.setAge(age);
         s.setPhoneNumber(phoneNumber);
         s.setBirthday(birthday);
@@ -150,7 +150,7 @@ public class StudentController {
 
     //  学生信息删除方法
     //Student页面的列表里点击删除按钮则可以删除已经存在的学生信息， 前端会将该记录的id 回传到后端，方法从参数获取id，查出相关记录，调用delete方法删除
-    @PostMapping("/studentDelete")
+    //@PostMapping("/studentDelete")
     @PreAuthorize(" hasRole('ADMIN')")
     public DataResponse studentDelete(@Valid @RequestBody DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");  //获取id值

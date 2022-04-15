@@ -34,7 +34,7 @@ public class Student {
     @Column(name = "student_name")
     private String studentName;
     @Column(name = "sex")
-    private String sex;
+    private Integer sex;
     @Column(name = "age")
     private Integer age;
     @Column(name = "phone_number")
@@ -44,7 +44,7 @@ public class Student {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "student",cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<Family> families;
 
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
