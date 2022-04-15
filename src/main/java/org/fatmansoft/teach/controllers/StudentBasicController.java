@@ -81,4 +81,11 @@ public class StudentBasicController {
         Integer result = familyService.saveFamily(dataRequest);
         return CommonMethod.getReturnData(result);
     }
+
+    @PostMapping("/familyDelete")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse familyDelete(@Valid @RequestBody DataRequest dataRequest){
+        familyService.deleteFamily(dataRequest);
+        return CommonMethod.getReturnMessageOk();
+    }
 }

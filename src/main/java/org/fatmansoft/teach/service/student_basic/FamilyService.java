@@ -101,4 +101,9 @@ public class FamilyService {
         familyData.setDescription(CommonMethod.getString(form, "description"));
         return family.saveFamily(familyData);
     }
+
+    public void deleteFamily(DataRequest dataRequest){
+        Integer id = dataRequest.getInteger("id");
+        student.deleteStudent(id);
+    }
 }
