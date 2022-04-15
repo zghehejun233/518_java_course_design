@@ -104,6 +104,6 @@ public class FamilyService {
 
     public void deleteFamily(DataRequest dataRequest){
         Integer id = dataRequest.getInteger("id");
-        student.deleteStudent(id);
+        family.deleteFamily(id);
     }
 }

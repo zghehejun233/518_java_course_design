@@ -100,4 +100,18 @@ public class StudentBasicController {
         List<Object> result = socialRelationService.getAllSocialRelation(dataRequest);
         return CommonMethod.getReturnData(result);
     }
+
+    @PostMapping("/socialRelationEditInit")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse socialRelationEditInit(@Valid @RequestBody DataRequest dataRequest) {
+        Map<String, Object> result = socialRelationService.getSocialRelationDetail(dataRequest);
+        return CommonMethod.getReturnData(result);
+    }
+
+    @PostMapping("/socialRelationEditSubmit")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse socialRelationEditSubmit(@Valid @RequestBody DataRequest dataRequest){
+        Integer result = socialRelationService.saveSocialRelation(dataRequest);
+        return CommonMethod.getReturnData(result);
+    }
 }

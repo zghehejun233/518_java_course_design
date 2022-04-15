@@ -32,7 +32,7 @@ public class FamilyImpl {
             return result;
         }
         Family family;
-        Map<String,Object> tempMap;
+        Map<String, Object> tempMap;
         for (Family value : familyList) {
             family = value;
             tempMap = new HashMap<>();
@@ -103,5 +103,23 @@ public class FamilyImpl {
         }
         familyRepository.save(family);
         return maxFamilyId;
+    }
+
+    public void deleteFamily(Integer familyId) {
+        Family family = null;
+        Optional<Family> op;
+        if (familyId != null) {
+            op = familyRepository.findById(familyId);
+            if (op.isPresent()) {
+                family = op.get();
+            }
+        }
+        Student relatedStudent;
+        Optional<Student> opStudent = studentRepository.findById(studentId);
+        if (opStudent.isPresent()) {
+            relatedStudent = opStudent.get();
+            relatedStudent.getFamilies().remove(family);
+        }
+        familyRepository.delete(family);
     }
 }
