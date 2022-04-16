@@ -28,7 +28,7 @@ public class SocialRelationImpl {
 
     public List<Object> getSocialRelationList() {
         List<Object> result = new ArrayList<>();
-        List<SocialRelation> socialRelationList = socialRelationRepository.findAll();
+        List<SocialRelation> socialRelationList = socialRelationRepository.findSocialRelationsByStudent_StudentId(studentId);
         if (socialRelationList.size() == 0) {
             return result;
         }
@@ -40,6 +40,7 @@ public class SocialRelationImpl {
             tempMap.put("id", socialRelation.getSocialRelationId());
             tempMap.put("description", socialRelation.getDescription());
             result.add(tempMap);
+            
         }
         return result;
     }

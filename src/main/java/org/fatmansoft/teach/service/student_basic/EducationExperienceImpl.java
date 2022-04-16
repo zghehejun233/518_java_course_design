@@ -26,7 +26,7 @@ public class EducationExperienceImpl {
 
     public List<Object> getEducationExperienceMapList() {
         List<Object> result = new ArrayList<>();
-        List<EducationExperience> educationExperienceList = educationExperienceRepository.findAll();
+        List<EducationExperience> educationExperienceList = educationExperienceRepository.findEducationExperiencesByStudent_StudentId(studentId);
         if (educationExperienceList.size() == 0) {
             return result;
         }

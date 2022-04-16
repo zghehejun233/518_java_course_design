@@ -1,9 +1,10 @@
 package org.fatmansoft.teach.models.student_basic;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-
 import lombok.*;
+import org.hibernate.Hibernate;
+
+import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * @author guosurui
@@ -35,4 +36,24 @@ public class Family {
     @ManyToOne()
     @JoinColumn(name = "student_id")
     private Student student;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Family family = (Family) o;
+        return familyId != null && Objects.equals(familyId, family.familyId);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "[姓名：" + name +
+                ", 关系：" + relation +
+                ", 年龄：" + age+"]";
+    }
 }

@@ -16,7 +16,7 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="518_java_course_design" value="1a56b851-c2bb-484b-9752-f5b5ff9a50c8" />
-          <factory-entry name="entityManagerFactory" value="0558c35f-7b66-42b1-b278-02b9ab253911" />
+          <factory-entry name="entityManagerFactory" value="fa82a2c5-4f64-41de-bba9-ed12d9d48ad4" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>

@@ -49,15 +49,15 @@ public class StudentImpl {
             tempMap.put("family", "共有" + families.size() + "口人");
             tempMap.put("familyParas", familyParas);
 
-            String socialRelationParas = "model=socialRelation&studentId="+student.getStudentId();
-            Set<SocialRelation> socialRelations=student.getSocialRelations();
-            tempMap.put("socialRelation","共有" + socialRelations.size() + "条社会关系");
-            tempMap.put("socialRelationParas",socialRelationParas);
+            String socialRelationParas = "model=socialRelation&studentId=" + student.getStudentId();
+            Set<SocialRelation> socialRelations = student.getSocialRelations();
+            tempMap.put("socialRelation", "共有" + socialRelations.size() + "条社会关系");
+            tempMap.put("socialRelationParas", socialRelationParas);
 
-            String educationExperienceParas = "model=educationExperience&studentId="+student.getStudentId();
-            Set<EducationExperience> educationExperiences=student.getEducationExperiences();
-            tempMap.put("educationExperience","共有" + educationExperiences.size() + "条教育经历");
-            tempMap.put("educationExperienceParas",educationExperienceParas);
+            String educationExperienceParas = "model=educationExperience&studentId=" + student.getStudentId();
+            Set<EducationExperience> educationExperiences = student.getEducationExperiences();
+            tempMap.put("educationExperience", "共有" + educationExperiences.size() + "条教育经历");
+            tempMap.put("educationExperienceParas", educationExperienceParas);
 
             result.add(tempMap);
         }
@@ -84,6 +84,25 @@ public class StudentImpl {
             resultMap.put("phoneNumber", student.getPhoneNumber());
             resultMap.put("birthday", student.getBirthday());
             resultMap.put("email", student.getEmail());
+
+            StringBuilder socialRelationString = new StringBuilder();
+            for (SocialRelation socialRelation : student.getSocialRelations()) {
+                socialRelationString.append(socialRelation.toString());
+            }
+            resultMap.put("socialRelation",socialRelationString.toString());
+
+            StringBuilder familyString = new StringBuilder();
+            for (Family family : student.getFamilies()) {
+                familyString.append(family.toString());
+            }
+            resultMap.put("family", familyString.toString());
+
+            StringBuilder educationExperienceString = new StringBuilder();
+            for (EducationExperience educationExperience : student.getEducationExperiences()) {
+                educationExperienceString.append(educationExperience.toString());
+            }
+            resultMap.put("educationExperience",educationExperienceString.toString());
+
         }
         return resultMap;
     }
@@ -120,16 +139,16 @@ public class StudentImpl {
         return maxStudentId;
     }
 
-    public void deleteStudent(Integer studentId){
-        Student student=null;
+    public void deleteStudent(Integer studentId) {
+        Student student = null;
         Optional<Student> op;
-        if (studentId!=null){
-            op=studentRepository.findById(studentId);
-            if (op.isPresent()){
-                student=op.get();
+        if (studentId != null) {
+            op = studentRepository.findById(studentId);
+            if (op.isPresent()) {
+                student = op.get();
             }
         }
-        if (student!=null){
+        if (student != null) {
             studentRepository.delete(student);
         }
     }
