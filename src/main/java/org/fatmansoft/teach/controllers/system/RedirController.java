@@ -1,4 +1,4 @@
-package org.fatmansoft.teach.controllers;
+package org.fatmansoft.teach.controllers.system;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

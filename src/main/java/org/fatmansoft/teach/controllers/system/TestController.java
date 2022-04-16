@@ -1,4 +1,4 @@
-package org.fatmansoft.teach.controllers;
+package org.fatmansoft.teach.controllers.system;
 
 import org.fatmansoft.teach.models.User;
 import org.fatmansoft.teach.payload.request.DataRequest;

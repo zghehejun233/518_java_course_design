@@ -1,4 +1,4 @@
-package org.fatmansoft.teach.controllers;
+package org.fatmansoft.teach.controllers.system;
 
 import com.openhtmltopdf.extend.FSSupplier;
 import com.openhtmltopdf.extend.impl.FSDefaultCacheStore;

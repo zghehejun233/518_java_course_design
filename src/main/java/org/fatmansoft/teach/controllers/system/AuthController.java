@@ -1,4 +1,4 @@
-package org.fatmansoft.teach.controllers;
+package org.fatmansoft.teach.controllers.system;
 
 import java.io.InputStream;
 import java.util.HashMap;
