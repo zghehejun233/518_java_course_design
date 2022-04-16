@@ -1,4 +1,4 @@
-package org.fatmansoft.teach.service;
+package org.fatmansoft.teach.service.system;
 
 import org.fatmansoft.teach.util.UimsUtil;
 import org.springframework.beans.factory.annotation.Autowired;

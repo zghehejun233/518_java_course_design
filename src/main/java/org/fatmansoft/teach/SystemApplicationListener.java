@@ -1,7 +1,7 @@
 package org.fatmansoft.teach;
 
-import org.fatmansoft.teach.service.SystemService;
-import org.fatmansoft.teach.service.TestService;
+import org.fatmansoft.teach.service.system.SystemService;
+import org.fatmansoft.teach.service.system.TestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

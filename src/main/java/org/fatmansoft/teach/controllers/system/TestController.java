@@ -1,6 +1,6 @@
 package org.fatmansoft.teach.controllers.system;
 
-import org.fatmansoft.teach.models.User;
+import org.fatmansoft.teach.models.system.User;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.repository.UserRepository;

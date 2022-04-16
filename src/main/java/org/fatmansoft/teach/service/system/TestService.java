@@ -1,4 +1,4 @@
-package org.fatmansoft.teach.service;
+package org.fatmansoft.teach.service.system;
 
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;

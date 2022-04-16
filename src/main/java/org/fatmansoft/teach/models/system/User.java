@@ -1,4 +1,4 @@
-package org.fatmansoft.teach.models;
+package org.fatmansoft.teach.models.system;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

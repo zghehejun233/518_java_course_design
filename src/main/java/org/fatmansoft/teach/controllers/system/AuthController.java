@@ -9,16 +9,13 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import org.fatmansoft.teach.models.EUserType;
-import org.fatmansoft.teach.models.User;
-import org.fatmansoft.teach.models.UserType;
+import org.fatmansoft.teach.models.system.EUserType;
+import org.fatmansoft.teach.models.system.User;
+import org.fatmansoft.teach.models.system.UserType;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.repository.UserTypeRepository;
 import org.fatmansoft.teach.util.CommonMethod;
-import org.fatmansoft.teach.util.UimsUtil;
-import org.json.JSONObject;
-import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
