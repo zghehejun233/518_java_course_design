@@ -27,7 +27,7 @@ public class FamilyImpl {
 
     public List<Object> getFamilyMapList() {
         List<Object> result = new ArrayList<>();
-        List<Family> familyList = familyRepository.findAll();
+        List<Family> familyList = familyRepository.findFamilyByStudent_StudentId(studentId);
         if (familyList.size() == 0) {
             return result;
         }

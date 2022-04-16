@@ -4,6 +4,8 @@ import org.fatmansoft.teach.models.student_basic.EducationExperience;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 /**
  * @author GuoSurui
  */
@@ -15,4 +17,6 @@ public interface EducationExperienceRepository extends JpaRepository<EducationEx
      */
     @Query(value = "select max(educationExperienceId) from EducationExperience  ")
     Integer getMaxId();
+
+    List<EducationExperience> findEducationExperiencesByStudent_StudentId(Integer id);
 }
