@@ -1,41 +1,51 @@
 package org.fatmansoft.teach.models.academic;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import java.util.Date;
+import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "course",
-        uniqueConstraints = {
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"course_id","num"})
         })
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Course {
     @Id
-    private Integer id;
+    @Column(name = "course_id")
+    private Integer courseId;
+    @Column(name = "num")
+    private String num;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "teacher")
+    private String teacher;
+    @Column(name = "credit")
+    private Double credit;
+    @Column(name = "start")
+    private Integer start;
+    @Column(name = "end")
+    private Integer end;
+    @Column(name = "recycle")
+    private Integer recycle;
 
-    @NotBlank
-    @Size(max = 20)
-    private String courseNum;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Course course = (Course) o;
+        return courseId != null && Objects.equals(courseId, course.courseId);
+    }
 
-    @Size(max = 50)
-    private String courseName;
-
-    @NotBlank
-    @Size(min = 1,max = 5)
-    private String teacherName;
-
-    @NotBlank
-    private String classroom;
-
-    // 一周要上好几次课呀。。
-    // 这可怎么设计
-    // 回头看看i山大咋写的。。
-    private Date time;
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

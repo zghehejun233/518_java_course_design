@@ -344,20 +344,29 @@ uims:
       showAdd: 1
       item:
         - type: text
-          prop: courseNum
+          prop: num
           label: 课程号
         - type: text
-          prop: courseName
+          prop: name
           label: 课程名称
         - type: text
-          prop: teacherName
+          prop: teacher
           label: 任课教师
         - type: text
-          prop: classroom
-          label: 教室
+          prop: teacher
+          label: 任课教师
         - type: text
-          prop: time
-          label: 上课时间
+          prop: credit
+          label: 学分
+        - type: text
+          prop: start
+          label: 开始周
+        - type: end
+          prop: teacher
+          label: 结束周
+        - type: text
+          prop: recycle
+          label: 循环
         - type: opers
           label: 操作
           opers:
@@ -369,20 +378,26 @@ uims:
       title: 课程编辑
       item:
         - type: input
-          prop: courseNum
+          prop: num
           label: 课程号
         - type: input
-          prop: courseName
+          prop: name
           label: 课程名称
         - type: input
-          prop: teacherName
+          prop: teacher
           label: 任课教师
         - type: input
-          prop: classroom
-          label: 教室
-        - type: date
-          prop: time
-          label: 上课时间
+          prop: credit
+          label: 学分
+        - type: input
+          prop: start
+          label: 开始周
+        - type: input
+          prop: teacher
+          label: 结束周
+        - type: input
+          prop: recycle
+          label: 循环
     - name: courseSelection
       type: table
       title: 选课管理
