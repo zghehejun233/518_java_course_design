@@ -3,7 +3,7 @@ package org.fatmansoft.teach.controllers.system;
 import org.fatmansoft.teach.models.system.User;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
-import org.fatmansoft.teach.repository.UserRepository;
+import org.fatmansoft.teach.repository.system.UserRepository;
 import org.fatmansoft.teach.util.CommonMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

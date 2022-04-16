@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.fatmansoft.teach.repository.UserRepository;
+import org.fatmansoft.teach.repository.system.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

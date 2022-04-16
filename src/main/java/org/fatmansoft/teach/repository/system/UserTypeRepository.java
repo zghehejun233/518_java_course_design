@@ -1,4 +1,4 @@
-package org.fatmansoft.teach.repository;
+package org.fatmansoft.teach.repository.system;
 
 import org.fatmansoft.teach.models.system.EUserType;
 import org.fatmansoft.teach.models.system.UserType;
