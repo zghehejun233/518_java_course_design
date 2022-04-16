@@ -1,16 +1,11 @@
 package org.fatmansoft.teach.models.student_basic;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
 import lombok.*;
-import org.hibernate.validator.constraints.Length;
-import org.springframework.data.relational.core.sql.Insert;
+import org.hibernate.Hibernate;
 
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -25,6 +20,7 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
+@ToString
 public class Student {
     @Id
     @Column(name = "student_id")
@@ -45,11 +41,27 @@ public class Student {
     private String email;
 
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Set<Family> families;
 
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Set<SocialRelation> socialRelations;
 
     @OneToMany(mappedBy = "student",cascade =CascadeType.ALL,fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Set<EducationExperience> educationExperiences;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Student student = (Student) o;
+        return studentId != null && Objects.equals(studentId, student.studentId);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

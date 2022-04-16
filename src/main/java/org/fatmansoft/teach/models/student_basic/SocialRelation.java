@@ -1,8 +1,10 @@
 package org.fatmansoft.teach.models.student_basic;
 
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * @author guosurui
@@ -16,6 +18,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @AllArgsConstructor
+@ToString
 public class SocialRelation {
     @Id
     @Column(name = "social_relation_id")
@@ -26,4 +29,17 @@ public class SocialRelation {
     @ManyToOne()
     @JoinColumn(name = "student_id")
     private Student student;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        SocialRelation that = (SocialRelation) o;
+        return socialRelationId != null && Objects.equals(socialRelationId, that.socialRelationId);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
