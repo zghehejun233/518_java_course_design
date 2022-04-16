@@ -85,12 +85,24 @@ public class StudentImpl {
             resultMap.put("birthday", student.getBirthday());
             resultMap.put("email", student.getEmail());
 
-            Set<Family> families = student.getFamilies();
+            StringBuilder socialRelationString = new StringBuilder();
+            for (SocialRelation socialRelation : student.getSocialRelations()) {
+                socialRelationString.append(socialRelation.toString());
+            }
+            resultMap.put("socialRelation",socialRelationString.toString());
+
             StringBuilder familyString = new StringBuilder();
-            for (Family family : families) {
-                familyString.append(family.toString()).append("\n\n");
+            for (Family family : student.getFamilies()) {
+                familyString.append(family.toString());
             }
             resultMap.put("family", familyString.toString());
+
+            StringBuilder educationExperienceString = new StringBuilder();
+            for (EducationExperience educationExperience : student.getEducationExperiences()) {
+                educationExperienceString.append(educationExperience.toString());
+            }
+            resultMap.put("educationExperience",educationExperienceString.toString());
+
         }
         return resultMap;
     }

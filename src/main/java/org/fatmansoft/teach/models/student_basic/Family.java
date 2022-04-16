@@ -52,8 +52,8 @@ public class Family {
 
     @Override
     public String toString() {
-        return "姓名：" + name +
+        return "[姓名：" + name +
                 ", 关系：" + relation +
-                ", 年龄：" + age;
+                ", 年龄：" + age+"]";
     }
 }

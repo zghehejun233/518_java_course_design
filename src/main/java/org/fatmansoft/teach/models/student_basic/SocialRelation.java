@@ -18,7 +18,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @AllArgsConstructor
-@ToString
 public class SocialRelation {
     @Id
     @Column(name = "social_relation_id")
@@ -41,5 +40,10 @@ public class SocialRelation {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "[社会关系：" + description + "]";
     }
 }

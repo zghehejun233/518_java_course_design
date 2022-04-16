@@ -19,7 +19,6 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class EducationExperience {
     @Id
     @Column(name = "education_experience_id")
@@ -41,8 +40,14 @@ public class EducationExperience {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        ;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
+            return false;
+        }
+        ;
         EducationExperience that = (EducationExperience) o;
         return educationExperienceId != null && Objects.equals(educationExperienceId, that.educationExperienceId);
     }
@@ -50,5 +55,11 @@ public class EducationExperience {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "[学校：" + schoolName +
+                ", 学段" + level + "]";
     }
 }
