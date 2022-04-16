@@ -1,5 +1,6 @@
 package org.fatmansoft.teach.service.student_basic;
 
+import org.fatmansoft.teach.models.student_basic.EducationExperience;
 import org.fatmansoft.teach.models.student_basic.Family;
 import org.fatmansoft.teach.models.student_basic.SocialRelation;
 import org.fatmansoft.teach.models.student_basic.Student;
@@ -45,13 +46,18 @@ public class StudentImpl {
 
             String familyParas = "model=family&studentId=" + student.getStudentId();
             Set<Family> families = student.getFamilies();
-            tempMap.put("family", "共有" + families.size() + "个家庭成员");
+            tempMap.put("family", "共有" + families.size() + "口人");
             tempMap.put("familyParas", familyParas);
 
             String socialRelationParas = "model=socialRelation&studentId="+student.getStudentId();
             Set<SocialRelation> socialRelations=student.getSocialRelations();
             tempMap.put("socialRelation","共有" + socialRelations.size() + "条社会关系");
             tempMap.put("socialRelationParas",socialRelationParas);
+
+            String educationExperienceParas = "model=educationExperience&studentId="+student.getStudentId();
+            Set<EducationExperience> educationExperiences=student.getEducationExperiences();
+            tempMap.put("educationExperience","共有" + educationExperiences.size() + "条教育经历");
+            tempMap.put("educationExperienceParas",educationExperienceParas);
 
             result.add(tempMap);
         }

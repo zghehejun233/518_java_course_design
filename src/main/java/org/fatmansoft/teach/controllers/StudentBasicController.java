@@ -4,6 +4,7 @@ import org.fatmansoft.teach.models.student_basic.Family;
 import org.fatmansoft.teach.models.student_basic.SocialRelation;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
+import org.fatmansoft.teach.service.student_basic.EducationExperienceService;
 import org.fatmansoft.teach.service.student_basic.FamilyService;
 import org.fatmansoft.teach.service.student_basic.SocialRelationService;
 import org.fatmansoft.teach.service.student_basic.StudentService;
@@ -28,6 +29,10 @@ public class StudentBasicController {
     private StudentService studentService;
     @Resource
     private FamilyService familyService;
+    @Resource
+    private SocialRelationService socialRelationService;
+    @Resource
+    private EducationExperienceService educationExperienceService;
 
     @PostMapping("/studentInit")
     @PreAuthorize("hasRole('ADMIN')")
@@ -92,9 +97,6 @@ public class StudentBasicController {
         return CommonMethod.getReturnMessageOk();
     }
 
-    @Resource
-    private SocialRelationService socialRelationService;
-
     @PostMapping("/socialRelationInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse socialRelationInit(@Valid @RequestBody DataRequest dataRequest) {
@@ -120,6 +122,34 @@ public class StudentBasicController {
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse socialRelationDelete(@Valid @RequestBody DataRequest dataRequest) {
         socialRelationService.deleteSocialRelation(dataRequest);
+        return CommonMethod.getReturnMessageOk();
+    }
+
+    @PostMapping("/educationExperienceInit")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse educationExperienceInit(@Valid @RequestBody DataRequest dataRequest) {
+        List<Object> result = educationExperienceService.getAllEducationExperience(dataRequest);
+        return CommonMethod.getReturnData(result);
+    }
+
+    @PostMapping("/educationExperienceEditInit")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse educationExperienceEditInit(@Valid @RequestBody DataRequest dataRequest) {
+        Map<String, Object> result = educationExperienceService.getEducationExperienceDetail(dataRequest);
+        return CommonMethod.getReturnData(result);
+    }
+
+    @PostMapping("/educationExperienceEditSubmit")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse educationExperienceEditSubmit(@Valid @RequestBody DataRequest dataRequest) {
+        Integer result = educationExperienceService.saveEducationExperience(dataRequest);
+        return CommonMethod.getReturnData(result);
+    }
+
+    @PostMapping("/educationExperienceDelete")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse educationExperienceDelete(@Valid @RequestBody DataRequest dataRequest) {
+        educationExperienceService.deleteEducationExperience(dataRequest);
         return CommonMethod.getReturnMessageOk();
     }
 }
