@@ -9,6 +9,7 @@ import org.fatmansoft.teach.repository.student_basic.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.swing.text.html.Option;
 import java.util.*;
 
 /**
@@ -25,26 +26,26 @@ public class SocialRelationImpl {
 
     public Integer studentId;
 
-    public List<Object> getSocialRelationList(){
+    public List<Object> getSocialRelationList() {
         List<Object> result = new ArrayList<>();
-        List<SocialRelation> socialRelationList=socialRelationRepository.findAll();
-        if (socialRelationList.size()==0){
-            return  result;
+        List<SocialRelation> socialRelationList = socialRelationRepository.findAll();
+        if (socialRelationList.size() == 0) {
+            return result;
         }
         SocialRelation socialRelation;
-        Map<String,Object> tempMap;
-        for(SocialRelation value:socialRelationList){
-            socialRelation=value;
-            tempMap=new HashMap<>();
-            tempMap.put("id",socialRelation.getSocialRelationId());
-            tempMap.put("description",socialRelation.getDescription());
+        Map<String, Object> tempMap;
+        for (SocialRelation value : socialRelationList) {
+            socialRelation = value;
+            tempMap = new HashMap<>();
+            tempMap.put("id", socialRelation.getSocialRelationId());
+            tempMap.put("description", socialRelation.getDescription());
             result.add(tempMap);
         }
         return result;
     }
 
-    public Map<String,Object> getSocialRelationDetail(Integer id){
-        SocialRelation socialRelation=null;
+    public Map<String, Object> getSocialRelationDetail(Integer id) {
+        SocialRelation socialRelation = null;
         Optional<SocialRelation> op;
         if (id != null) {
             op = socialRelationRepository.findById(id);
@@ -55,13 +56,13 @@ public class SocialRelationImpl {
         }
         Map<String, Object> resultMap = new HashMap<>(16);
         if (socialRelation != null) {
-            resultMap.put("description",socialRelation.getDescription());
+            resultMap.put("description", socialRelation.getDescription());
         }
         return resultMap;
     }
 
-    public Integer saveSocialRelation(SocialRelation socialRelationData){
-        SocialRelation socialRelation=null;
+    public Integer saveSocialRelation(SocialRelation socialRelationData) {
+        SocialRelation socialRelation = null;
         Optional<SocialRelation> op;
         if (socialRelationData.getSocialRelationId() != null) {
             op = socialRelationRepository.findById(socialRelationData.getSocialRelationId());
@@ -90,5 +91,23 @@ public class SocialRelationImpl {
         }
         socialRelationRepository.save(socialRelation);
         return maxSocialRelationId;
+    }
+
+    public void deleteSocialRelation(Integer socialRelationId) {
+        SocialRelation socialRelation = null;
+        Optional<SocialRelation> op;
+        if (socialRelationId != null) {
+            op = socialRelationRepository.findById(socialRelationId);
+            if (op.isPresent()) {
+                socialRelation = op.get();
+            }
+        }
+        Student relatedStudent;
+        Optional<Student> opStudent = studentRepository.findById(studentId);
+        if (opStudent.isPresent()) {
+            relatedStudent = opStudent.get();
+            relatedStudent.getSocialRelations().remove(socialRelation);
+        }
+        socialRelationRepository.delete(socialRelation);
     }
 }

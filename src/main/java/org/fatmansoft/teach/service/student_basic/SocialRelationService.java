@@ -6,6 +6,7 @@ import org.fatmansoft.teach.util.CommonMethod;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.xml.crypto.Data;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public class SocialRelationService {
      * @param dataRequest 接受请求数据
      * @return 返回数组
      */
-    public List<Object> getAllSocialRelation(DataRequest dataRequest){
+    public List<Object> getAllSocialRelation(DataRequest dataRequest) {
         socialRelation.setStudentId(dataRequest.getInteger("studentId"));
         return socialRelation.getSocialRelationList();
     }
@@ -34,16 +35,21 @@ public class SocialRelationService {
      * @param dataRequest 接受请求数据
      * @return 返回单个对象的Map
      */
-    public Map<String,Object> getSocialRelationDetail(DataRequest dataRequest){
+    public Map<String, Object> getSocialRelationDetail(DataRequest dataRequest) {
         Integer socialRelationId = dataRequest.getInteger("id");
         return socialRelation.getSocialRelationDetail(socialRelationId);
     }
 
-    public Integer saveSocialRelation(DataRequest dataRequest){
-        Map<String,Object> form=dataRequest.getMap("form");
-        SocialRelation socialRelationData=new SocialRelation();
-        socialRelationData.setSocialRelationId(CommonMethod.getInteger(form,"id"));
-        socialRelationData.setDescription(CommonMethod.getString(form,"description"));
+    public Integer saveSocialRelation(DataRequest dataRequest) {
+        Map<String, Object> form = dataRequest.getMap("form");
+        SocialRelation socialRelationData = new SocialRelation();
+        socialRelationData.setSocialRelationId(CommonMethod.getInteger(form, "id"));
+        socialRelationData.setDescription(CommonMethod.getString(form, "description"));
         return socialRelation.saveSocialRelation(socialRelationData);
+    }
+
+    public void deleteSocialRelation(DataRequest dataRequest) {
+        Integer socialRelationId = dataRequest.getInteger("id");
+        socialRelation.deleteSocialRelation(socialRelationId);
     }
 }

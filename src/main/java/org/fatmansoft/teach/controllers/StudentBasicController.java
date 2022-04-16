@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import javax.xml.crypto.Data;
 import java.util.List;
 import java.util.Map;
 
@@ -110,8 +111,15 @@ public class StudentBasicController {
 
     @PostMapping("/socialRelationEditSubmit")
     @PreAuthorize("hasRole('ADMIN')")
-    public DataResponse socialRelationEditSubmit(@Valid @RequestBody DataRequest dataRequest){
+    public DataResponse socialRelationEditSubmit(@Valid @RequestBody DataRequest dataRequest) {
         Integer result = socialRelationService.saveSocialRelation(dataRequest);
         return CommonMethod.getReturnData(result);
+    }
+
+    @PostMapping("/socialDelete")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse socialRelationDelete(@Valid @RequestBody DataRequest dataRequest) {
+        socialRelationService.deleteSocialRelation(dataRequest);
+        return CommonMethod.getReturnMessageOk();
     }
 }
