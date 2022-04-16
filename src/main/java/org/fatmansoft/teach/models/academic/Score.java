@@ -1,4 +1,4 @@
-package org.fatmansoft.teach.models;
+package org.fatmansoft.teach.models.academic;
 
 
 import lombok.Getter;

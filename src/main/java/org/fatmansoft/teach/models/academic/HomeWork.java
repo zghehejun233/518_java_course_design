@@ -1,4 +1,4 @@
-package org.fatmansoft.teach.models;
+package org.fatmansoft.teach.models.academic;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,18 +6,17 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "course_selection")
+@Table(name = "home_work",uniqueConstraints = {})
 @Setter
 @Getter
-public class CourseSelection {
+public class HomeWork {
     @Id
     private Integer id;
-
-    @NotBlank
     private String studentName;
-    @NotBlank
     private String courseName;
+    private String done;
+    private String right;
+    private Integer score;
 }

@@ -1,4 +1,4 @@
-package org.fatmansoft.teach.models;
+package org.fatmansoft.teach.models.academic;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,9 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "course",

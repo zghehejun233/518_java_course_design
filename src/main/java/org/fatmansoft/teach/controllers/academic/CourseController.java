@@ -1,9 +1,9 @@
-package org.fatmansoft.teach.controllers;
+package org.fatmansoft.teach.controllers.academic;
 
-import org.fatmansoft.teach.models.Course;
+import org.fatmansoft.teach.models.academic.Course;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
-import org.fatmansoft.teach.repository.CourseRepository;
+import org.fatmansoft.teach.repository.academic.CourseRepository;
 import org.fatmansoft.teach.util.CommonMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
