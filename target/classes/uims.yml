@@ -353,16 +353,13 @@ uims:
           prop: teacher
           label: 任课教师
         - type: text
-          prop: teacher
-          label: 任课教师
-        - type: text
           prop: credit
           label: 学分
         - type: text
           prop: start
           label: 开始周
-        - type: end
-          prop: teacher
+        - type: text
+          prop: end
           label: 结束周
         - type: text
           prop: recycle
@@ -393,7 +390,7 @@ uims:
           prop: start
           label: 开始周
         - type: input
-          prop: teacher
+          prop: end
           label: 结束周
         - type: input
           prop: recycle

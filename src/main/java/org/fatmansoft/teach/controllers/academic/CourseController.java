@@ -28,4 +28,25 @@ public class CourseController {
         List<Object> result = courseService.getAllCourse(dataRequest);
         return CommonMethod.getReturnData(result);
     }
+
+    @PostMapping("/courseEditInit")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse courseEditInit(@Valid @RequestBody DataRequest dataRequest) {
+        Map<String, Object> result = courseService.getCourseDetail(dataRequest);
+        return CommonMethod.getReturnData(result);
+    }
+
+    @PostMapping("courseEditSubmit")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse courseEditSubmit(@Valid @RequestBody DataRequest dataRequest) {
+        Integer result = courseService.saveCourse(dataRequest);
+        return CommonMethod.getReturnData(result);
+    }
+
+    @PostMapping("/courseDelete")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse courseDelete(@Valid @RequestBody DataRequest dataRequest) {
+        courseService.deleteCourse(dataRequest);
+        return CommonMethod.getReturnMessageOk();
+    }
 }
