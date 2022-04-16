@@ -8,10 +8,11 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "course",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"course_id","num"})
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"course_id", "num"})
         })
 @Setter
 @Getter
@@ -35,6 +36,10 @@ public class Course {
     private Integer end;
     @Column(name = "recycle")
     private Integer recycle;
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<CourseSelection> courseSelection;
+
 
     @Override
     public boolean equals(Object o) {

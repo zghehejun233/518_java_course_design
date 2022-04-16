@@ -1,6 +1,7 @@
 package org.fatmansoft.teach.models.student_basic;
 
 import lombok.*;
+import org.fatmansoft.teach.models.academic.CourseSelection;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -51,6 +52,9 @@ public class Student {
     @OneToMany(mappedBy = "student",cascade =CascadeType.ALL,fetch = FetchType.LAZY)
     @ToString.Exclude
     private Set<EducationExperience> educationExperiences;
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Set<CourseSelection> courseSelections;
 
     @Override
     public boolean equals(Object o) {

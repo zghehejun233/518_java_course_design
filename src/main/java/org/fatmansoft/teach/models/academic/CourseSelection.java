@@ -1,23 +1,46 @@
 package org.fatmansoft.teach.models.academic;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.fatmansoft.teach.models.student_basic.Student;
+import org.hibernate.Hibernate;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Table(name = "course_selection")
+@Table(name = "course_selection",uniqueConstraints = {@UniqueConstraint(columnNames = "course_selection_id")})
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CourseSelection {
     @Id
-    private Integer id;
+    @Column(name = "course_selection_id")
+    private Integer courseSelectionId;
+    @Column(name = "type")
+    private  String type;
 
-    @NotBlank
-    private String studentName;
-    @NotBlank
-    private String courseName;
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        CourseSelection that = (CourseSelection) o;
+        return courseSelectionId != null && Objects.equals(courseSelectionId, that.courseSelectionId);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
