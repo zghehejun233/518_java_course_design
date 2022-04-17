@@ -41,22 +41,13 @@ public class FamilyImpl {
             tempMap.put("relation", family.getRelation());
             tempMap.put("sex", family.getSex());
             tempMap.put("age", family.getAge());
-            tempMap.put("description", family.getDescription());
             result.add(tempMap);
         }
         return result;
     }
 
     Map<String, Object> getFamilyDetail(Integer id) {
-        Family family = null;
-        Optional<Family> op;
-        if (id != null) {
-            op = familyRepository.findById(id);
-            if (op.isPresent()) {
-                family = op.get();
-            }
-
-        }
+        Family family = getFamily(id);
         Map<String, Object> resultMap = new HashMap<>(16);
         if (family != null) {
             resultMap.put("id", family.getFamilyId());
@@ -70,14 +61,7 @@ public class FamilyImpl {
     }
 
     public Integer saveFamily(Family familyData) {
-        Family family = null;
-        Optional<Family> op;
-        if (familyData.getFamilyId() != null) {
-            op = familyRepository.findById(familyData.getFamilyId());
-            if (op.isPresent()) {
-                family = op.get();
-            }
-        }
+        Family family = getFamily(familyData.getFamilyId());
         Integer maxFamilyId = null;
         if (family == null) {
             family = new Family();
@@ -106,6 +90,17 @@ public class FamilyImpl {
     }
 
     public void deleteFamily(Integer familyId) {
+        Family family = getFamily(familyId);
+        Student relatedStudent;
+        Optional<Student> opStudent = studentRepository.findById(studentId);
+        if (opStudent.isPresent()) {
+            relatedStudent = opStudent.get();
+            relatedStudent.getFamilies().remove(family);
+        }
+        familyRepository.delete(family);
+    }
+
+    private Family getFamily(Integer familyId) {
         Family family = null;
         Optional<Family> op;
         if (familyId != null) {
@@ -114,12 +109,6 @@ public class FamilyImpl {
                 family = op.get();
             }
         }
-        Student relatedStudent;
-        Optional<Student> opStudent = studentRepository.findById(studentId);
-        if (opStudent.isPresent()) {
-            relatedStudent = opStudent.get();
-            relatedStudent.getFamilies().remove(family);
-        }
-        familyRepository.delete(family);
+        return family;
     }
 }
