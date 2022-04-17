@@ -1,6 +1,5 @@
 package org.fatmansoft.teach.service.student_basic;
 
-import org.fatmansoft.teach.models.student_basic.Family;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.util.CommonMethod;
@@ -18,8 +17,6 @@ import java.util.Map;
 public class StudentService {
     @Resource
     private StudentImpl student;
-    @Resource
-    private FamilyImpl family;
 
     /**
      * 获取所有学生的信息
@@ -28,12 +25,18 @@ public class StudentService {
      * @return 学生数组
      */
     public List<Object> getAllStudent(DataRequest dataRequest) {
-        return student.getStudentMapList("");
+        return student.queryStudentMapList("");
     }
 
+    /**
+     * 获取筛选学生详细信息
+     *
+     * @param dataRequest 接受请求内容
+     * @return 数组
+     */
     public List<Object> getSelectedMapList(DataRequest dataRequest) {
         String requirement = dataRequest.getString("numName");
-        return student.getStudentMapList(requirement);
+        return student.queryStudentMapList(requirement);
     }
 
 
@@ -45,7 +48,7 @@ public class StudentService {
      */
     public Map<String, Object> getStudentDetail(DataRequest dataRequest) {
         Integer studentId = dataRequest.getInteger("id");
-        return student.getStudentDetail(studentId);
+        return student.queryStudentDetail(studentId);
     }
 
     /**
@@ -65,9 +68,14 @@ public class StudentService {
         studentData.setPhoneNumber(CommonMethod.getString(form,"phoneNumber"));
         studentData.setBirthday(CommonMethod.getDate(form,"birthday"));
         studentData.setEmail(CommonMethod.getString(form,"email"));
-        return student.saveStudent(studentData);
+        return student.insertStudent(studentData);
     }
 
+    /**
+     * 删除学生信息
+     *
+     * @param dataRequest 请求内容
+     */
     public void deleteStudent(DataRequest dataRequest){
         Integer id = dataRequest.getInteger("id");
         student.deleteStudent(id);

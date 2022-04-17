@@ -5,11 +5,9 @@ import org.fatmansoft.teach.models.student_basic.Family;
 import org.fatmansoft.teach.models.student_basic.SocialRelation;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;
-import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.swing.text.html.Option;
 import java.util.*;
 
 /**
@@ -20,7 +18,7 @@ public class StudentImpl {
     @Resource
     private StudentRepository studentRepository;
 
-    public List<Object> getStudentMapList(String numName) {
+    public List<Object> queryStudentMapList(String numName) {
         List<Object> result = new ArrayList<>();
         List<Student> studentList = studentRepository.findStudentListByNumName(numName);
         if (studentList == null || studentList.size() == 0) {
@@ -65,16 +63,8 @@ public class StudentImpl {
 
     }
 
-    Map<String, Object> getStudentDetail(Integer id) {
-        Student student = null;
-        Optional<Student> op;
-        if (id != null) {
-            op = studentRepository.findById(id);
-            if (op.isPresent()) {
-                student = op.get();
-            }
-
-        }
+    Map<String, Object> queryStudentDetail(Integer id) {
+        Student student = getStudent(id);
         Map<String, Object> resultMap = new HashMap<>(16);
         if (student != null) {
             resultMap.put("studentNum", student.getStudentNum());
@@ -107,15 +97,8 @@ public class StudentImpl {
         return resultMap;
     }
 
-    public Integer saveStudent(Student studentData) {
-        Student student = null;
-        Optional<Student> op;
-        if (studentData.getStudentId() != null) {
-            op = studentRepository.findById(studentData.getStudentId());
-            if (op.isPresent()) {
-                student = op.get();
-            }
-        }
+    public Integer insertStudent(Student studentData) {
+        Student student = getStudent(studentData.getStudentId());
         Integer maxStudentId = null;
         if (student == null) {
             student = new Student();
@@ -140,6 +123,13 @@ public class StudentImpl {
     }
 
     public void deleteStudent(Integer studentId) {
+        Student student = getStudent(studentId);
+        if (student != null) {
+            studentRepository.delete(student);
+        }
+    }
+
+    private Student getStudent(Integer studentId) {
         Student student = null;
         Optional<Student> op;
         if (studentId != null) {
@@ -148,8 +138,6 @@ public class StudentImpl {
                 student = op.get();
             }
         }
-        if (student != null) {
-            studentRepository.delete(student);
-        }
+        return student;
     }
 }

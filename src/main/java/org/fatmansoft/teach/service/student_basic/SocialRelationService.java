@@ -6,7 +6,6 @@ import org.fatmansoft.teach.util.CommonMethod;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.xml.crypto.Data;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +25,7 @@ public class SocialRelationService {
      */
     public List<Object> getAllSocialRelation(DataRequest dataRequest) {
         socialRelation.setStudentId(dataRequest.getInteger("studentId"));
-        return socialRelation.getSocialRelationList();
+        return socialRelation.querySocialRelationList();
     }
 
     /**
@@ -37,19 +36,30 @@ public class SocialRelationService {
      */
     public Map<String, Object> getSocialRelationDetail(DataRequest dataRequest) {
         Integer socialRelationId = dataRequest.getInteger("id");
-        return socialRelation.getSocialRelationDetail(socialRelationId);
+        return socialRelation.querySocialRelationDetail(socialRelationId);
     }
 
+    /**
+     * 持久化社会关系信息
+     *
+     * @param dataRequest 请求内容
+     * @return integer
+     */
     public Integer saveSocialRelation(DataRequest dataRequest) {
         Map<String, Object> form = dataRequest.getMap("form");
         SocialRelation socialRelationData = new SocialRelation();
         socialRelationData.setSocialRelationId(CommonMethod.getInteger(form, "id"));
         socialRelationData.setDescription(CommonMethod.getString(form, "description"));
-        return socialRelation.saveSocialRelation(socialRelationData);
+        return socialRelation.insertSocialRelation(socialRelationData);
     }
 
+    /**
+     * 删除社会关系信息
+     *
+     * @param dataRequest 请求内容
+     */
     public void deleteSocialRelation(DataRequest dataRequest) {
         Integer socialRelationId = dataRequest.getInteger("id");
-        socialRelation.deleteSocialRelation(socialRelationId);
+        socialRelation.dropSocialRelation(socialRelationId);
     }
 }
