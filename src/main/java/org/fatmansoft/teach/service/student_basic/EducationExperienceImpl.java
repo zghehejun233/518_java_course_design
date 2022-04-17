@@ -3,7 +3,6 @@ package org.fatmansoft.teach.service.student_basic;
 import lombok.Getter;
 import lombok.Setter;
 import org.fatmansoft.teach.models.student_basic.EducationExperience;
-import org.fatmansoft.teach.models.student_basic.Family;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.repository.student_basic.EducationExperienceRepository;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;
@@ -24,9 +23,10 @@ public class EducationExperienceImpl {
 
     private Integer studentId;
 
-    public List<Object> getEducationExperienceMapList() {
+    public List<Object> queryEducationExperienceMapList() {
         List<Object> result = new ArrayList<>();
-        List<EducationExperience> educationExperienceList = educationExperienceRepository.findEducationExperiencesByStudent_StudentId(studentId);
+        List<EducationExperience> educationExperienceList = educationExperienceRepository
+                .findEducationExperiencesByStudent_StudentId(studentId);
         if (educationExperienceList.size() == 0) {
             return result;
         }
@@ -38,24 +38,14 @@ public class EducationExperienceImpl {
             tempMap.put("id", educationExperience.getEducationExperienceId());
             tempMap.put("schoolName", educationExperience.getSchoolName());
             tempMap.put("level", educationExperience.getLevel());
-            tempMap.put("startTime", DateTimeTool.parseDateTime(educationExperience.getStartTime(), "yyyy-MM"));
-            tempMap.put("endTime", DateTimeTool.parseDateTime(educationExperience.getEndTime(), "yyyy-MM"));
             tempMap.put("description", educationExperience.getDescription());
             result.add(tempMap);
         }
         return result;
     }
 
-    public Map<String, Object> getEducationExperienceDetail(Integer id) {
-        EducationExperience educationExperience = null;
-        Optional<EducationExperience> op;
-        if (id != null) {
-            op = educationExperienceRepository.findById(id);
-            if (op.isPresent()) {
-                educationExperience = op.get();
-            }
-
-        }
+    public Map<String, Object> queryEducationExperienceDetail(Integer id) {
+        EducationExperience educationExperience = getEducationExperience(id);
         Map<String, Object> resultMap = new HashMap<>(16);
         if (educationExperience != null) {
             resultMap.put("id", educationExperience.getEducationExperienceId());
@@ -68,15 +58,8 @@ public class EducationExperienceImpl {
         return resultMap;
     }
 
-    public Integer saveEducationExperience(EducationExperience educationExperienceData) {
-        EducationExperience educationExperience = null;
-        Optional<EducationExperience> op;
-        if (educationExperienceData.getEducationExperienceId() != null) {
-            op = educationExperienceRepository.findById(educationExperienceData.getEducationExperienceId());
-            if (op.isPresent()) {
-                educationExperience = op.get();
-            }
-        }
+    public Integer insertEducationExperience(EducationExperience educationExperienceData) {
+        EducationExperience educationExperience = getEducationExperience(educationExperienceData.getEducationExperienceId());
         Integer maxEducationExperienceId = null;
         if (educationExperience == null) {
             educationExperience = new EducationExperience();
@@ -94,7 +77,7 @@ public class EducationExperienceImpl {
         educationExperience.setEndTime(educationExperienceData.getEndTime());
         educationExperience.setDescription(educationExperienceData.getDescription());
 
-        Student relatedStudent = null;
+        Student relatedStudent;
         Optional<Student> opStudent = studentRepository.findById(studentId);
         if (opStudent.isPresent()) {
             relatedStudent = opStudent.get();
@@ -104,7 +87,18 @@ public class EducationExperienceImpl {
         return maxEducationExperienceId;
     }
 
-    public void deleteEducationExperience(Integer educationExperienceId) {
+    public void dropEducationExperience(Integer educationExperienceId) {
+        EducationExperience educationExperience = getEducationExperience(educationExperienceId);
+        Student relatedStudent;
+        Optional<Student> opStudent = studentRepository.findById(studentId);
+        if (opStudent.isPresent()) {
+            relatedStudent = opStudent.get();
+            relatedStudent.getEducationExperiences().remove(educationExperience);
+        }
+        educationExperienceRepository.delete(educationExperience);
+    }
+
+    private EducationExperience getEducationExperience(Integer educationExperienceId) {
         EducationExperience educationExperience = null;
         Optional<EducationExperience> op;
         if (educationExperienceId != null) {
@@ -113,12 +107,6 @@ public class EducationExperienceImpl {
                 educationExperience = op.get();
             }
         }
-        Student relatedStudent;
-        Optional<Student> opStudent = studentRepository.findById(studentId);
-        if (opStudent.isPresent()) {
-            relatedStudent = opStudent.get();
-            relatedStudent.getFamilies().remove(educationExperience);
-        }
-        educationExperienceRepository.delete(educationExperience);
+        return educationExperience;
     }
 }

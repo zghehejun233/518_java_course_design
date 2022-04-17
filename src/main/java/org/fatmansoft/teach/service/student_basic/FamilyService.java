@@ -59,6 +59,11 @@ public class FamilyService {
         return family.saveFamily(familyData);
     }
 
+    /**
+     * 删除家庭成员
+     *
+     * @param dataRequest 请求内容
+     */
     public void deleteFamily(DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");
         family.deleteFamily(id);
