@@ -1,9 +1,13 @@
 package org.fatmansoft.teach.controllers.student_basic;
 
+import org.fatmansoft.teach.SpringBootSecurityJwtApplication;
+import org.fatmansoft.teach.SystemApplicationListener;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.service.student_basic.StudentService;
 import org.fatmansoft.teach.util.CommonMethod;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,11 +26,12 @@ public class StudentController {
     @Resource
     private StudentService studentService;
 
-
     @PostMapping("/studentInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse studentInit(@Valid @RequestBody DataRequest dataRequest) {
+        SystemApplicationListener.logger.info("studentInitStart");
         List<Object> result = studentService.getAllStudent(dataRequest);
+        SystemApplicationListener.logger.info("studentInitEnd");
         return CommonMethod.getReturnData(result);
     }
 

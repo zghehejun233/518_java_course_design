@@ -352,18 +352,9 @@ uims:
         - type: text
           prop: teacher
           label: 任课教师
-        - type: text
-          prop: credit
-          label: 学分
-        - type: text
-          prop: start
-          label: 开始周
-        - type: text
-          prop: end
-          label: 结束周
-        - type: text
-          prop: recycle
-          label: 循环
+        - type: link
+          prop: courseSelection
+          label: 选课信息
         - type: opers
           label: 操作
           opers:
@@ -428,6 +419,9 @@ uims:
         - type: input
           prop: courseName
           label: 课程名称
+        - type: input
+          prop: type
+          label: 类型
     - name: cost
       type: table
       title: 日常消费

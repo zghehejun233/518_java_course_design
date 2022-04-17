@@ -10,9 +10,8 @@ import java.util.List;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course,Integer> {
-    @Query(value = "select max(id) from Course ")
+    @Query(value = "select max(courseId) from Course ")
     Integer getMaxId();
 
-
-
+    Course findFirstByNameOrNum(String name,String num);
 }

@@ -53,4 +53,19 @@ public class Course {
     public int hashCode() {
         return getClass().hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseId=" + courseId +
+                ", num='" + num + '\'' +
+                ", name='" + name + '\'' +
+                ", teacher='" + teacher + '\'' +
+                ", credit=" + credit +
+                ", start=" + start +
+                ", end=" + end +
+                ", recycle=" + recycle +
+                ", courseSelection=" + courseSelection +
+                '}';
+    }
 }

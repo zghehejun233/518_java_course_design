@@ -14,5 +14,5 @@ public interface CourseSelectionRepository extends JpaRepository<CourseSelection
     @Query(value = "select max(courseSelectionId) from CourseSelection  ")
     Integer getMaxId();
 
-    List<CourseSelection> findCourseSelectionsByCourse_CourseIdOrCourse_Name(Integer id);
+    List<CourseSelection> findCourseSelectionsByCourse_CourseId(Integer id);
 }

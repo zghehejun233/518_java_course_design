@@ -1,11 +1,15 @@
 package org.fatmansoft.teach.service.academic;
 
+import org.fatmansoft.teach.SpringBootSecurityJwtApplication;
+import org.fatmansoft.teach.SystemApplicationListener;
 import org.fatmansoft.teach.models.academic.Course;
 import org.fatmansoft.teach.models.student_basic.EducationExperience;
 import org.fatmansoft.teach.models.student_basic.Family;
 import org.fatmansoft.teach.models.student_basic.SocialRelation;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.repository.academic.CourseRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,6 +20,7 @@ import java.util.*;
  */
 @Service
 public class CourseImpl {
+    private static final Logger logger = LoggerFactory.getLogger(SpringBootSecurityJwtApplication.class);
     @Resource
     private CourseRepository courseRepository;
 
@@ -34,10 +39,11 @@ public class CourseImpl {
             tempMap.put("num", course.getNum());
             tempMap.put("name", course.getName());
             tempMap.put("teacher", course.getTeacher());
-            tempMap.put("credit", course.getCredit());
-            tempMap.put("start", course.getStart());
-            tempMap.put("end", course.getEnd());
-            tempMap.put("recycle", course.getRecycle());
+            String courseSelectionParas = "model=courseSelection&courseId=" + course.getCourseId();
+            tempMap.put("courseSelection","test");
+            tempMap.put("courseSelectionParas",courseSelectionParas);
+            SystemApplicationListener.logger.debug(courseSelectionParas);
+
             result.add(tempMap);
         }
         return result;
