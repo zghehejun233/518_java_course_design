@@ -30,8 +30,8 @@ public class CourseSelectionImpl {
     @Resource
     private StudentRepository studentRepository;
 
-    private Integer courseId=1;
-    private Integer studentId=1;
+    private Integer courseId = 1;
+    private Integer studentId = 1;
 
     public List<Object> getCourseSelectionMapList() {
         List<Object> result = new ArrayList<>();
@@ -74,7 +74,8 @@ public class CourseSelectionImpl {
         return resultMap;
     }
 
-    public Integer saveCourseSelection(CourseSelection courseSelectionData, Map<String, Object> studentAndCourseNumName) {
+    public Integer saveCourseSelection(CourseSelection courseSelectionData,
+                                       Map<String, Object> studentAndCourseNumName) {
         CourseSelection courseSelection = null;
         Optional<CourseSelection> op;
         if (courseSelectionData.getCourseSelectionId() != null) {
@@ -83,18 +84,18 @@ public class CourseSelectionImpl {
                 courseSelection = op.get();
             }
         }
-        Integer maxCourseSlectionId = null;
-        if (courseSelection != null) {
+        Integer maxCourseSelectionId = null;
+        if (courseSelection == null) {
             courseSelection = new CourseSelection();
-            maxCourseSlectionId = courseSelectionRepository.getMaxId();
-            if (maxCourseSlectionId == null) {
-                maxCourseSlectionId = 1;
+            maxCourseSelectionId = courseSelectionRepository.getMaxId();
+            if (maxCourseSelectionId == null) {
+                maxCourseSelectionId = 1;
             } else {
-                maxCourseSlectionId += 1;
+                maxCourseSelectionId += 1;
             }
-            courseSelection.setCourseSelectionId(maxCourseSlectionId);
+            courseSelection.setCourseSelectionId(maxCourseSelectionId);
         }
-/*
+
         if (courseId != 1) {
             try {
                 studentId = studentRepository.findFirstByStudentNameOrStudentNum(
@@ -113,8 +114,8 @@ public class CourseSelectionImpl {
             }
         }
 
- */
-        System.out.println(courseId+";"+studentId);
+
+        System.out.println(courseId + ";" + studentId);
 
         Course relatedCourse;
         Optional<Course> opCourse = courseRepository.findById(courseId);
@@ -132,6 +133,6 @@ public class CourseSelectionImpl {
         }
 
         courseSelectionRepository.save(courseSelection);
-        return maxCourseSlectionId;
+        return maxCourseSelectionId;
     }
 }

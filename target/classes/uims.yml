@@ -2,18 +2,8 @@ uims:
   menu:
     - name: student
       title: 学生管理
-    - name: achievement
-      title: 学生荣誉
-    - name: practiceActivity
-      title: 实践信息
-    - name: dailyActivity
-      title: 日常活动
-    - name: leave
-      title: 外出请假
     - name: course
       title: 课程管理
-    - name: courseSelection
-      title: 选课管理
     - name: cost
       title: 日常消费
   page:

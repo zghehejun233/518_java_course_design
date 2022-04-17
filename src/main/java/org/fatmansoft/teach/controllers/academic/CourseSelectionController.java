@@ -31,10 +31,7 @@ public class CourseSelectionController {
     @PostMapping("/courseSelectionInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse courseSelectionInit(@Valid @RequestBody DataRequest dataRequest) {
-        logger.debug(dataRequest.getInteger("courseId").toString());
-        SystemApplicationListener.logger.debug("courseSelectionInitStart");
         List<Object> result = courseSelectionService.getAllCourseSelection(dataRequest);
-        SystemApplicationListener.logger.debug("courseSelectionInitEnd");
         return CommonMethod.getReturnData(result);
     }
 
