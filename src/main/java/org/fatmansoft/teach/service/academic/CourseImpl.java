@@ -39,10 +39,14 @@ public class CourseImpl {
             tempMap.put("num", course.getNum());
             tempMap.put("name", course.getName());
             tempMap.put("teacher", course.getTeacher());
+
             String courseSelectionParas = "model=courseSelection&courseId=" + course.getCourseId();
             tempMap.put("courseSelection","test");
             tempMap.put("courseSelectionParas",courseSelectionParas);
-            SystemApplicationListener.logger.debug(courseSelectionParas);
+
+            String referenceParas = "model=reference&courseId="+course.getCourseId();
+            tempMap.put("reference","reference");
+            tempMap.put("referenceParas",referenceParas);
 
             result.add(tempMap);
         }

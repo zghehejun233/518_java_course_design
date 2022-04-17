@@ -345,6 +345,9 @@ uims:
         - type: link
           prop: courseSelection
           label: 选课信息
+        - type: link
+          prop: reference
+          label: 参考材料
         - type: opers
           label: 操作
           opers:
@@ -412,6 +415,45 @@ uims:
         - type: input
           prop: type
           label: 类型
+    - name: reference
+      type: table
+      title: 参考材料
+      showAdd: 1
+      item:
+        - type: text
+          prop: type
+          label: 类型
+        - type: text
+          prop: language
+          label: 语言
+        - type: text
+          prop: author
+          label: 作者
+        - type: text
+          prop: detail
+          label: 详情
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: edit
+            - name: detail
+    - name: referenceEdit
+      type: form
+      title: 参考材料
+      item:
+        - type: input
+          prop: type
+          label: 类型
+        - type: input
+          prop: language
+          label: 语言
+        - type: input
+          prop: author
+          label: 作者
+        - type: input
+          prop: detail
+          label: 详情
     - name: cost
       type: table
       title: 日常消费

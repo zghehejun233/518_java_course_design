@@ -1,7 +1,6 @@
 package org.fatmansoft.teach.service.student_basic;
 
 import org.fatmansoft.teach.models.student_basic.Family;
-import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.util.CommonMethod;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,7 @@ public class FamilyService {
      */
     public List<Object> getAllFamily(DataRequest dataRequest) {
         family.setStudentId(dataRequest.getInteger("studentId"));
-        return family.getFamilyMapList();
+        return family.queryFamilyMapList();
     }
 
     /**
@@ -38,7 +37,7 @@ public class FamilyService {
      */
     public Map<String, Object> getFamilyDetail(DataRequest dataRequest) {
         Integer familyId = dataRequest.getInteger("id");
-        return family.getFamilyDetail(familyId);
+        return family.queryFamilyDetail(familyId);
     }
 
     /**
@@ -56,7 +55,7 @@ public class FamilyService {
         familyData.setSex(CommonMethod.getString(form, "sex"));
         familyData.setSex(CommonMethod.getString(form, "sex"));
         familyData.setDescription(CommonMethod.getString(form, "description"));
-        return family.saveFamily(familyData);
+        return family.insertFamily(familyData);
     }
 
     /**
@@ -66,6 +65,6 @@ public class FamilyService {
      */
     public void deleteFamily(DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");
-        family.deleteFamily(id);
+        family.dropFamily(id);
     }
 }
