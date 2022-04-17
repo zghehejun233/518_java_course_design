@@ -43,4 +43,14 @@ public class CourseSelection {
     public int hashCode() {
         return getClass().hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "CourseSelection{" +
+                "courseSelectionId=" + courseSelectionId +
+                ", type='" + type + '\'' +
+                ", course=" + course +
+                ", student=" + student +
+                '}';
+    }
 }

@@ -2,6 +2,7 @@ package org.fatmansoft.teach.service.academic;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.fatmansoft.teach.SystemApplicationListener;
 import org.fatmansoft.teach.models.academic.Course;
 import org.fatmansoft.teach.models.academic.CourseSelection;
 import org.fatmansoft.teach.models.student_basic.Family;
@@ -138,22 +139,23 @@ public class CourseSelectionImpl {
             op = courseSelectionRepository.findById(courseSelectionId);
             if (op.isPresent()) {
                 courseSelection = op.get();
+                SystemApplicationListener.logger.info(courseSelection.toString());
+
+                Course relatedCourse;
+                Optional<Course> opCourse = courseRepository.findById(courseSelection.getCourse().getCourseId());
+                if (opCourse.isPresent()) {
+                    relatedCourse = opCourse.get();
+                    relatedCourse.getCourseSelections().remove(courseSelection);
+                }
+
+                Student relatedStudent;
+                Optional<Student> opStudent = studentRepository.findById(courseSelection.getStudent().getStudentId());
+                if (opStudent.isPresent()) {
+                    relatedStudent = opStudent.get();
+                    relatedStudent.getCourseSelections().remove(courseSelection);
+                }
+                courseSelectionRepository.delete(courseSelection);
             }
         }
-
-        Course relatedCourse;
-        Optional<Course> opCourse = courseRepository.findById(courseSelection.getCourse().getCourseId());
-        if (opCourse.isPresent()) {
-            relatedCourse = opCourse.get();
-            relatedCourse.getCourseSelections().remove(courseSelection);
-        }
-
-        Student relatedStudent;
-        Optional<Student> opStudent = studentRepository.findById(courseSelection.getStudent().getStudentId());
-        if (opStudent.isPresent()) {
-            relatedStudent = opStudent.get();
-            relatedStudent.getCourseSelections().remove(courseSelection);
-        }
-        courseSelectionRepository.delete(courseSelection);
     }
 }
