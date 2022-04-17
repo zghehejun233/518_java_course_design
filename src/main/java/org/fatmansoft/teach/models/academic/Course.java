@@ -38,7 +38,7 @@ public class Course {
     private Integer recycle;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<CourseSelection> courseSelection;
+    private Set<CourseSelection> courseSelections;
 
 
     @Override
@@ -65,7 +65,7 @@ public class Course {
                 ", start=" + start +
                 ", end=" + end +
                 ", recycle=" + recycle +
-                ", courseSelection=" + courseSelection +
+                ", courseSelection=" + courseSelections +
                 '}';
     }
 }

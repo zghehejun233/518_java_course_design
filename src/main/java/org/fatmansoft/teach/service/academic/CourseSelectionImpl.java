@@ -30,8 +30,8 @@ public class CourseSelectionImpl {
     @Resource
     private StudentRepository studentRepository;
 
-    private Integer courseId = 1;
-    private Integer studentId = 1;
+    private Integer courseId = null;
+    private Integer studentId = null;
 
     public List<Object> getCourseSelectionMapList() {
         List<Object> result = new ArrayList<>();
@@ -96,7 +96,7 @@ public class CourseSelectionImpl {
             courseSelection.setCourseSelectionId(maxCourseSelectionId);
         }
 
-        if (courseId != 1) {
+        if (courseId != null) {
             try {
                 studentId = studentRepository.findFirstByStudentNameOrStudentNum(
                         CommonMethod.getString(studentAndCourseNumName, "studentName"),
@@ -104,7 +104,7 @@ public class CourseSelectionImpl {
             } catch (NullPointerException nullPointerException) {
                 studentId = 1;
             }
-        } else if (studentId != 1) {
+        } else if (studentId != null) {
             try {
                 courseId = courseRepository.findFirstByNameOrNum(
                         CommonMethod.getString(studentAndCourseNumName, "courseName"),
@@ -114,17 +114,6 @@ public class CourseSelectionImpl {
             }
         }
 
-
-        System.out.println(courseId + ";" + studentId);
-
-        Course relatedCourse;
-        Optional<Course> opCourse = courseRepository.findById(courseId);
-        if (opCourse.isPresent()) {
-            relatedCourse = opCourse.get();
-            System.out.println(relatedCourse);
-            courseSelection.setCourse(relatedCourse);
-        }
-
         Student relatedStudent;
         Optional<Student> opStudent = studentRepository.findById(studentId);
         if (opStudent.isPresent()) {
@@ -132,7 +121,39 @@ public class CourseSelectionImpl {
             courseSelection.setStudent(relatedStudent);
         }
 
+        Course relatedCourse;
+        Optional<Course> opCourse = courseRepository.findById(courseId);
+        if (opCourse.isPresent()) {
+            relatedCourse = opCourse.get();
+            courseSelection.setCourse(relatedCourse);
+        }
         courseSelectionRepository.save(courseSelection);
         return maxCourseSelectionId;
+    }
+
+    public void deleteCourseSelection(Integer courseSelectionId) {
+        CourseSelection courseSelection = null;
+        Optional<CourseSelection> op;
+        if (courseSelectionId != null) {
+            op = courseSelectionRepository.findById(courseSelectionId);
+            if (op.isPresent()) {
+                courseSelection = op.get();
+            }
+        }
+
+        Course relatedCourse;
+        Optional<Course> opCourse = courseRepository.findById(courseSelection.getCourse().getCourseId());
+        if (opCourse.isPresent()) {
+            relatedCourse = opCourse.get();
+            relatedCourse.getCourseSelections().remove(courseSelection);
+        }
+
+        Student relatedStudent;
+        Optional<Student> opStudent = studentRepository.findById(courseSelection.getStudent().getStudentId());
+        if (opStudent.isPresent()) {
+            relatedStudent = opStudent.get();
+            relatedStudent.getCourseSelections().remove(courseSelection);
+        }
+        courseSelectionRepository.delete(courseSelection);
     }
 }

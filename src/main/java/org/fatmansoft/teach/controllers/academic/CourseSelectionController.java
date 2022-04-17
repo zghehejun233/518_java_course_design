@@ -38,7 +38,7 @@ public class CourseSelectionController {
     @PostMapping("/courseSelectionEditInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse courseSelectionEditInit(@Valid @RequestBody DataRequest dataRequest) {
-        Map<String,Object> result = courseSelectionService.getCourseSelectionDetail(dataRequest);
+        Map<String, Object> result = courseSelectionService.getCourseSelectionDetail(dataRequest);
         return CommonMethod.getReturnData(result);
     }
 
@@ -52,6 +52,7 @@ public class CourseSelectionController {
     @PostMapping("/courseSelectionDelete")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse courseSelectionDelete(@Valid @RequestBody DataRequest dataRequest) {
-       return CommonMethod.getReturnMessageOk();
+        courseSelectionService.deleteCourseSelection(dataRequest);
+        return CommonMethod.getReturnMessageOk();
     }
 }

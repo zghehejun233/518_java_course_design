@@ -25,10 +25,8 @@ public class CourseSelectionService {
     public List<Object> getAllCourseSelection(DataRequest dataRequest) {
         if (dataRequest.getInteger("courseId") != null) {
             courseSelection.setCourseId(dataRequest.getInteger("courseId"));
-            System.out.println("set courseId: " + courseSelection.getCourseId());
         } else if (dataRequest.getInteger("studentId") != null) {
             courseSelection.setStudentId(dataRequest.getInteger("studentId"));
-            SystemApplicationListener.logger.debug("set studentId: " + courseSelection.getStudentId());
         }
         return courseSelection.getCourseSelectionMapList();
     }
@@ -47,5 +45,10 @@ public class CourseSelectionService {
         studentAndCourseNumName.put("studentName", CommonMethod.getString(form, "studentName"));
         studentAndCourseNumName.put("courseName", CommonMethod.getString(form, "courseName"));
         return courseSelection.saveCourseSelection(courseSelectionData, studentAndCourseNumName);
+    }
+
+    public void deleteCourseSelection(DataRequest dataRequest) {
+        Integer id = dataRequest.getInteger("courseSelectionId");
+        courseSelection.deleteCourseSelection(id);
     }
 }
