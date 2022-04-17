@@ -40,6 +40,9 @@ public class Course {
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<CourseSelection> courseSelections;
 
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Reference> references;
+
 
     @Override
     public boolean equals(Object o) {
