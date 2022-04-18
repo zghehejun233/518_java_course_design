@@ -71,7 +71,6 @@ public class Course {
                 ", start=" + start +
                 ", end=" + end +
                 ", recycle=" + recycle +
-                ", courseSelection=" + courseSelections +
                 '}';
     }
 }

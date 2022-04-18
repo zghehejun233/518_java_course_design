@@ -348,6 +348,9 @@ uims:
         - type: link
           prop: reference
           label: 参考材料
+        - type: link
+          prop: courseTime
+          label: 课程时间
         - type: opers
           label: 操作
           opers:
@@ -454,6 +457,33 @@ uims:
         - type: input
           prop: detail
           label: 详情
+    - name: courseTime
+      type: table
+      title: 课程时间
+      showAdd: 1
+      item:
+        - type: text
+          prop: day
+          label: 周几
+        - type: text
+          prop: period
+          label: 第几节课
+        - type: opers
+          label: 操作
+          opers:
+            - name: detail
+            - name: delete
+            - name: edit
+    - name: courseTimeEdit
+      type: form
+      title: 课程时间
+      item:
+        - type: input
+          prop: day
+          label: 周几
+        - type: input
+          prop: period
+          label: 第几节课
     - name: cost
       type: table
       title: 日常消费

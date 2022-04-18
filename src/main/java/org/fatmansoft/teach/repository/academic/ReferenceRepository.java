@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ReferenceRepository extends JpaRepository<Reference, Integer> {
-    @Query(value = "select max(id) from Reference ")
+    @Query(value = "select max(referenceId) from Reference ")
     Integer getMaxId();
 
     List<Reference> findReferencesByCourse_CourseId(Integer id);
