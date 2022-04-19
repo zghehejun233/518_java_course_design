@@ -43,6 +43,9 @@ public class Course {
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Reference> references;
 
+    @OneToMany(mappedBy = "course",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Set<Checkout> checkouts;
+
     @ManyToMany(mappedBy = "courses")
     private Set<CourseTime> courseTimes;
 

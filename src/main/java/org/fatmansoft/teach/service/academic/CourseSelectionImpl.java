@@ -85,6 +85,7 @@ public class CourseSelectionImpl {
                 courseSelection = op.get();
             }
         }
+
         Integer maxCourseSelectionId = null;
         if (courseSelection == null) {
             courseSelection = new CourseSelection();

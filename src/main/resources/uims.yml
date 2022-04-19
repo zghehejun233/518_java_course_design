@@ -351,6 +351,9 @@ uims:
         - type: link
           prop: courseTime
           label: 课程时间
+        - type: link
+          prop: checkout
+          label: 签到
         - type: opers
           label: 操作
           opers:
@@ -484,6 +487,45 @@ uims:
         - type: input
           prop: period
           label: 第几节课
+    - name: checkout
+      type: table
+      label: 签到
+      showAdd: 1
+      item:
+        - type: text
+          prop: method
+          label: 方式
+        - type: text
+          prop: state
+          label: 状态
+        - type: text
+          prop: time
+          label: 时间
+        - type: opers
+          label: 操作
+          opers:
+            - name: edit
+            - name: delete
+            - name: detail
+    - name: checkoutEdit
+      type: form
+      label: 签到
+      item:
+        - type: input
+          prop: method
+          label: 方式
+        - type: input
+          prop: studentName
+          label: 学生姓名
+        - type: input
+          prop: courseName
+          label: 课程名称
+        - type: input
+          prop: state
+          label: 状态
+        - type: date
+          prop: time
+          label: 时间
     - name: cost
       type: table
       title: 日常消费

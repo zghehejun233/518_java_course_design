@@ -52,6 +52,11 @@ public class CourseImpl {
             tempMap.put("courseTime", "courseTime");
             tempMap.put("courseTimeParas", courseTimeParas);
 
+            String checkoutParas = "model=checkout&courseId=" + course.getCourseId();
+            tempMap.put("checkout", "check!");
+            tempMap.put("checkoutParas", checkoutParas);
+
+
             result.add(tempMap);
         }
         return result;
