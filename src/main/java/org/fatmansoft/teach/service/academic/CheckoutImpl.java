@@ -104,8 +104,6 @@ public class CheckoutImpl {
         Optional<Course> opCourse;
         Student student = null;
         Optional<Student> opStudent;
-
-
         if ((courseId == null && courseName != null)) {
             course = courseRepository.findFirstByNameOrNum(courseName, courseName);
             SystemApplicationListener.logger.info("[Checkout]" + "找到关联的课程信息");
@@ -123,7 +121,6 @@ public class CheckoutImpl {
                 return 1;
             }
         }
-
         if (studentId == null && studentName != null) {
             student = studentRepository.findFirstByStudentNameOrStudentNum(studentName, studentName);
             SystemApplicationListener.logger.info("[Checkout]" + "找到关联的学生信息");
@@ -152,7 +149,6 @@ public class CheckoutImpl {
             SystemApplicationListener.logger.info("[Checkout]" + "成功保存考勤信息！");
             return maxCheckoutId;
         }
-
     }
 
     public void dropCheckout(Integer checkoutId) {

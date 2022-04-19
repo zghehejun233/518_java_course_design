@@ -46,8 +46,12 @@ public class Course {
     @OneToMany(mappedBy = "course",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<Checkout> checkouts;
 
-    @ManyToMany(mappedBy = "courses")
+    @OneToMany(mappedBy = "course",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Set<HomeWork> homeWork;
+
+    @ManyToMany(mappedBy = "courses",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<CourseTime> courseTimes;
+
 
 
     @Override

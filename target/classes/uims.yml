@@ -694,3 +694,33 @@ uims:
         - type: input
           prop: description
           label: 备注
+    - name: homework
+      type: table
+      title: 作业
+      showAdd: 1
+      item:
+        - type: text
+          prop: content
+          label: 内容
+        - type: text
+          prop: score
+          label: 成绩
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit
+    - name: homeworkEdit
+      type: form
+      title: 作业
+      item:
+        - type: input
+          prop: content
+          label: 内容
+        - type: input
+          prop: score
+          label: 成绩
+        - type: input
+          prop: courseName
+          label: 课程名称
