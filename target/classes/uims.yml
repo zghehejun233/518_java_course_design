@@ -2,11 +2,34 @@ uims:
   menu:
     - name: student
       title: 学生管理
+    - name: studentAcademic
+      title: 教研活动
     - name: course
       title: 课程管理
-    - name: cost
-      title: 日常消费
   page:
+    - name: studentAcademic
+      type: table
+      title: 教研活动
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: link
+          prop: courseSelection
+          label: 选课
+        - type: link
+          prop: homework
+          label: 作业
+        - type: link
+          prop: score
+          label: 成绩
+        - type: link
+          prop: checkout
+          label: 考勤
     - name: student
       type: table
       title: 学生管理

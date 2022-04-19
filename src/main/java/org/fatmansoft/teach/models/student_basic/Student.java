@@ -3,6 +3,8 @@ package org.fatmansoft.teach.models.student_basic;
 import lombok.*;
 import org.fatmansoft.teach.models.academic.Checkout;
 import org.fatmansoft.teach.models.academic.CourseSelection;
+import org.fatmansoft.teach.models.academic.HomeWork;
+import org.fatmansoft.teach.models.academic.Score;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -55,6 +57,12 @@ public class Student {
 
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<Checkout> checkouts;
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private Set<HomeWork> homeWork;
+    
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private Set<Score> scores;
 
     @Override
     public boolean equals(Object o) {
