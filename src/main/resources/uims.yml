@@ -724,3 +724,45 @@ uims:
         - type: input
           prop: courseName
           label: 课程名称
+    - name: score
+      type: table
+      title: 成绩
+      showAdd: 1
+      item:
+        - type: text
+          prop: score
+          label: 总成绩
+        - type: text
+          prop: method
+          label: 计分方式
+        - type: text
+          prop: dailyScore
+          label: 平时分
+        - type: text
+          prop: examScore
+          label: 考试成绩
+        - type: opers
+          label: 操作
+          opers:
+            - name: edit
+            - name: delete
+            - name: detail
+    - name: scoreEdit
+      type: form
+      title: 成绩
+      item:
+        - type: input
+          prop: score
+          label: 总成绩
+        - type: input
+          prop: method
+          label: 计分方式
+        - type: input
+          prop: dailyScore
+          label: 平时分
+        - type: input
+          prop: examScore
+          label: 考试成绩
+        - type: input
+          prop: courseName
+          label: 课程名称

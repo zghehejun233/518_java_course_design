@@ -37,7 +37,7 @@ public class CourseSelectionImpl {
     public List<Object> getCourseSelectionMapList() {
         List<Object> result = new ArrayList<>();
         List<CourseSelection> courseSelectionList = courseSelectionRepository
-                .findCourseSelectionsByCourse_CourseId(courseId);
+                .findCourseSelectionsByCourse_CourseIdOrStudent_StudentId(courseId, studentId);
         if (courseSelectionList.size() == 0) {
             return result;
         }

@@ -15,21 +15,30 @@ import java.util.Objects;
 @Getter
 public class Score {
     @Id
-    private Integer id;
-    private String studentName;
+    @Column(name = "score_id")
+    private Integer scoreId;
+    @Column(name = "score")
     private Integer score;
-    private Float GPA;
-    private Integer rank;
+    @Column(name = "method")
+    private String method;
+    @Column(name = "daily_score")
+    private Integer dailyScore;
+    @Column(name = "exam_score")
+    private Integer examScore;
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Score score = (Score) o;
-        return id != null && Objects.equals(id, score.id);
+        return scoreId != null && Objects.equals(scoreId, score.scoreId);
     }
 
     @Override

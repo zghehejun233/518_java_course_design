@@ -23,10 +23,15 @@ public class CourseSelectionService {
     private CourseSelectionImpl courseSelection;
 
     public List<Object> getAllCourseSelection(DataRequest dataRequest) {
-        if (dataRequest.getInteger("courseId") != null) {
+        try {
             courseSelection.setCourseId(dataRequest.getInteger("courseId"));
-        } else if (dataRequest.getInteger("studentId") != null) {
+        } catch (NullPointerException nullPointerException) {
+            SystemApplicationListener.logger.info("courseId设置失败");
+        }
+        try {
             courseSelection.setStudentId(dataRequest.getInteger("studentId"));
+        } catch (NullPointerException nullPointerException) {
+            SystemApplicationListener.logger.info("courseId设置失败");
         }
         return courseSelection.getCourseSelectionMapList();
     }
