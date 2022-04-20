@@ -1,5 +1,6 @@
 package org.fatmansoft.teach.service.academic;
 
+import org.fatmansoft.teach.SystemApplicationListener;
 import org.fatmansoft.teach.models.academic.Checkout;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.util.CommonMethod;
@@ -18,7 +19,16 @@ public class CheckoutService {
     private CheckoutImpl checkout;
 
     public List<Object> getAllCheckout(DataRequest dataRequest) {
-        checkout.setCourseId(dataRequest.getInteger("courseId"));
+        try {
+            checkout.setCourseId(dataRequest.getInteger("courseId"));
+        } catch (NullPointerException nullPointerException) {
+            SystemApplicationListener.logger.info("courseId设置失败");
+        }
+        try {
+            checkout.setStudentId(dataRequest.getInteger("studentId"));
+        } catch (NullPointerException nullPointerException) {
+            SystemApplicationListener.logger.info("courseId设置失败");
+        }
         return checkout.queryAllCheckout();
     }
 
@@ -32,6 +42,7 @@ public class CheckoutService {
         Checkout checkoutData = new Checkout();
         String courseName = CommonMethod.getString(form, "courseName");
         String studentName = CommonMethod.getString(form, "studentName");
+        checkoutData.setCheckoutId(CommonMethod.getInteger(form,"id"));
         checkoutData.setMethod(CommonMethod.getString(form, "method"));
         checkoutData.setState(CommonMethod.getInteger(form, "state"));
         checkoutData.setTime(CommonMethod.getTime(form, "time"));

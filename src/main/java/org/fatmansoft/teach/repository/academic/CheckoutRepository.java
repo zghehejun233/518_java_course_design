@@ -16,9 +16,7 @@ public interface CheckoutRepository extends JpaRepository<Checkout, Integer> {
     @Query(value = "SELECT max(checkoutId) FROM Checkout ")
     Integer getMaxId();
 
-    List<Checkout> findCheckoutsByCourse_CourseId(Integer id);
+    List<Checkout> findCheckoutsByStudent_StudentIdOrCourse_CourseId(Integer studentId,Integer courseId);
 
-    Integer findFirstByCourse_Name(String name);
 
-    Checkout findCheckoutByStudent_StudentName(String name);
 }

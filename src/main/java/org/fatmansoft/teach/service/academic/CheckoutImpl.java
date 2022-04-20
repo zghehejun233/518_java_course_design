@@ -40,7 +40,8 @@ public class CheckoutImpl {
 
     public List<Object> queryAllCheckout() {
         List<Object> result = new ArrayList<>();
-        List<Checkout> checkoutList = checkoutRepository.findCheckoutsByCourse_CourseId(courseId);
+        List<Checkout> checkoutList = checkoutRepository
+                .findCheckoutsByStudent_StudentIdOrCourse_CourseId(studentId, courseId);
         if (checkoutList.size() == 0) {
             return result;
         }
@@ -139,16 +140,15 @@ public class CheckoutImpl {
             }
         }
 
-        if (course == null || student == null) {
-            SystemApplicationListener.logger.error("[Checkout]" + "完蛋了，都没有");
-            return 1;
-        } else {
-            checkout.setCourse(course);
-            checkout.setStudent(student);
-            checkoutRepository.save(checkout);
-            SystemApplicationListener.logger.info("[Checkout]" + "成功保存考勤信息！");
-            return maxCheckoutId;
-        }
+        checkout.setCourse(course);
+        checkout.setStudent(student);
+        checkout.setMethod(checkoutData.getMethod());
+        checkout.setState(checkoutData.getState());
+        checkout.setTime(checkoutData.getTime());
+        checkoutRepository.save(checkout);
+        SystemApplicationListener.logger.info("[Checkout]" + "成功保存考勤信息！");
+        return maxCheckoutId;
+
     }
 
     public void dropCheckout(Integer checkoutId) {
