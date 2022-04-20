@@ -140,20 +140,16 @@ public class ScoreImpl {
                 return 1;
             }
         }
-        if (course == null || student == null) {
-            SystemApplicationListener.logger.error("[Score]" + "完蛋了，都没有");
-            return 1;
-        } else {
-            score.setCourse(course);
-            score.setStudent(student);
-            score.setScore(scoreData.getScore());
-            score.setMethod(scoreData.getMethod());
-            score.setDailyScore(scoreData.getDailyScore());
-            score.setExamScore(scoreData.getExamScore());
-            scoreRepository.save(score);
-            SystemApplicationListener.logger.info("[Score]" + "成功保存成绩信息！");
-            return maxScoreId;
-        }
+        score.setCourse(course);
+        score.setStudent(student);
+        score.setScore(scoreData.getScore());
+        score.setMethod(scoreData.getMethod());
+        score.setDailyScore(scoreData.getDailyScore());
+        score.setExamScore(scoreData.getExamScore());
+        scoreRepository.save(score);
+        SystemApplicationListener.logger.info("[Score]" + "成功保存成绩信息！");
+        return maxScoreId;
+
     }
 
     public void dropScore(Integer scoreId) {
