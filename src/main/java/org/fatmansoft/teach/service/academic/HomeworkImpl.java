@@ -97,7 +97,7 @@ public class HomeworkImpl {
         Student student = null;
         Optional<Student> opStudent;
         if ((courseId == null && courseName != null)) {
-            course = courseRepository.findFirstByNameOrNum(courseName, courseName);
+            course = courseRepository.findFirstByName(courseName);
             SystemApplicationListener.logger.info("[Homework]" + "找到关联的课程信息");
         } else {
             try {
@@ -129,16 +129,15 @@ public class HomeworkImpl {
                 return 1;
             }
         }
-        if (course == null || student == null) {
-            SystemApplicationListener.logger.error("[Homework]" + "完蛋了，都没有");
-            return 1;
-        } else {
-            homeWork.setCourse(course);
-            homeWork.setStudent(student);
-            homeWorkRepository.save(homeWork);
-            SystemApplicationListener.logger.info("[Homework]" + "成功保存作业信息！");
-            return maxHomeworkId;
-        }
+
+        homeWork.setCourse(course);
+        homeWork.setStudent(student);
+        homeWork.setContent(homeWorkData.getContent());
+        homeWork.setScore(homeWorkData.getScore());
+        homeWorkRepository.save(homeWork);
+        SystemApplicationListener.logger.info("[Homework]" + "成功保存作业信息！");
+        return maxHomeworkId;
+
     }
 
     public void dropHomework(Integer homeworkId) {

@@ -107,7 +107,7 @@ public class ScoreImpl {
         Student student = null;
         Optional<Student> opStudent;
         if ((courseId == null && courseName != null)) {
-            course = courseRepository.findFirstByNameOrNum(courseName, courseName);
+            course = courseRepository.findFirstByName(courseName);
             SystemApplicationListener.logger.info("[Score]" + "找到关联的课程信息");
         } else {
             try {

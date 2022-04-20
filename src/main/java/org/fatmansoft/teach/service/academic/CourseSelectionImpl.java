@@ -76,7 +76,7 @@ public class CourseSelectionImpl {
     }
 
     public Integer saveCourseSelection(CourseSelection courseSelectionData,
-                                       Map<String, Object> studentAndCourseNumName) {
+                                       String courseName, String studentName) {
         CourseSelection courseSelection = null;
         Optional<CourseSelection> op;
         if (courseSelectionData.getCourseSelectionId() != null) {
@@ -98,43 +98,57 @@ public class CourseSelectionImpl {
             courseSelection.setCourseSelectionId(maxCourseSelectionId);
         }
 
-        if (courseId != null) {
+        Course course = null;
+        Optional<Course> opCourse;
+        Student student = null;
+        Optional<Student> opStudent;
+        if ((courseId == null && courseName != null)) {
+            course = courseRepository.findFirstByName(courseName);
+            SystemApplicationListener.logger.info("[CourseSelection]" + "找到关联的课程信息");
+        } else {
             try {
-                studentId = studentRepository.findFirstByStudentNameOrStudentNum(
-                        CommonMethod.getString(studentAndCourseNumName, "studentName"),
-                        CommonMethod.getString(studentAndCourseNumName, "studentName")).getStudentId();
-            } catch (NullPointerException nullPointerException) {
-                studentId = 1;
+                opCourse = courseRepository.findById(courseId);
+                if (opCourse.isPresent()) {
+                    course = opCourse.get();
+                    SystemApplicationListener.logger.info("[CourseSelection]" + "找到关联的课程信息");
+                }
+            } catch (Exception e) {
+                SystemApplicationListener.logger.warn(e.toString());
+                SystemApplicationListener.logger.error("[CourseSelection]" + "没有找到关联的课程信息");
+                return 1;
             }
-        } else if (studentId != null) {
+        }
+        if (studentId == null && studentName != null) {
+            student = studentRepository.findFirstByStudentNameOrStudentNum(studentName, studentName);
+            SystemApplicationListener.logger.info("[CourseSelection]" + "找到关联的学生信息");
+
+        } else {
             try {
-                courseId = courseRepository.findFirstByNameOrNum(
-                        CommonMethod.getString(studentAndCourseNumName, "courseName"),
-                        CommonMethod.getString(studentAndCourseNumName, "courseName")).getCourseId();
-            } catch (NullPointerException nullPointerException) {
-                courseId = 1;
+                opStudent = studentRepository.findById(studentId);
+                if (opStudent.isPresent()) {
+                    student = opStudent.get();
+                    SystemApplicationListener.logger.info("[CourseSelection]" + "找到关联的学生信息");
+                }
+            } catch (Exception e) {
+                SystemApplicationListener.logger.warn(e.toString());
+                SystemApplicationListener.logger.error("[CourseSelection]" + "没有找到关联的学生信息");
+                return 1;
             }
         }
-
-        Student relatedStudent;
-        Optional<Student> opStudent = studentRepository.findById(studentId);
-        if (opStudent.isPresent()) {
-            relatedStudent = opStudent.get();
-            courseSelection.setStudent(relatedStudent);
+        if (course == null || student == null) {
+            SystemApplicationListener.logger.error("[CourseSelection]" + "完蛋了，都没有");
+            return 1;
+        } else {
+            courseSelection.setCourse(course);
+            courseSelection.setStudent(student);
+            courseSelectionRepository.save(courseSelection);
+            SystemApplicationListener.logger.info("[CourseSelection]" + "成功保存选课信息！");
+            return maxCourseSelectionId;
         }
-
-        Course relatedCourse;
-        Optional<Course> opCourse = courseRepository.findById(courseId);
-        if (opCourse.isPresent()) {
-            relatedCourse = opCourse.get();
-            courseSelection.setCourse(relatedCourse);
-        }
-        courseSelectionRepository.save(courseSelection);
-        return maxCourseSelectionId;
     }
 
     public void deleteCourseSelection(Integer courseSelectionId) {
-        CourseSelection courseSelection = null;
+        CourseSelection courseSelection;
         Optional<CourseSelection> op;
         if (courseSelectionId != null) {
             op = courseSelectionRepository.findById(courseSelectionId);
@@ -147,6 +161,7 @@ public class CourseSelectionImpl {
                 if (opCourse.isPresent()) {
                     relatedCourse = opCourse.get();
                     relatedCourse.getCourseSelections().remove(courseSelection);
+                    courseRepository.save(relatedCourse);
                 }
 
                 Student relatedStudent;
@@ -154,6 +169,7 @@ public class CourseSelectionImpl {
                 if (opStudent.isPresent()) {
                     relatedStudent = opStudent.get();
                     relatedStudent.getCourseSelections().remove(courseSelection);
+                    studentRepository.save(relatedStudent);
                 }
                 courseSelectionRepository.delete(courseSelection);
             }
