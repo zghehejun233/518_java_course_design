@@ -161,7 +161,7 @@ public class CourseSelectionImpl {
                 if (opCourse.isPresent()) {
                     relatedCourse = opCourse.get();
                     relatedCourse.getCourseSelections().remove(courseSelection);
-                    courseRepository.save(relatedCourse);
+                    SystemApplicationListener.logger.error(relatedCourse.getCourseSelections().toString());
                 }
 
                 Student relatedStudent;
@@ -169,7 +169,7 @@ public class CourseSelectionImpl {
                 if (opStudent.isPresent()) {
                     relatedStudent = opStudent.get();
                     relatedStudent.getCourseSelections().remove(courseSelection);
-                    studentRepository.save(relatedStudent);
+                    SystemApplicationListener.logger.error(relatedStudent.getCourseSelections().toString());
                 }
                 courseSelectionRepository.delete(courseSelection);
             }

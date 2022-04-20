@@ -52,7 +52,7 @@ public class CourseSelectionService {
     }
 
     public void deleteCourseSelection(DataRequest dataRequest) {
-        Integer id = dataRequest.getInteger("courseSelectionId");
-        courseSelection.deleteCourseSelection(id);
+        Integer courseSelectionId = dataRequest.getInteger("id");
+        courseSelection.deleteCourseSelection(courseSelectionId);
     }
 }
