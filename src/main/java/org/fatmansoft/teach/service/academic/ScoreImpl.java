@@ -12,6 +12,7 @@ import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.repository.academic.CourseRepository;
 import org.fatmansoft.teach.repository.academic.ScoreRepository;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;
+import org.fatmansoft.teach.util.CommonMethod;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -145,6 +146,10 @@ public class ScoreImpl {
         } else {
             score.setCourse(course);
             score.setStudent(student);
+            score.setScore(scoreData.getScore());
+            score.setMethod(scoreData.getMethod());
+            score.setDailyScore(scoreData.getDailyScore());
+            score.setExamScore(scoreData.getExamScore());
             scoreRepository.save(score);
             SystemApplicationListener.logger.info("[Score]" + "成功保存成绩信息！");
             return maxScoreId;

@@ -1,5 +1,6 @@
 package org.fatmansoft.teach.service.academic;
 
+import org.fatmansoft.teach.SystemApplicationListener;
 import org.fatmansoft.teach.models.academic.Score;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
@@ -34,6 +35,7 @@ public class ScoreService {
         Score scoreData = new Score();
         String courseName = CommonMethod.getString(form, "courseName");
         String studentName = CommonMethod.getString(form, "studentName");
+        scoreData.setScoreId(CommonMethod.getInteger(form,"id"));
         scoreData.setScore(CommonMethod.getInteger(form, "score"));
         scoreData.setMethod(CommonMethod.getString(form, "method"));
         scoreData.setDailyScore(CommonMethod.getInteger(form, "dailyScore"));
