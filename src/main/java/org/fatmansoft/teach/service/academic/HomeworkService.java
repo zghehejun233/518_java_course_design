@@ -32,6 +32,7 @@ public class HomeworkService {
         HomeWork homeWorkData = new HomeWork();
         String courseName = CommonMethod.getString(form, "courseName");
         String studentName = CommonMethod.getString(form, "studentName");
+        homeWorkData.setHomeworkId(CommonMethod.getInteger(form,"id"));
         homeWorkData.setContent(CommonMethod.getString(form, "content"));
         homeWorkData.setScore(CommonMethod.getInteger(form, "score"));
         return homework.insertHomework(homeWorkData, courseName, studentName);
