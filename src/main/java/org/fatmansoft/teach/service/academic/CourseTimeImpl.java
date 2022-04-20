@@ -98,6 +98,7 @@ public class CourseTimeImpl {
             relatedCourse = opCourse.get();
             relatedCourse.getCourseTimes().remove(courseTime);
         }
+        courseTimeRepository.delete(courseTime);
     }
 
     private CourseTime getCourseTime(Integer courseTimeId) {
