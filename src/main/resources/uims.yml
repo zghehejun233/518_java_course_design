@@ -3,13 +3,15 @@ uims:
     - name: student
       title: 学生管理
     - name: studentAcademic
+      title: 学生课程
+    - name: academicActivity
       title: 教研活动
     - name: course
       title: 课程管理
   page:
     - name: studentAcademic
       type: table
-      title: 教研活动
+      title: 学生课程
       showAdd: 1
       item:
         - type: text
@@ -30,6 +32,20 @@ uims:
         - type: link
           prop: checkout
           label: 考勤
+    - name: academicActivity
+      type: table
+      title: 教研活动
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: link
+          prop: practice
+          label: 社会实践
     - name: student
       type: table
       title: 学生管理
@@ -179,79 +195,6 @@ uims:
         - type: date
           prop: time
           label: 获得日期
-    - name: practiceActivity
-      type: table
-      title: 实践信息
-      showAdd: 1
-      item:
-        - type: text
-          prop: studentNum
-          label: 学号
-        - type: link
-          prop: studentName
-          label: 姓名
-        - type: text
-          prop: practiceType
-          label: 实践类型
-        - type: text
-          prop: practiceName
-          label: 活动名称
-        - type: text
-          prop: location
-          label: 地点
-        - type: text
-          prop: teamMember
-          label: 成员
-        - type: text
-          prop: startTime
-          label: 开始日期
-        - type: text
-          prop: endTime
-          label: 结束日期
-        - type: opers
-          label: 操作
-          opers:
-            - name: edit
-            - name: delete
-            - name: detail
-    - name: practiceActivityEdit
-      type: form
-      title: 实践管理
-      item:
-        - type: input
-          prop: studentName
-          label: 姓名
-        - type: select
-          prop: practiceType
-          label: 活动类型
-          option:
-            - value: 1
-              label: 社会实践
-            - value: 2
-              label: 学科竞赛
-            - value: 3
-              label: 科技成果
-            - value: 4
-              label: 培训讲座
-            - value: 5
-              label: 创新项目
-            - value: 6
-              label: 校外实习
-        - type: input
-          prop: practiceName
-          label: 活动名称
-        - type: input
-          prop: location
-          label: 地点
-        - type: input
-          prop: teamMember
-          label: 成员
-        - type: date
-          prop: startTime
-          label: 开始日期
-        - type: date
-          prop: endTime
-          label: 结束日期
     - name: dailyActivity
       type: table
       title: 日常活动
@@ -766,3 +709,48 @@ uims:
         - type: input
           prop: courseName
           label: 课程名称
+    - name: practice
+      type: table
+      title: 社会实践
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: name
+          label: sda
+        - type: text
+          prop: content
+          label: 学号
+        - type: text
+          prop: principal
+          label: principal
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit
+    - name: practiceEdit
+      type: form
+      title: 社会实践
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: name
+          label: sda
+        - type: text
+          prop: content
+          label: 学号
+        - type: text
+          prop: principal
+          label: principal

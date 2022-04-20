@@ -1,14 +1,15 @@
 package org.fatmansoft.teach.models.academic_activity;
 
-import javax.persistence.*;
-
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.Getter;
 import org.fatmansoft.teach.models.student_basic.Student;
+import org.hibernate.Hibernate;
 
+import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "practice",
@@ -38,4 +39,17 @@ public class Practice {
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Practice practice = (Practice) o;
+        return practiceId != null && Objects.equals(practiceId, practice.practiceId);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
