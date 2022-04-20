@@ -1,6 +1,10 @@
 package org.fatmansoft.teach.models.student_basic;
 
 import lombok.*;
+import org.fatmansoft.teach.models.academic.Checkout;
+import org.fatmansoft.teach.models.academic.CourseSelection;
+import org.fatmansoft.teach.models.academic.HomeWork;
+import org.fatmansoft.teach.models.academic.Score;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -20,7 +24,6 @@ import java.util.Set;
 @Getter
 @Setter
 @AllArgsConstructor
-@ToString
 public class Student {
     @Id
     @Column(name = "student_id")
@@ -41,16 +44,25 @@ public class Student {
     private String email;
 
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @ToString.Exclude
     private Set<Family> families;
 
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @ToString.Exclude
     private Set<SocialRelation> socialRelations;
 
     @OneToMany(mappedBy = "student",cascade =CascadeType.ALL,fetch = FetchType.LAZY)
-    @ToString.Exclude
     private Set<EducationExperience> educationExperiences;
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Set<CourseSelection> courseSelections;
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Set<Checkout> checkouts;
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private Set<HomeWork> homeWork;
+    
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private Set<Score> scores;
 
     @Override
     public boolean equals(Object o) {
@@ -63,5 +75,19 @@ public class Student {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentId=" + studentId +
+                ", studentNum='" + studentNum + '\'' +
+                ", studentName='" + studentName + '\'' +
+                ", sex=" + sex +
+                ", age=" + age +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", birthday=" + birthday +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

@@ -1,6 +1,6 @@
 package org.fatmansoft.teach.security.services;
 
-import org.fatmansoft.teach.models.User;
+import org.fatmansoft.teach.models.system.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import org.fatmansoft.teach.repository.UserRepository;
+import org.fatmansoft.teach.repository.system.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

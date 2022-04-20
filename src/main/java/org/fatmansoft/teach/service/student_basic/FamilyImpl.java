@@ -25,7 +25,7 @@ public class FamilyImpl {
 
     public Integer studentId;
 
-    public List<Object> getFamilyMapList() {
+    public List<Object> queryFamilyMapList() {
         List<Object> result = new ArrayList<>();
         List<Family> familyList = familyRepository.findFamilyByStudent_StudentId(studentId);
         if (familyList.size() == 0) {
@@ -46,7 +46,7 @@ public class FamilyImpl {
         return result;
     }
 
-    Map<String, Object> getFamilyDetail(Integer id) {
+    Map<String, Object> queryFamilyDetail(Integer id) {
         Family family = getFamily(id);
         Map<String, Object> resultMap = new HashMap<>(16);
         if (family != null) {
@@ -60,7 +60,7 @@ public class FamilyImpl {
         return resultMap;
     }
 
-    public Integer saveFamily(Family familyData) {
+    public Integer insertFamily(Family familyData) {
         Family family = getFamily(familyData.getFamilyId());
         Integer maxFamilyId = null;
         if (family == null) {
@@ -89,7 +89,7 @@ public class FamilyImpl {
         return maxFamilyId;
     }
 
-    public void deleteFamily(Integer familyId) {
+    public void dropFamily(Integer familyId) {
         Family family = getFamily(familyId);
         Student relatedStudent;
         Optional<Student> opStudent = studentRepository.findById(studentId);
