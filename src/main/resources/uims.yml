@@ -1033,3 +1033,42 @@ uims:
         - type: date
           prop: time
           label: 日期
+    - name: outing
+      type: table
+      title: 外出记录
+      showAdd: 1
+      item:
+        - type: text
+          prop: name
+          label: 名称
+        - type: text
+          prop: content
+          label: 内容
+        - type: text
+          prop: location
+          label: 地点
+        - type: text
+          prop: time
+          label: 时间
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit
+    - name: outingEdit
+      type: form
+      title: 外出记录
+      item:
+        - type: input
+          prop: name
+          label: 名称
+        - type: input
+          prop: content
+          label: 内容
+        - type: input
+          prop: location
+          label: 地点
+        - type: date
+          prop: time
+          label: 时间
