@@ -3,13 +3,15 @@ uims:
     - name: student
       title: 学生管理
     - name: studentAcademic
+      title: 学生课程
+    - name: academicActivity
       title: 教研活动
     - name: course
       title: 课程管理
   page:
     - name: studentAcademic
       type: table
-      title: 教研活动
+      title: 学生课程
       showAdd: 1
       item:
         - type: text
@@ -30,6 +32,35 @@ uims:
         - type: link
           prop: checkout
           label: 考勤
+    - name: academicActivity
+      type: table
+      title: 教研活动
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: link
+          prop: practice
+          label: 社会实践
+        - type: link
+          prop: competition
+          label: 学科竞赛
+        - type: link
+          prop: innovationProject
+          label: 创新创业
+        - type: link
+          prop: internship
+          label: 校外实习
+        - type: link
+          prop: lecture
+          label: 学术讲座
+        - type: link
+          prop: scientificResult
+          label: 科研成果
     - name: student
       type: table
       title: 学生管理
@@ -179,79 +210,6 @@ uims:
         - type: date
           prop: time
           label: 获得日期
-    - name: practiceActivity
-      type: table
-      title: 实践信息
-      showAdd: 1
-      item:
-        - type: text
-          prop: studentNum
-          label: 学号
-        - type: link
-          prop: studentName
-          label: 姓名
-        - type: text
-          prop: practiceType
-          label: 实践类型
-        - type: text
-          prop: practiceName
-          label: 活动名称
-        - type: text
-          prop: location
-          label: 地点
-        - type: text
-          prop: teamMember
-          label: 成员
-        - type: text
-          prop: startTime
-          label: 开始日期
-        - type: text
-          prop: endTime
-          label: 结束日期
-        - type: opers
-          label: 操作
-          opers:
-            - name: edit
-            - name: delete
-            - name: detail
-    - name: practiceActivityEdit
-      type: form
-      title: 实践管理
-      item:
-        - type: input
-          prop: studentName
-          label: 姓名
-        - type: select
-          prop: practiceType
-          label: 活动类型
-          option:
-            - value: 1
-              label: 社会实践
-            - value: 2
-              label: 学科竞赛
-            - value: 3
-              label: 科技成果
-            - value: 4
-              label: 培训讲座
-            - value: 5
-              label: 创新项目
-            - value: 6
-              label: 校外实习
-        - type: input
-          prop: practiceName
-          label: 活动名称
-        - type: input
-          prop: location
-          label: 地点
-        - type: input
-          prop: teamMember
-          label: 成员
-        - type: date
-          prop: startTime
-          label: 开始日期
-        - type: date
-          prop: endTime
-          label: 结束日期
     - name: dailyActivity
       type: table
       title: 日常活动
@@ -766,3 +724,567 @@ uims:
         - type: input
           prop: courseName
           label: 课程名称
+    - name: practice
+      type: table
+      title: 社会实践
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: name
+          label: sda
+        - type: text
+          prop: content
+          label: 学号
+        - type: text
+          prop: principal
+          label: principal
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit
+    - name: practiceEdit
+      type: form
+      title: 社会实践
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: name
+          label: sda
+        - type: text
+          prop: content
+          label: 学号
+        - type: text
+          prop: principal
+          label: principal
+    - name: competition
+      type: table
+      title: 学科竞赛
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: name
+          label: 名称
+        - type: text
+          prop: type
+          label: 类型
+        - type: text
+          prop: organizer
+          label: 组织方
+        - type: text
+          prop: award
+          label: 奖项
+        - type: text
+          prop: time
+          label: 时间
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit
+    - name: competitionEdit
+      type: form
+      title: 学科竞赛
+      item:
+        - type: input
+          prop: studentNum
+          label: 学号
+        - type: input
+          prop: studentName
+          label: 姓名
+        - type: input
+          prop: name
+          label: 名称
+        - type: input
+          prop: type
+          label: 类型
+        - type: input
+          prop: organizer
+          label: 组织方
+        - type: input
+          prop: award
+          label: 奖项
+        - type: date
+          prop: time
+          label: 时间
+    - name: innovationProject
+      type: table
+      title: 创新创业
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: content
+          label: 内容
+        - type: text
+          prop: principal
+          label: 忘了
+        - type: text
+          prop: advisor
+          label: 指导人
+        - type: text
+          prop: organization
+          label: 组织
+        - type: text
+          prop: description
+          label: 备注
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit
+    - name: innovationProjectEdit
+      type: form
+      title: 创新创业
+      item:
+        - type: input
+          prop: content
+          label: 内容
+        - type: input
+          prop: principal
+          label: 忘了
+        - type: input
+          prop: advisor
+          label: 指导人
+        - type: input
+          prop: organization
+          label: 组织
+        - type: input
+          prop: description
+          label: 备注
+    - name: internship
+      type: table
+      title: 校外实习
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: organization
+          label: 公司
+        - type: text
+          prop: content
+          label: 工作内容
+        - type: text
+          prop: location
+          label: 地点
+        - type: text
+          prop: start_time
+          label: 开始时间
+        - type: text
+          prop: end_time
+          label: 结束时间
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit
+    - name: internshipEdit
+      type: form
+      title: 校外实习
+      item:
+        - type: input
+          prop: organization
+          label: 公司
+        - type: input
+          prop: content
+          label: 工作内容
+        - type: input
+          prop: location
+          label: 地点
+        - type: date
+          prop: start_time
+          label: 开始时间
+        - type: date
+          prop: end_time
+          label: 结束时间
+    - name: lecture
+      type: table
+      title: 学术讲座
+      showAdd: 1
+      item:
+        - type: text
+          prop: theme
+          label: 主题
+        - type: text
+          prop: presenter
+          label: 主讲人
+        - type: text
+          prop: location
+          label: 地点
+        - type: text
+          prop: time
+          label: 日期
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit
+    - name: lectureEdit
+      type: form
+      title: 学术讲座
+      item:
+        - type: input
+          prop: theme
+          label: 主题
+        - type: input
+          prop: presenter
+          label: 主讲人
+        - type: input
+          prop: location
+          label: 地点
+        - type: input
+          prop: time
+          label: 日期
+    - name: scientificResult
+      type: table
+      title: 科研成果
+      showAdd: 1
+      item:
+        - type: text
+          prop: name
+          label: 名称
+        - type: text
+          prop: content
+          label: 内容
+        - type: text
+          prop: author
+          label: 作者
+        - type: text
+          prop: level
+          label: 级别
+        - type: text
+          prop: time
+          label: 日期
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit
+    - name: scientificResultEdit
+      type: form
+      title: 科研成果
+      item:
+        - type: input
+          prop: name
+          label: 名称
+        - type: input
+          prop: content
+          label: 内容
+        - type: input
+          prop: author
+          label: 作者
+        - type: input
+          prop: level
+          label: 级别
+        - type: date
+          prop: time
+          label: 日期
+    - name: practice
+      type: table
+      title: 社会实践
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: name
+          label: sda
+        - type: text
+          prop: content
+          label: 学号
+        - type: text
+          prop: principal
+          label: principal
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit
+    - name: practiceEdit
+      type: form
+      title: 社会实践
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: name
+          label: sda
+        - type: text
+          prop: content
+          label: 学号
+        - type: text
+          prop: principal
+          label: principal
+    - name: competition
+      type: table
+      title: 学科竞赛
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: name
+          label: 名称
+        - type: text
+          prop: type
+          label: 类型
+        - type: text
+          prop: organizer
+          label: 组织方
+        - type: text
+          prop: award
+          label: 奖项
+        - type: text
+          prop: time
+          label: 时间
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit
+    - name: competitionEdit
+      type: form
+      title: 学科竞赛
+      item:
+        - type: input
+          prop: studentNum
+          label: 学号
+        - type: input
+          prop: studentName
+          label: 姓名
+        - type: input
+          prop: name
+          label: 名称
+        - type: input
+          prop: type
+          label: 类型
+        - type: input
+          prop: organizer
+          label: 组织方
+        - type: input
+          prop: award
+          label: 奖项
+        - type: date
+          prop: time
+          label: 时间
+    - name: innovationProject
+      type: table
+      title: 创新创业
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: content
+          label: 内容
+        - type: text
+          prop: principal
+          label: 忘了
+        - type: text
+          prop: advisor
+          label: 指导人
+        - type: text
+          prop: organization
+          label: 组织
+        - type: text
+          prop: description
+          label: 备注
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit
+    - name: innovationProjectEdit
+      type: form
+      title: 创新创业
+      item:
+        - type: input
+          prop: content
+          label: 内容
+        - type: input
+          prop: principal
+          label: 忘了
+        - type: input
+          prop: advisor
+          label: 指导人
+        - type: input
+          prop: organization
+          label: 组织
+        - type: input
+          prop: description
+          label: 备注
+    - name: internship
+      type: table
+      title: 校外实习
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: organization
+          label: 公司
+        - type: text
+          prop: content
+          label: 工作内容
+        - type: text
+          prop: location
+          label: 地点
+        - type: text
+          prop: start_time
+          label: 开始时间
+        - type: text
+          prop: end_time
+          label: 结束时间
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit
+    - name: internshipEdit
+      type: form
+      title: 校外实习
+      item:
+        - type: input
+          prop: organization
+          label: 公司
+        - type: input
+          prop: content
+          label: 工作内容
+        - type: input
+          prop: location
+          label: 地点
+        - type: date
+          prop: start_time
+          label: 开始时间
+        - type: date
+          prop: end_time
+          label: 结束时间
+    - name: lecture
+      type: table
+      title: 学术讲座
+      showAdd: 1
+      item:
+        - type: text
+          prop: theme
+          label: 主题
+        - type: text
+          prop: presenter
+          label: 主讲人
+        - type: text
+          prop: location
+          label: 地点
+        - type: text
+          prop: time
+          label: 日期
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit
+    - name: lectureEdit
+      type: form
+      title: 学术讲座
+      item:
+        - type: input
+          prop: theme
+          label: 主题
+        - type: input
+          prop: presenter
+          label: 主讲人
+        - type: input
+          prop: location
+          label: 地点
+        - type: input
+          prop: time
+          label: 日期
+    - name: scientificResult
+      type: table
+      title: 科研成果
+      showAdd: 1
+      item:
+        - type: text
+          prop: name
+          label: 名称
+        - type: text
+          prop: content
+          label: 内容
+        - type: text
+          prop: author
+          label: 作者
+        - type: text
+          prop: level
+          label: 级别
+        - type: text
+          prop: time
+          label: 日期
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit
+    - name: scientificResultEdit
+      type: form
+      title: 科研成果
+      item:
+        - type: input
+          prop: name
+          label: 名称
+        - type: input
+          prop: content
+          label: 内容
+        - type: input
+          prop: author
+          label: 作者
+        - type: input
+          prop: level
+          label: 级别
+        - type: date
+          prop: time
+          label: 日期
