@@ -69,7 +69,7 @@ public class PracticeImpl {
     private Practice getPractice(Integer practiceId) {
         Practice practice = null;
         Optional<Practice> op;
-        if (practice != null) {
+        if (practiceId != null) {
             op = practiceRepository.findById(practiceId);
             if (op.isPresent()) {
                 practice = op.get();

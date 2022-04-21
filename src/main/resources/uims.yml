@@ -52,6 +52,9 @@ uims:
         - type: link
           prop: innovationProject
           label: 创新创业
+        - type: link
+          prop: internship
+          label: 校外实习
     - name: student
       type: table
       title: 学生管理
@@ -865,3 +868,57 @@ uims:
         - type: input
           prop: description
           label: 备注
+    - name: internship
+      type: table
+      title: 校外实习
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: organization
+          label: 公司
+        - type: text
+          prop: content
+          label: 工作内容
+        - type: text
+          prop: location
+          label: 地点
+        - type: text
+          prop: start_time
+          label: 开始时间
+        - type: text
+          prop: end_time
+          label: 结束时间
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit
+    - name: internshipEdit
+      type: form
+      title: 校外实习
+      item:
+        - type: input
+          prop: organization
+          label: 公司
+        - type: input
+          prop: content
+          label: 工作内容
+        - type: input
+          prop: location
+          label: 地点
+        - type: date
+          prop: start_time
+          label: 开始时间
+        - type: date
+          prop: end_time
+          label: 结束时间
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit

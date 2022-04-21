@@ -7,6 +7,7 @@ import org.fatmansoft.teach.models.academic.HomeWork;
 import org.fatmansoft.teach.models.academic.Score;
 import org.fatmansoft.teach.models.academic_activity.Competition;
 import org.fatmansoft.teach.models.academic_activity.InnovationProject;
+import org.fatmansoft.teach.models.academic_activity.Internship;
 import org.fatmansoft.teach.models.academic_activity.Practice;
 import org.fatmansoft.teach.service.academic_activity.InnovationProjectImpl;
 import org.hibernate.Hibernate;
@@ -76,6 +77,9 @@ public class Student {
 
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
     private Set<InnovationProject> innovationProjects;
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private Set<Internship> internships;
 
     @Override
     public boolean equals(Object o) {
