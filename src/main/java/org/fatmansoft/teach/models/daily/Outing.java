@@ -11,7 +11,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "outing", uniqueConstraints = {@UniqueConstraint(columnNames = "oouting_id")})
+@Table(name = "outing", uniqueConstraints = {@UniqueConstraint(columnNames = "outing_id")})
 @Setter
 @Getter
 @NoArgsConstructor
