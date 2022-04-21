@@ -81,6 +81,9 @@ public class Student {
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
     private Set<Lecture> lectures;
 
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private Set<ScientificResult> scientificResults;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

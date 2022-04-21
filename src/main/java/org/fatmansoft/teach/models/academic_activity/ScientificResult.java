@@ -19,7 +19,7 @@ import java.util.Date;
 public class ScientificResult {
     @Id
     @Column(name = "scientific_result_id")
-    private String scientificResultId;
+    private Integer scientificResultId;
     @Column(name = "name")
     private String name;
     @Column(name = "content")

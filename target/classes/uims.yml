@@ -58,6 +58,9 @@ uims:
         - type: link
           prop: lecture
           label: 学术讲座
+        - type: link
+          prop: scientificResult
+          label: 科研成果
     - name: student
       type: table
       title: 学生管理
@@ -956,5 +959,50 @@ uims:
           prop: location
           label: 地点
         - type: input
+          prop: time
+          label: 日期
+    - name: scientificResult
+      type: table
+      title: 科研成果
+      showAdd: 1
+      item:
+        - type: text
+          prop: name
+          label: 名称
+        - type: text
+          prop: content
+          label: 内容
+        - type: text
+          prop: author
+          label: 作者
+        - type: text
+          prop: level
+          label: 级别
+        - type: text
+          prop: time
+          label: 日期
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit
+    - name: scientificResultEdit
+      type: form
+      title: 科研成果
+      item:
+        - type: input
+          prop: name
+          label: 名称
+        - type: input
+          prop: content
+          label: 内容
+        - type: input
+          prop: author
+          label: 作者
+        - type: input
+          prop: level
+          label: 级别
+        - type: date
           prop: time
           label: 日期

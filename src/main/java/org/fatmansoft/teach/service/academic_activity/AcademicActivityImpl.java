@@ -59,6 +59,10 @@ public class AcademicActivityImpl {
             tempMap.put("lecture", "shi");
             tempMap.put("lectureParas", lectureParas);
 
+            String scientificResultParas = "model=scientificResult&studentId=" + student.getStudentId();
+            tempMap.put("scientificResult", "shi");
+            tempMap.put("scientificResultParas", scientificResultParas);
+
             result.add(tempMap);
         }
         return result;
