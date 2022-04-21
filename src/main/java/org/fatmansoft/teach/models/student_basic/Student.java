@@ -5,6 +5,8 @@ import org.fatmansoft.teach.models.academic.Checkout;
 import org.fatmansoft.teach.models.academic.CourseSelection;
 import org.fatmansoft.teach.models.academic.HomeWork;
 import org.fatmansoft.teach.models.academic.Score;
+import org.fatmansoft.teach.models.academic_activity.*;
+import org.fatmansoft.teach.service.academic_activity.InnovationProjectImpl;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -63,6 +65,24 @@ public class Student {
     
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
     private Set<Score> scores;
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private Set<Practice> practices;
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private Set<Competition> competitions;
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private Set<InnovationProject> innovationProjects;
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private Set<Internship> internships;
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private Set<Lecture> lectures;
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private Set<ScientificResult> scientificResults;
 
     @Override
     public boolean equals(Object o) {
