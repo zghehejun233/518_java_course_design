@@ -537,10 +537,10 @@ uims:
       showAdd: 1
       item:
         - type: text
-          prop: costName
+          prop: description
           label: 支出用途
         - type: text
-          prop: costMoney
+          prop: amout
           label: 支出
         - type: text
           prop: time
@@ -556,10 +556,10 @@ uims:
       title: 消费管理
       item:
         - type: input
-          prop: costName
+          prop: description
           label: 支出用途
         - type: input
-          prop: costMoney
+          prop: amount
           label: 支出
         - type: date
           prop: time

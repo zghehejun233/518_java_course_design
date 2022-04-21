@@ -28,7 +28,7 @@ public class ActivityImpl {
 
     List<Object> queryAllActivity() {
         List<Object> result = new ArrayList<>();
-List<Activity> activityList = activityRepository.findActivitiesByStudent_StudentId(studentId);
+        List<Activity> activityList = activityRepository.findActivitiesByStudent_StudentId(studentId);
         if (activityList.size() == 0) {
             return result;
         }
@@ -37,27 +37,27 @@ List<Activity> activityList = activityRepository.findActivitiesByStudent_Student
         for (Activity value : activityList) {
             activity = value;
             tempMap = new HashMap<>();
-            tempMap.put("id",activity.getActivityId());
-            tempMap.put("name",activity.getName());
-            tempMap.put("principal",activity.getPrincipal());
-            tempMap.put("content",activity.getContent());
-            tempMap.put("location",activity.getLocation());
-            tempMap.put("time",activity.getTime());
+            tempMap.put("id", activity.getActivityId());
+            tempMap.put("name", activity.getName());
+            tempMap.put("principal", activity.getPrincipal());
+            tempMap.put("content", activity.getContent());
+            tempMap.put("location", activity.getLocation());
+            tempMap.put("time", activity.getTime());
             result.add(tempMap);
         }
         return result;
     }
 
     Map<String, Object> queryActivityDetail(Integer activityId) {
-       Activity activity = getActivity(activityId);
+        Activity activity = getActivity(activityId);
         Map<String, Object> resultMap = new HashMap<>();
         if (activity != null) {
-            resultMap.put("id",activity.getActivityId());
-            resultMap.put("name",activity.getName());
-            resultMap.put("principal",activity.getPrincipal());
-            resultMap.put("content",activity.getContent());
-            resultMap.put("location",activity.getLocation());
-            resultMap.put("time",activity.getTime());
+            resultMap.put("id", activity.getActivityId());
+            resultMap.put("name", activity.getName());
+            resultMap.put("principal", activity.getPrincipal());
+            resultMap.put("content", activity.getContent());
+            resultMap.put("location", activity.getLocation());
+            resultMap.put("time", activity.getTime());
         }
         return resultMap;
     }
@@ -65,12 +65,14 @@ List<Activity> activityList = activityRepository.findActivitiesByStudent_Student
     public Integer insertActivity(Activity activityData) {
         Activity activity = getActivity(activityData.getActivityId());
         Integer maxActivityId = null;
-        if (activity==null){
+        if (activity == null) {
             activity = new Activity();
             maxActivityId = activityRepository.getMaxId();
-            if (maxActivityId==null){
-                maxActivityId=1;
-            }else {maxActivityId+=1;}
+            if (maxActivityId == null) {
+                maxActivityId = 1;
+            } else {
+                maxActivityId += 1;
+            }
             activity.setActivityId(maxActivityId);
         }
         activity.setName(activityData.getName());
