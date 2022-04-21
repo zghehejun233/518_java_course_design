@@ -20,7 +20,7 @@ public class Leave {
     @Column(name = "state")
     private Integer state;
     @Column(name = "type")
-    private Date type;
+    private Integer type;
     @Column(name = "time")
     private Date time;
 

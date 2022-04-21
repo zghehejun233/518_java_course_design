@@ -306,11 +306,14 @@ uims:
           prop: reason
           label: 请假原因
         - type: text
-          prop: startTime
-          label: 开始时间
+          prop: state
+          label: 状态
         - type: text
-          prop: endTime
-          label: 结束时间
+          prop: type
+          label: 类型
+        - type: text
+          prop: time
+          label: 时间
         - type: opers
           label: 操作
           opers:
@@ -322,17 +325,17 @@ uims:
       title: 请假管理
       item:
         - type: input
-          prop: studentName
-          label: 姓名
-        - type: input
           prop: reason
           label: 请假原因
-        - type: date
-          prop: startTime
-          label: 开始时间
-        - type: date
-          prop: endTime
-          label: 结束时间
+        - type: input
+          prop: state
+          label: 状态
+        - type: input
+          prop: type
+          label: 类型
+        - type: input
+          prop: time
+          label: 时间
     - name: course
       type: table
       title: 课程管理
