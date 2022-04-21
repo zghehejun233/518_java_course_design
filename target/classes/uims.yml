@@ -49,6 +49,9 @@ uims:
         - type: link
           prop: competition
           label: 学科竞赛
+        - type: link
+          prop: innovationProject
+          label: 创新创业
     - name: student
       type: table
       title: 学生管理
@@ -814,3 +817,51 @@ uims:
         - type: date
           prop: time
           label: 时间
+    - name: innovationProject
+      type: table
+      title: 创新创业
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: content
+          label: 内容
+        - type: text
+          prop: principal
+          label: 忘了
+        - type: text
+          prop: advisor
+          label: 指导人
+        - type: text
+          prop: organization
+          label: 组织
+        - type: text
+          prop: description
+          label: 备注
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit
+    - name: innovationProjectEdit
+      type: form
+      title: 创新创业
+      item:
+        - type: input
+          prop: content
+          label: 内容
+        - type: input
+          prop: principal
+          label: 忘了
+        - type: input
+          prop: advisor
+          label: 指导人
+        - type: input
+          prop: organization
+          label: 组织
+        - type: input
+          prop: description
+          label: 备注
