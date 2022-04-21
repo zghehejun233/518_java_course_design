@@ -783,6 +783,12 @@ uims:
         - type: text
           prop: time
           label: 时间
+        - type: opers
+          label: 操作
+          opers:
+            - name: delete
+            - name: detail
+            - name: edit
     - name: competitionEdit
       type: form
       title: 学科竞赛
