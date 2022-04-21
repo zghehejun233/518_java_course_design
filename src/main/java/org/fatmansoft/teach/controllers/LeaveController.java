@@ -1,6 +1,6 @@
 package org.fatmansoft.teach.controllers;
 
-import org.fatmansoft.teach.models.Leave;
+import org.fatmansoft.teach.models.daily.Leave;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.repository.LeaveRepository;

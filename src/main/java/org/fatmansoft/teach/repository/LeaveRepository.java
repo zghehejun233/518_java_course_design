@@ -1,6 +1,6 @@
 package org.fatmansoft.teach.repository;
 
-import org.fatmansoft.teach.models.Leave;
+import org.fatmansoft.teach.models.daily.Leave;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -1,6 +1,6 @@
 package org.fatmansoft.teach.controllers;
 
-import org.fatmansoft.teach.models.Achievement;
+import org.fatmansoft.teach.models.daily.Achievement;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.repository.AchievementRepository;

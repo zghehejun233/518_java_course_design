@@ -1,6 +1,6 @@
 package org.fatmansoft.teach.controllers;
 
-import org.fatmansoft.teach.models.DailyActivity;
+import org.fatmansoft.teach.models.daily.Activity;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.repository.DailyActivityRepository;
@@ -24,11 +24,11 @@ public class DailyActivityController {
 
     public List getDailyActivityMapList(String numName) {
         List dataList = new ArrayList();
-        List<DailyActivity> dList = dailyActivityRepository.findAll();
+        List<Activity> dList = dailyActivityRepository.findAll();
         if (dList == null || dList.size() == 0) {
             return dataList;
         }
-        DailyActivity d;
+        Activity d;
         Map m;
         for (int i = 0; i < dList.size(); i++) {
             // 实例化a
@@ -78,8 +78,8 @@ public class DailyActivityController {
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse dailyActivityEditInit(@Valid @RequestBody DataRequest dataRequest){
         Integer id = dataRequest.getInteger("id");
-        DailyActivity d = null;
-        Optional<DailyActivity> op;
+        Activity d = null;
+        Optional<Activity> op;
         if (id != null) {
             op = dailyActivityRepository.findById(id);
             if (op.isPresent()) {
@@ -101,8 +101,8 @@ public class DailyActivityController {
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse dailyActivityDelete(@Valid @RequestBody DataRequest dataRequest){
         Integer id = dataRequest.getInteger("id");
-        DailyActivity d = null;
-        Optional<DailyActivity> op;
+        Activity d = null;
+        Optional<Activity> op;
         if (id != null) {
             op = dailyActivityRepository.findById(id);
             if (op.isPresent()) {
@@ -126,8 +126,8 @@ public class DailyActivityController {
         String location = CommonMethod.getString(form,"location");
         Date time = CommonMethod.getDate(form,"time");
 
-        DailyActivity d = null;
-        Optional<DailyActivity> op;
+        Activity d = null;
+        Optional<Activity> op;
 
         if (id!=null){
             op = dailyActivityRepository.findById(id);
@@ -136,7 +136,7 @@ public class DailyActivityController {
             }
         }
         if (d == null){
-            d = new DailyActivity();
+            d = new Activity();
             id = dailyActivityRepository.getMaxId();
             if(id ==null){
                 id = 1;

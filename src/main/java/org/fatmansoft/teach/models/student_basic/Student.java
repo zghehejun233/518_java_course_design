@@ -6,6 +6,7 @@ import org.fatmansoft.teach.models.academic.CourseSelection;
 import org.fatmansoft.teach.models.academic.HomeWork;
 import org.fatmansoft.teach.models.academic.Score;
 import org.fatmansoft.teach.models.academic_activity.*;
+import org.fatmansoft.teach.models.daily.*;
 import org.fatmansoft.teach.service.academic_activity.InnovationProjectImpl;
 import org.hibernate.Hibernate;
 
@@ -83,6 +84,21 @@ public class Student {
 
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
     private Set<ScientificResult> scientificResults;
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private Set<Activity> activities;
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private Set<Outing> outings;
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private Set<Leave> leaves;
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private Set<Cost> costs;
+
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    private Set<Achievement> achievements;
 
     @Override
     public boolean equals(Object o) {
