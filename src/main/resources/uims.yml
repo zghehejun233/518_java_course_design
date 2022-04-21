@@ -237,7 +237,7 @@ uims:
         - type: date
           prop: time
           label: 获得日期
-    - name: dailyActivity
+    - name: activity
       type: table
       title: 日常活动
       showAdd: 1
@@ -249,10 +249,10 @@ uims:
           prop: studentName
           label: 姓名
         - name: text
-          prop: activityType
+          prop: type
           label: 活动类型
         - name: text
-          prop: activityName
+          prop: name
           label: 活动名称
         - type: text
           prop: location
@@ -266,15 +266,12 @@ uims:
             - name: edit
             - name: delete
             - name: detail
-    - name: dailyActivityEdit
+    - name: activityEdit
       type: form
       title: 活动管理
       item:
-        - type: input
-          prop: studentName
-          label: 姓名
         - type: select
-          prop: activityType
+          prop: type
           label: 活动类型
           option:
             - value: 1
@@ -286,7 +283,7 @@ uims:
             - value: 4
               label: 聚会
         - type: input
-          prop: activityName
+          prop: name
           label: 活动名称
         - type: input
           prop: location
