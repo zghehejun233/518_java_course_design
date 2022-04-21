@@ -43,6 +43,10 @@ public class AcademicActivityImpl {
             tempMap.put("practice", "shi");
             tempMap.put("practiceParas", practiceParas);
 
+            String competitionParas = "model=competition&studentId=" + student.getStudentId();
+            tempMap.put("competition", "shi");
+            tempMap.put("competitionParas", competitionParas);
+
             result.add(tempMap);
         }
         return result;

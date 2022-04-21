@@ -46,6 +46,9 @@ uims:
         - type: link
           prop: practice
           label: 社会实践
+        - type: link
+          prop: competition
+          label: 学科竞赛
     - name: student
       type: table
       title: 学生管理
@@ -754,3 +757,54 @@ uims:
         - type: text
           prop: principal
           label: principal
+    - name: competition
+      type: table
+      title: 学科竞赛
+      showAdd: 1
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: text
+          prop: name
+          label: 名称
+        - type: text
+          prop: type
+          label: 类型
+        - type: text
+          prop: organizer
+          label: 组织方
+        - type: text
+          prop: award
+          label: 奖项
+        - type: text
+          prop: time
+          label: 时间
+    - name: competitionEdit
+      type: form
+      title: 学科竞赛
+      item:
+        - type: input
+          prop: studentNum
+          label: 学号
+        - type: input
+          prop: studentName
+          label: 姓名
+        - type: input
+          prop: name
+          label: 名称
+        - type: input
+          prop: type
+          label: 类型
+        - type: input
+          prop: organizer
+          label: 组织方
+        - type: input
+          prop: award
+          label: 奖项
+        - type: date
+          prop: time
+          label: 时间
