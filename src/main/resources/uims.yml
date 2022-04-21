@@ -55,6 +55,9 @@ uims:
         - type: link
           prop: internship
           label: 校外实习
+        - type: link
+          prop: lecture
+          label: 学术讲座
     - name: student
       type: table
       title: 学生管理
@@ -916,9 +919,42 @@ uims:
         - type: date
           prop: end_time
           label: 结束时间
+    - name: lecture
+      type: table
+      title: 学术讲座
+      showAdd: 1
+      item:
+        - type: text
+          prop: theme
+          label: 主题
+        - type: text
+          prop: presenter
+          label: 主讲人
+        - type: text
+          prop: location
+          label: 地点
+        - type: text
+          prop: time
+          label: 日期
         - type: opers
           label: 操作
           opers:
             - name: delete
             - name: detail
             - name: edit
+    - name: lectureEdit
+      type: form
+      title: 学术讲座
+      item:
+        - type: input
+          prop: theme
+          label: 主题
+        - type: input
+          prop: presenter
+          label: 主讲人
+        - type: input
+          prop: location
+          label: 地点
+        - type: input
+          prop: time
+          label: 日期
