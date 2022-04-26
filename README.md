@@ -12,7 +12,6 @@
 
 ### Git Commit代码提交规范
 
-#### commit message格式
 
 git commit 提交样式规范：
 
