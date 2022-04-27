@@ -56,7 +56,7 @@ public class IntroduceController {
     //  学生个人简历页面
     //在系统在主界面内点击个人简历，后台准备个人简历所需要的各类数据组成的段落数据，在前端显示
     @PostMapping("/getStudentIntroduceData")
-    @PreAuthorize(" hasRole('ADMIN')")
+    //@PreAuthorize(" hasRole('ADMIN')")
     public DataResponse getStudentIntroduceData(@Valid @RequestBody DataRequest dataRequest) {
         Integer studentId = dataRequest.getInteger("studentId");
         Map data = introduceService.getIntroduceDataMap(studentId);
