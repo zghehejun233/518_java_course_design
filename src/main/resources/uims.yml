@@ -71,7 +71,7 @@ uims:
         - type: text
           prop: studentNum
           label: 学号
-        - type: text
+        - type: link
           prop: studentName
           label: 姓名
         - type: text

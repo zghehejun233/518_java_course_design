@@ -36,7 +36,10 @@ public class StudentImpl {
             tempMap = new HashMap<>();
             tempMap.put("id", student.getStudentId());
             tempMap.put("studentNum", student.getStudentNum());
-            tempMap.put("studentName", student.getStudentName());
+            String studentNameParas = "model=introduce&studentId=" + student.getStudentId();
+            tempMap.put("studentName",student.getStudentName());
+            tempMap.put("studentNameParas",studentNameParas);
+
             if (Integer.valueOf(1).equals(student.getSex())) {
                 tempMap.put("sex", "男");
             } else if (Integer.valueOf(2).equals(student.getSex())) {

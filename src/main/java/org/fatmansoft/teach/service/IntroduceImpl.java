@@ -1,5 +1,7 @@
 package org.fatmansoft.teach.service;
 
+import org.fatmansoft.teach.SystemApplicationListener;
+import org.fatmansoft.teach.dto.AverageScoreDTO;
 import org.fatmansoft.teach.dto.StudentScoresDTO;
 import org.fatmansoft.teach.models.academic.CourseSelection;
 import org.fatmansoft.teach.models.academic.Score;
@@ -22,6 +24,18 @@ public class IntroduceImpl {
     @Resource
     private StudentRepository studentRepository;
 
+    public Student getStudent(Integer studentId) {
+        Student student = null;
+        Optional<Student> op;
+        if (studentId != null) {
+            op = studentRepository.findById(studentId);
+            if (op.isPresent()) {
+                student = op.get();
+            }
+        }
+        return student;
+    }
+
     public List<StudentScoresDTO> getScoreData(Integer studentId) {
         List<StudentScoresDTO> resultList = new ArrayList<>();
         Student student = null;
@@ -40,15 +54,52 @@ public class IntroduceImpl {
                 temp.setCourse(value.getCourse().getName());
                 temp.setCredit(value.getCourse().getCredit());
                 Set<CourseSelection> tempRelatedCourseSelection = value.getCourse().getCourseSelections();
+
                 for (CourseSelection relatedCourse : tempRelatedCourseSelection) {
                     Integer id = relatedCourse.getStudent().getStudentId();
                     if (studentId.equals(id)) {
                         temp.setType(relatedCourse.getType());
                     }
                 }
+
+                System.out.println(temp);
                 resultList.add(temp);
             }
         }
+        System.out.println("最后找到列表的长度为：" + resultList.size());
         return resultList;
+    }
+
+    public AverageScoreDTO getAverage(List<StudentScoresDTO> data) {
+        final int COMMON_FULL_SCORE = 100;
+        final int BASE_SCORE = 50;
+
+        double averageScoreForAll = 0;
+        int fullScoreForAll = 0;
+        double averageScoreForMajor = 0;
+        int fullScoreForMajor = 0;
+
+        for (StudentScoresDTO value : data) {
+            averageScoreForAll += value.getScore();
+            fullScoreForAll += COMMON_FULL_SCORE;
+            try{
+            if (value.getType().equals("1")) {
+                averageScoreForMajor += value.getScore();
+                fullScoreForMajor += COMMON_FULL_SCORE;
+            }}catch (NullPointerException nullPointerException){
+                SystemApplicationListener.logger.warn("存在未指定的记分方式");
+                SystemApplicationListener.logger.warn(nullPointerException.toString());
+            }catch (Exception e){
+                SystemApplicationListener.logger.warn(e.toString());
+            }
+        }
+        return new AverageScoreDTO(
+                averageScoreForAll / fullScoreForAll,
+                0.1 * (averageScoreForAll / fullScoreForAll - BASE_SCORE),
+                averageScoreForMajor / fullScoreForMajor,
+                0.1 * (averageScoreForMajor / fullScoreForMajor - BASE_SCORE)
+        );
+
+
     }
 }
