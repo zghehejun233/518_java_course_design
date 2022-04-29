@@ -27,7 +27,8 @@ public class IntroduceService {
 
         Map data = new HashMap();
         data.put("myName", student.getStudentName());   // 学生信息
-        data.put("overview", "Hello!");  //学生基本信息综述
+        data.put("overview", "Hello!");
+        data.put("img_url","");//学生基本信息综述
         List<Object> attachList = new ArrayList<>();
         Map m;
         m = new HashMap<>();
@@ -35,8 +36,10 @@ public class IntroduceService {
         m.put("content", averageScoreDTO.getAverageScoreForAll().toString());  // 学生成绩综述
         attachList.add(m);
         m = new HashMap<>();
-        m.put("title", "社会实践");
-        m.put("content", "社会实践...");  // 社会实践综述
+        m.put("title", "自拍");
+        m.put("content", "或许可以用字符画实现<br/> sdadas");  // 社会实践综述
+
+
         attachList.add(m);
         data.put("attachList", attachList);
         return data;

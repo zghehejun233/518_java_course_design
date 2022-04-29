@@ -75,29 +75,44 @@ public class IntroduceImpl {
         final int BASE_SCORE = 50;
 
         double averageScoreForAll = 0;
-        int fullScoreForAll = 0;
         double averageScoreForMajor = 0;
-        int fullScoreForMajor = 0;
+        double fullCreditsForAll = 0;
+        double fullCreditsForMajor = 0;
 
         for (StudentScoresDTO value : data) {
-            averageScoreForAll += value.getScore();
-            fullScoreForAll += COMMON_FULL_SCORE;
-            try{
-            if (value.getType().equals("1")) {
-                averageScoreForMajor += value.getScore();
-                fullScoreForMajor += COMMON_FULL_SCORE;
-            }}catch (NullPointerException nullPointerException){
+            fullCreditsForAll += value.getCredit();
+            try {
+                if (value.getType().equals("1")) {
+                    fullCreditsForMajor += value.getCredit();
+                }
+            } catch (NullPointerException nullPointerException) {
                 SystemApplicationListener.logger.warn("存在未指定的记分方式");
                 SystemApplicationListener.logger.warn(nullPointerException.toString());
-            }catch (Exception e){
+            } catch (Exception e) {
+                SystemApplicationListener.logger.warn(e.toString());
+            }
+        }
+        ;
+
+        for (StudentScoresDTO value : data) {
+            averageScoreForAll += value.getScore() * (value.getCredit() / fullCreditsForAll);
+
+            try {
+                if (value.getType().equals("1")) {
+                    averageScoreForMajor += value.getScore() * (value.getCredit() / fullCreditsForMajor);
+                }
+            } catch (NullPointerException nullPointerException) {
+                SystemApplicationListener.logger.warn("存在未指定的记分方式");
+                SystemApplicationListener.logger.warn(nullPointerException.toString());
+            } catch (Exception e) {
                 SystemApplicationListener.logger.warn(e.toString());
             }
         }
         return new AverageScoreDTO(
-                averageScoreForAll / fullScoreForAll,
-                0.1 * (averageScoreForAll / fullScoreForAll - BASE_SCORE),
-                averageScoreForMajor / fullScoreForMajor,
-                0.1 * (averageScoreForMajor / fullScoreForMajor - BASE_SCORE)
+                averageScoreForAll,
+                0.1 * (averageScoreForAll - BASE_SCORE),
+                averageScoreForMajor,
+                0.1 * (averageScoreForMajor - BASE_SCORE)
         );
 
 
