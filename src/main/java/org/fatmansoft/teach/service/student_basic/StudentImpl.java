@@ -5,15 +5,20 @@ import org.fatmansoft.teach.models.student_basic.Family;
 import org.fatmansoft.teach.models.student_basic.SocialRelation;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;
+import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.*;
 
 /**
  * @author GuoSurui
  */
 @Service
+@Validated
 public class StudentImpl {
     @Resource
     private StudentRepository studentRepository;
@@ -97,7 +102,7 @@ public class StudentImpl {
         return resultMap;
     }
 
-    public Integer insertStudent(Student studentData) {
+    public Integer insertStudent(@Valid Student studentData) {
         Student student = getStudent(studentData.getStudentId());
         Integer maxStudentId = null;
         if (student == null) {

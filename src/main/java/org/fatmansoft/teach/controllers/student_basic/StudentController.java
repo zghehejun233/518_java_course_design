@@ -8,11 +8,16 @@ import org.fatmansoft.teach.service.student_basic.StudentService;
 import org.fatmansoft.teach.util.CommonMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.ConstraintDeclarationException;
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 import java.util.List;
 import java.util.Map;
 
@@ -45,8 +50,15 @@ public class StudentController {
     @PostMapping("/studentEditSubmit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse studentEditSubmit(@Valid @RequestBody DataRequest dataRequest) {
-        Integer result = studentService.saveStudent(dataRequest);
-        return CommonMethod.getReturnData(result);
+        try {
+            Integer result = studentService.saveStudent(dataRequest);
+            return CommonMethod.getReturnData(result);
+        } catch (ValidationException validationException) {
+            String temp = validationException.getLocalizedMessage();
+            return CommonMethod.getReturnMessage("400", temp.substring(temp.substring(0, temp.indexOf(":")).length() + 2));
+        } catch (Exception e) {
+            return CommonMethod.getReturnMessage("400", "Uncaught");
+        }
     }
 
     @PostMapping("/studentDelete")

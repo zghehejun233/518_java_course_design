@@ -11,6 +11,7 @@ import org.fatmansoft.teach.service.academic_activity.InnovationProjectImpl;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
@@ -32,8 +33,10 @@ public class Student {
     @Column(name = "student_id")
     private Integer studentId;
     @Column(name = "student_num")
+    @NotBlank(message = "学号不能为空！")
     private String studentNum;
     @Column(name = "student_name")
+    @NotBlank(message = "姓名不能为空！")
     private String studentName;
     @Column(name = "sex")
     private Integer sex;
