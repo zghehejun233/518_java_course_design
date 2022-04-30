@@ -1,6 +1,7 @@
 package org.fatmansoft.teach.service;
 
 import org.fatmansoft.teach.dto.AverageScoreDTO;
+import org.fatmansoft.teach.dto.CourseRankDTO;
 import org.fatmansoft.teach.dto.StudentScoresDTO;
 import org.fatmansoft.teach.models.academic.Score;
 import org.fatmansoft.teach.models.student_basic.Student;
@@ -24,6 +25,10 @@ public class IntroduceService {
         List<StudentScoresDTO> scoresDTOList = introduce.getScoreData(studentId);
         AverageScoreDTO averageScoreDTO = introduce.getAverage(scoresDTOList);
         Student student = introduce.getStudent(studentId);
+        scoresDTOList = introduce.getCourseRank(studentId,scoresDTOList);
+        for ( StudentScoresDTO value : scoresDTOList) {
+            System.out.println(value.getCourseRankDTO().toString());
+        }
 
         Map data = new HashMap();
         data.put("myName", student.getStudentName());   // 学生信息

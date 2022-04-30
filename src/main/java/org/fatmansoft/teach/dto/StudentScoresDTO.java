@@ -14,6 +14,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class StudentScoresDTO {
     private String course;
+
+    private Integer courseId;
     private Integer score;
     private Double credit;
     private String type;

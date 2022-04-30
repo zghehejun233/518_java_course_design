@@ -4,9 +4,11 @@ import org.fatmansoft.teach.SystemApplicationListener;
 import org.fatmansoft.teach.dto.AverageScoreDTO;
 import org.fatmansoft.teach.dto.CourseRankDTO;
 import org.fatmansoft.teach.dto.StudentScoresDTO;
+import org.fatmansoft.teach.models.academic.Course;
 import org.fatmansoft.teach.models.academic.CourseSelection;
 import org.fatmansoft.teach.models.academic.Score;
 import org.fatmansoft.teach.models.student_basic.Student;
+import org.fatmansoft.teach.repository.academic.CourseRepository;
 import org.fatmansoft.teach.repository.academic.ScoreRepository;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;
 import org.fatmansoft.teach.service.academic.ScoreImpl;
@@ -27,8 +29,16 @@ public class IntroduceImpl {
     @Resource
     private ScoreRepository scoreRepository;
     @Resource
+    private CourseRepository courseRepository;
+    @Resource
     private ScoreImpl score;
 
+    /**
+     * 获取学生对象
+     *
+     * @param studentId 学生Id
+     * @return 返回对象
+     */
     public Student getStudent(Integer studentId) {
         Student student = null;
         Optional<Student> op;
@@ -41,6 +51,12 @@ public class IntroduceImpl {
         return student;
     }
 
+    /**
+     * 获取学生的所有成绩
+     *
+     * @param studentId 学生ID
+     * @return 返回学生的成绩DTO列表
+     */
     public List<StudentScoresDTO> getScoreData(Integer studentId) {
         List<StudentScoresDTO> resultList = new ArrayList<>();
         Student student = null;
@@ -57,6 +73,7 @@ public class IntroduceImpl {
                 StudentScoresDTO temp = new StudentScoresDTO();
                 temp.setScore(value.getScore());
                 temp.setCourse(value.getCourse().getName());
+                temp.setCourseId(value.getCourse().getCourseId());
                 temp.setCredit(value.getCourse().getCredit());
                 Set<CourseSelection> tempRelatedCourseSelection = value.getCourse().getCourseSelections();
 
@@ -75,7 +92,13 @@ public class IntroduceImpl {
         return resultList;
     }
 
-    public AverageScoreDTO getAverage(List<StudentScoresDTO> data) {
+    /**
+     * 获取学生的所有成绩的平均值
+     *
+     * @param studentScoresDTOList 学生所有成绩DTO列表
+     * @return 返回平均成绩DTO
+     */
+    public AverageScoreDTO getAverage(List<StudentScoresDTO> studentScoresDTOList) {
         final int BASE_SCORE = 50;
 
         double averageScoreForAll = 0;
@@ -83,7 +106,7 @@ public class IntroduceImpl {
         double fullCreditsForAll = 0;
         double fullCreditsForMajor = 0;
 
-        for (StudentScoresDTO value : data) {
+        for (StudentScoresDTO value : studentScoresDTOList) {
             fullCreditsForAll += value.getCredit();
             try {
                 if ("1".equals(value.getType())) {
@@ -95,7 +118,7 @@ public class IntroduceImpl {
         }
         ;
 
-        for (StudentScoresDTO value : data) {
+        for (StudentScoresDTO value : studentScoresDTOList) {
             averageScoreForAll += value.getScore() * (value.getCredit() / fullCreditsForAll);
 
             try {
@@ -117,19 +140,28 @@ public class IntroduceImpl {
         );
     }
 
+    /**
+     * 获取指定学生所有课程的排名
+     *
+     * @param studentId            学生Id
+     * @param studentScoresDTOList 学生的成绩DTO列表
+     * @return 更新后的成绩DTO列表
+     */
     public List<StudentScoresDTO> getCourseRank(Integer studentId, List<StudentScoresDTO> studentScoresDTOList) {
         // 获取学生选择的课程
         List<CourseSelection> courseSelectionList = new ArrayList<>(getStudent(studentId).getCourseSelections());
         // 遍历学生选择的课程
-        for (int i = 1; i < courseSelectionList.size(); i++) {
+        for (int i = 0; i < studentScoresDTOList.size(); i++) {
             // 先获取某个课程的成绩单
-            List<CourseRankDTO> courseRankDTOList = score.getCourseRankList(courseSelectionList.get(i).getCourse());
-            // 获取这个学生的排名信息
-            studentScoresDTOList.get(i).setCourseRankDTO(score.getCourseRank(courseRankDTOList
-                    , scoreRepository.findByStudent_StudentIdAndCourse_CourseId(
-                            courseSelectionList.get(i).getStudent().getStudentId()
-                            , courseSelectionList.get(i).getCourse().getCourseId()).getScore()));
-
+            Optional<Course> op = courseRepository.findById(studentScoresDTOList.get(i).getCourseId());
+            if (op.isPresent()){
+                List<CourseRankDTO> courseRankDTOList = score.getCourseRankList(op.get());
+                // 获取这个学生的排名信息
+                    studentScoresDTOList.get(i).setCourseRankDTO(score.getCourseRank(courseRankDTOList
+                            , scoreRepository.findByStudent_StudentIdAndCourse_CourseId(
+                                    courseSelectionList.get(i).getStudent().getStudentId()
+                                    , courseSelectionList.get(i).getCourse().getCourseId()).getScore()));
+            }
         }
         return studentScoresDTOList;
     }
