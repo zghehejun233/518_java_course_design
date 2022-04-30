@@ -15,6 +15,7 @@ import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.repository.academic.CourseRepository;
 import org.fatmansoft.teach.repository.academic.ScoreRepository;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;
+import org.fatmansoft.teach.service.GlobalScoreService;
 import org.fatmansoft.teach.util.CommonMethod;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
