@@ -45,4 +45,15 @@ public class Score {
     public int hashCode() {
         return getClass().hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Score{" +
+                "scoreId=" + scoreId +
+                ", score=" + score +
+                ", method='" + method + '\'' +
+                ", dailyScore=" + dailyScore +
+                ", examScore=" + examScore +
+                '}';
+    }
 }

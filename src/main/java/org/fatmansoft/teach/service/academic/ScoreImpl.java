@@ -188,32 +188,40 @@ public class ScoreImpl {
         }
     }
 
-    public List<CourseRankDTO> getCourseRankList( Course course) {
-        List<CourseRankDTO> courseRankDTOList = new ArrayList<>();
+    public List<CourseRankDTO> getCourseRankList(Course course) {
+        // 获取这么课程下的所有Score对象
         List<Score> scoreList = new ArrayList<>(course.getScores());
+        // 初始化
+        List<CourseRankDTO> courseRankDTOList = new ArrayList<>();
         for (Score value : scoreList) {
             courseRankDTOList.add(new CourseRankDTO(0, 0.0, value.getScore(), 0));
         }
+        // 排序
         courseRankDTOList.sort(new CourseRankComparator());
+        // 存储成绩相同的人数和名单长度
         Integer sameScoreNum = 1;
         int size = courseRankDTOList.size();
 
         for (int i = 0; i < size; i++) {
-            courseRankDTOList.get(i).setRank(i);
+            // 排名
+            courseRankDTOList.get(i).setRank(i + 1);
+            // 从第二个开始，如果与前者相同则自增，否则归一
             if ((i > 1) && courseRankDTOList.get(i).getScore().equals(courseRankDTOList.get(i - 1).getScore())) {
                 sameScoreNum += 1;
             } else {
                 sameScoreNum = 1;
             }
             courseRankDTOList.get(i).setSameScoreNum(i);
-            courseRankDTOList.get(i).setPercent((courseRankDTOList.get(i).getRank()-sameScoreNum+1)/(double)size);
+            // 百分比
+            courseRankDTOList.get(i).setPercent((courseRankDTOList.get(i).getRank() + 1 - sameScoreNum + 1) / (double) size);
+            SystemApplicationListener.logger.debug("这一门课下的成绩【" + i + "】：" + courseRankDTOList.get(i).toString());
         }
         return courseRankDTOList;
     }
 
-    public CourseRankDTO getCourseRank(List<CourseRankDTO> courseRankDTOList,Integer score){
+    public CourseRankDTO getCourseRank(List<CourseRankDTO> courseRankDTOList, Integer score) {
         for (CourseRankDTO value : courseRankDTOList) {
-            if (score.equals(value.getScore())){
+            if (score.equals(value.getScore())) {
                 return value;
             }
         }

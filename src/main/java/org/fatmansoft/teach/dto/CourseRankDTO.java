@@ -21,6 +21,7 @@ public class CourseRankDTO implements Comparable<CourseRankDTO> {
     @Override
     public String toString() {
         return "CourseRankDTO{" +
+                "score=" + score +
                 "rank=" + rank +
                 ", percent=" + percent +
                 ", sameScoreNum=" + sameScoreNum +

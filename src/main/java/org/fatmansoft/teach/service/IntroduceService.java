@@ -1,5 +1,6 @@
 package org.fatmansoft.teach.service;
 
+import org.fatmansoft.teach.SystemApplicationListener;
 import org.fatmansoft.teach.dto.AverageScoreDTO;
 import org.fatmansoft.teach.dto.CourseRankDTO;
 import org.fatmansoft.teach.dto.StudentScoresDTO;
@@ -24,14 +25,17 @@ public class IntroduceService {
 
     //个人简历信息数据准备方法  请同学修改这个方法，请根据自己的数据的希望展示的内容拼接成字符串，放在Map对象里， attachList 可以方多段内容，具体内容有个人决定
     public Map getIntroduceDataMap(Integer studentId) {
+        // 获取学生的所有成绩
         List<StudentScoresDTO> scoresDTOList = introduce.getScoreData(studentId);
+        // 基于所有成绩计算平均成绩
         AverageScoreDTO averageScoreDTO = globalScoreService.getAverage(scoresDTOList);
-        Student student = introduce.getStudent(studentId);
+
         scoresDTOList = introduce.getCourseRank(studentId,scoresDTOList);
         for ( StudentScoresDTO value : scoresDTOList) {
-            System.out.println(value.getCourseRankDTO().toString());
+            SystemApplicationListener.logger.warn(value.getCourseRankDTO().toString());
         }
 
+        Student student = introduce.getStudent(studentId);
         Map data = new HashMap();
         data.put("myName", student.getStudentName());   // 学生信息
         data.put("overview", "Hello!");

@@ -59,15 +59,7 @@ public class IntroduceImpl {
      */
     public List<StudentScoresDTO> getScoreData(Integer studentId) {
         List<StudentScoresDTO> resultList = new ArrayList<>();
-        Student student = null;
-        Optional<Student> op;
-        if (studentId != null) {
-            op = studentRepository.findById(studentId);
-            if (op.isPresent()) {
-                student = op.get();
-                System.out.println(student.getStudentName());
-            }
-        }
+        Student student = getStudent(studentId);
         if (student != null) {
             for (Score value : student.getScores()) {
                 StudentScoresDTO temp = new StudentScoresDTO();
@@ -75,8 +67,8 @@ public class IntroduceImpl {
                 temp.setCourse(value.getCourse().getName());
                 temp.setCourseId(value.getCourse().getCourseId());
                 temp.setCredit(value.getCourse().getCredit());
-                Set<CourseSelection> tempRelatedCourseSelection = value.getCourse().getCourseSelections();
 
+                Set<CourseSelection> tempRelatedCourseSelection = value.getCourse().getCourseSelections();
                 for (CourseSelection relatedCourse : tempRelatedCourseSelection) {
                     Integer id = relatedCourse.getStudent().getStudentId();
                     if (studentId.equals(id)) {
@@ -84,11 +76,10 @@ public class IntroduceImpl {
                     }
                 }
 
-                System.out.println(temp);
                 resultList.add(temp);
             }
         }
-        System.out.println("最后找到列表的长度为：" + resultList.size());
+        SystemApplicationListener.logger.warn("最后找到列表的长度为：" + resultList.size());
         return resultList;
     }
 
@@ -100,19 +91,21 @@ public class IntroduceImpl {
      * @return 更新后的成绩DTO列表
      */
     public List<StudentScoresDTO> getCourseRank(Integer studentId, List<StudentScoresDTO> studentScoresDTOList) {
-        // 获取学生选择的课程
-        List<CourseSelection> courseSelectionList = new ArrayList<>(getStudent(studentId).getCourseSelections());
-        // 遍历学生选择的课程
+
+        // 遍历学生的所有成绩
         for (int i = 0; i < studentScoresDTOList.size(); i++) {
             // 先获取某个课程的成绩单
-            Optional<Course> op = courseRepository.findById(studentScoresDTOList.get(i).getCourseId());
-            if (op.isPresent()){
-                List<CourseRankDTO> courseRankDTOList = score.getCourseRankList(op.get());
-                // 获取这个学生的排名信息
-                    studentScoresDTOList.get(i).setCourseRankDTO(score.getCourseRank(courseRankDTOList
-                            , scoreRepository.findByStudent_StudentIdAndCourse_CourseId(
-                                    courseSelectionList.get(i).getStudent().getStudentId()
-                                    , courseSelectionList.get(i).getCourse().getCourseId()).getScore()));
+            StudentScoresDTO studentScoresDTO = studentScoresDTOList.get(i);
+            Optional<Course> op = courseRepository.findById(studentScoresDTO.getCourseId());
+            if (op.isPresent()) {
+                Course course = op.get();
+                // 保存本门课程下的所有成绩
+                List<CourseRankDTO> courseRankDTOList = score.getCourseRankList(course);
+
+                CourseRankDTO courseRankDTO = score.getCourseRank(courseRankDTOList, studentScoresDTOList.get(i).getScore());
+                SystemApplicationListener.logger.warn("打印学生的排名信息");
+                SystemApplicationListener.logger.warn(courseRankDTO.toString());
+                studentScoresDTOList.get(i).setCourseRankDTO(courseRankDTO);
             }
         }
         return studentScoresDTOList;
