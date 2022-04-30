@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.fatmansoft.teach.SystemApplicationListener;
 import org.fatmansoft.teach.models.academic.Course;
+import org.fatmansoft.teach.models.academic.CourseSelection;
 import org.fatmansoft.teach.models.academic.HomeWork;
 import org.fatmansoft.teach.models.academic.Score;
 import org.fatmansoft.teach.models.student_basic.Student;
@@ -182,4 +183,19 @@ public class ScoreImpl {
             }
         }
     }
+/*
+    public Integer getRank(Integer studentId, Course course, Integer score) {
+
+        Set<CourseSelection> courseSelections = course.getCourseSelections();
+
+        for (CourseSelection value : courseSelections) {
+            studentScoreItem.put(value.getStudent().getStudentId(),
+                    scoreRepository.findByStudent_StudentIdAndCourse_CourseId(
+                            value.getStudent().getStudentId(), value.getCourse().getCourseId()).getScoreId());
+        }
+        //TODO 实现排序
+        studentScoreList.sort(<,);
+    }
+
+ */
 }
