@@ -2,7 +2,7 @@ package org.fatmansoft.teach.controllers.academic;
 
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
-import org.fatmansoft.teach.service.academic.StudentAcademicService;
+import org.fatmansoft.teach.service.academic.StudentAcademicVOService;
 import org.fatmansoft.teach.util.CommonMethod;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -14,14 +14,14 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/teach")
-public class StudentAcademicController {
+public class StudentAcademicVOController {
     @Resource
-    private StudentAcademicService studentAcademicService;
+    private StudentAcademicVOService studentAcademicVOService;
 
     @PostMapping("/studentAcademicInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse studentAcademicInit(@Valid @RequestBody DataRequest dataRequest) {
-        List<Object> result = studentAcademicService.getAllStudentAcademic(dataRequest);
+        List<Object> result = studentAcademicVOService.getAllStudentAcademic(dataRequest);
         return CommonMethod.getReturnData(result);
     }
 

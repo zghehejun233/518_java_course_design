@@ -1,8 +1,5 @@
 package org.fatmansoft.teach.service.academic;
 
-import org.fatmansoft.teach.models.student_basic.EducationExperience;
-import org.fatmansoft.teach.models.student_basic.Family;
-import org.fatmansoft.teach.models.student_basic.SocialRelation;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;
 import org.springframework.stereotype.Service;
@@ -14,7 +11,7 @@ import java.util.*;
  * @author 16645
  */
 @Service
-public class StudentAcademicImpl {
+public class StudentAcademicVOImpl {
     @Resource
     private StudentRepository studentRepository;
 

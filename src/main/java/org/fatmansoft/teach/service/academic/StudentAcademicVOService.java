@@ -10,9 +10,9 @@ import java.util.List;
  * @author 16645
  */
 @Service
-public class StudentAcademicService {
+public class StudentAcademicVOService {
     @Resource
-    private StudentAcademicImpl studentAcademic;
+    private StudentAcademicVOImpl studentAcademic;
 
     public List<Object> getAllStudentAcademic(DataRequest dataRequest) {
         return studentAcademic.queryAllStudentAcademic("");
