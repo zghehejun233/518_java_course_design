@@ -1,17 +1,15 @@
-package org.fatmansoft.teach.service.academic_activity;
+package org.fatmansoft.teach.service.vo_service;
 
-import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.payload.request.DataRequest;
-import org.fatmansoft.teach.payload.response.DataResponse;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class AcademicActivityService {
+public class AcademicActivityVOService {
     @Resource
-    private AcademicActivityImpl academicActivity;
+    private AcademicActivityVOImpl academicActivity;
 
     public List<Object> findAllAcademicActivity(DataRequest dataRequest) {
         academicActivity.setStudentId(dataRequest.getInteger("studentId"));

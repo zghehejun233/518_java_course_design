@@ -2,7 +2,7 @@ package org.fatmansoft.teach.controllers.academic_activity;
 
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
-import org.fatmansoft.teach.service.academic_activity.AcademicActivityService;
+import org.fatmansoft.teach.service.vo_service.AcademicActivityVOService;
 import org.fatmansoft.teach.util.CommonMethod;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +16,12 @@ import java.util.List;
 @RequestMapping("/api/teach")
 public class AcademicActivityController {
     @Resource
-    private AcademicActivityService academicActivityService;
+    private AcademicActivityVOService academicActivityVOService;
 
     @PostMapping("/academicActivityInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse academicActivityInit(@Valid @RequestBody DataRequest dataRequest) {
-        List<Object> result = academicActivityService.findAllAcademicActivity(dataRequest);
+        List<Object> result = academicActivityVOService.findAllAcademicActivity(dataRequest);
         return CommonMethod.getReturnData(result);
     }
 }

@@ -1,4 +1,4 @@
-package org.fatmansoft.teach.service.academic;
+package org.fatmansoft.teach.service.vo_service;
 
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.springframework.stereotype.Service;

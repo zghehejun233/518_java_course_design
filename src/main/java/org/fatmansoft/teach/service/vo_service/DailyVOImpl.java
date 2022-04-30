@@ -1,4 +1,4 @@
-package org.fatmansoft.teach.service.daily;
+package org.fatmansoft.teach.service.vo_service;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +15,7 @@ import java.util.Map;
 @Service
 @Setter
 @Getter
-public class DailyImpl {
+public class DailyVOImpl {
     @Resource
     private StudentRepository studentRepository;
 

@@ -1,4 +1,4 @@
-package org.fatmansoft.teach.service.academic_activity;
+package org.fatmansoft.teach.service.vo_service;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +18,7 @@ import java.util.Map;
 @Service
 @Setter
 @Getter
-public class AcademicActivityImpl {
+public class AcademicActivityVOImpl {
     @Resource
     private StudentRepository studentRepository;
 
