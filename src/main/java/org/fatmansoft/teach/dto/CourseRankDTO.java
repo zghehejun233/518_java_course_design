@@ -1,9 +1,8 @@
 package org.fatmansoft.teach.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.Comparator;
 
 /**
  * @author GuoSurui
@@ -12,8 +11,31 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CourseRankDTO {
+@EqualsAndHashCode
+public class CourseRankDTO implements Comparable<CourseRankDTO> {
     private Integer rank;
     private Double percent;
+    private Integer score;
     private Integer sameScoreNum;
+
+    @Override
+    public String toString() {
+        return "CourseRankDTO{" +
+                "rank=" + rank +
+                ", percent=" + percent +
+                ", sameScoreNum=" + sameScoreNum +
+                '}';
+    }
+
+    @Override
+    public int compareTo(CourseRankDTO o) {
+        if (score < o.score) {
+            return 1;
+        } else if (score > o.score) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
 }
+

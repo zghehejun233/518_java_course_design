@@ -2,18 +2,19 @@ package org.fatmansoft.teach.service;
 
 import org.fatmansoft.teach.SystemApplicationListener;
 import org.fatmansoft.teach.dto.AverageScoreDTO;
+import org.fatmansoft.teach.dto.CourseRankDTO;
 import org.fatmansoft.teach.dto.StudentScoresDTO;
 import org.fatmansoft.teach.models.academic.CourseSelection;
 import org.fatmansoft.teach.models.academic.Score;
 import org.fatmansoft.teach.models.student_basic.Student;
+import org.fatmansoft.teach.repository.academic.ScoreRepository;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;
+import org.fatmansoft.teach.service.academic.ScoreImpl;
+import org.fatmansoft.teach.service.student_basic.StudentImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author 16645
@@ -23,6 +24,10 @@ public class IntroduceImpl {
 
     @Resource
     private StudentRepository studentRepository;
+    @Resource
+    private ScoreRepository scoreRepository;
+    @Resource
+    private ScoreImpl score;
 
     public Student getStudent(Integer studentId) {
         Student student = null;
@@ -71,7 +76,6 @@ public class IntroduceImpl {
     }
 
     public AverageScoreDTO getAverage(List<StudentScoresDTO> data) {
-        final int COMMON_FULL_SCORE = 100;
         final int BASE_SCORE = 50;
 
         double averageScoreForAll = 0;
@@ -82,12 +86,9 @@ public class IntroduceImpl {
         for (StudentScoresDTO value : data) {
             fullCreditsForAll += value.getCredit();
             try {
-                if (value.getType().equals("1")) {
+                if ("1".equals(value.getType())) {
                     fullCreditsForMajor += value.getCredit();
                 }
-            } catch (NullPointerException nullPointerException) {
-                SystemApplicationListener.logger.warn("存在未指定的记分方式");
-                SystemApplicationListener.logger.warn(nullPointerException.toString());
             } catch (Exception e) {
                 SystemApplicationListener.logger.warn(e.toString());
             }
@@ -98,7 +99,7 @@ public class IntroduceImpl {
             averageScoreForAll += value.getScore() * (value.getCredit() / fullCreditsForAll);
 
             try {
-                if (value.getType().equals("1")) {
+                if ("1".equals(value.getType())) {
                     averageScoreForMajor += value.getScore() * (value.getCredit() / fullCreditsForMajor);
                 }
             } catch (NullPointerException nullPointerException) {
@@ -114,7 +115,22 @@ public class IntroduceImpl {
                 averageScoreForMajor,
                 0.1 * (averageScoreForMajor - BASE_SCORE)
         );
+    }
 
+    public List<StudentScoresDTO> getCourseRank(Integer studentId, List<StudentScoresDTO> studentScoresDTOList) {
+        // 获取学生选择的课程
+        List<CourseSelection> courseSelectionList = new ArrayList<>(getStudent(studentId).getCourseSelections());
+        // 遍历学生选择的课程
+        for (int i = 1; i < courseSelectionList.size(); i++) {
+            // 先获取某个课程的成绩单
+            List<CourseRankDTO> courseRankDTOList = score.getCourseRankList(courseSelectionList.get(i).getCourse());
+            // 获取这个学生的排名信息
+            studentScoresDTOList.get(i).setCourseRankDTO(score.getCourseRank(courseRankDTOList
+                    , scoreRepository.findByStudent_StudentIdAndCourse_CourseId(
+                            courseSelectionList.get(i).getStudent().getStudentId()
+                            , courseSelectionList.get(i).getCourse().getCourseId()).getScore()));
 
+        }
+        return studentScoresDTOList;
     }
 }

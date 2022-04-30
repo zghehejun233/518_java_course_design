@@ -18,6 +18,8 @@ public class StudentScoresDTO {
     private Double credit;
     private String type;
 
+    private CourseRankDTO courseRankDTO;
+
     @Override
     public String toString() {
         return "StudentScoresDTO{" +

@@ -3,6 +3,8 @@ package org.fatmansoft.teach.service.academic;
 import lombok.Getter;
 import lombok.Setter;
 import org.fatmansoft.teach.SystemApplicationListener;
+import org.fatmansoft.teach.dto.CourseRankComparator;
+import org.fatmansoft.teach.dto.CourseRankDTO;
 import org.fatmansoft.teach.models.academic.Course;
 import org.fatmansoft.teach.models.academic.CourseSelection;
 import org.fatmansoft.teach.models.academic.HomeWork;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -183,19 +186,36 @@ public class ScoreImpl {
             }
         }
     }
-/*
-    public Integer getRank(Integer studentId, Course course, Integer score) {
 
-        Set<CourseSelection> courseSelections = course.getCourseSelections();
-
-        for (CourseSelection value : courseSelections) {
-            studentScoreItem.put(value.getStudent().getStudentId(),
-                    scoreRepository.findByStudent_StudentIdAndCourse_CourseId(
-                            value.getStudent().getStudentId(), value.getCourse().getCourseId()).getScoreId());
+    public List<CourseRankDTO> getCourseRankList( Course course) {
+        List<CourseRankDTO> courseRankDTOList = new ArrayList<>();
+        List<Score> scoreList = new ArrayList<>(course.getScores());
+        for (Score value : scoreList) {
+            courseRankDTOList.add(new CourseRankDTO(0, 0.0, value.getScore(), 0));
         }
-        //TODO 实现排序
-        studentScoreList.sort(<,);
+        courseRankDTOList.sort(new CourseRankComparator());
+        Integer sameScoreNum = 1;
+        int size = courseRankDTOList.size();
+
+        for (int i = 0; i < size; i++) {
+            courseRankDTOList.get(i).setRank(i);
+            if ((i > 1) && courseRankDTOList.get(i).getScore().equals(courseRankDTOList.get(i - 1).getScore())) {
+                sameScoreNum += 1;
+            } else {
+                sameScoreNum = 1;
+            }
+            courseRankDTOList.get(i).setSameScoreNum(i);
+            courseRankDTOList.get(i).setPercent((courseRankDTOList.get(i).getRank()-sameScoreNum+1)/(double)size);
+        }
+        return courseRankDTOList;
     }
 
- */
+    public CourseRankDTO getCourseRank(List<CourseRankDTO> courseRankDTOList,Integer score){
+        for (CourseRankDTO value : courseRankDTOList) {
+            if (score.equals(value.getScore())){
+                return value;
+            }
+        }
+        return new CourseRankDTO();
+    }
 }
