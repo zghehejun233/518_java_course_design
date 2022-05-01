@@ -18,5 +18,11 @@ public interface FamilyRepository extends JpaRepository<Family, Integer> {
     @Query(value = "select max(familyId) from Family  ")
     Integer getMaxId();
 
+    /**
+     * 根据关联的studentID来获取family对象
+     *
+     * @param id studentID
+     * @return family类数组
+     */
     List<Family> findFamilyByStudent_StudentId(Integer id);
 }

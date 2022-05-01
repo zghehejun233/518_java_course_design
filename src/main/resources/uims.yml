@@ -13,75 +13,9 @@ uims:
   page:
     # student
     # 基本信息模块
-
-    # studentAcademic
-    # 课程相关信息
-    # ----------------
-    # 入口
-    - name: studentAcademic
-      type: table
-      title: 学生课程
-      showAdd: 1
-      item:
-        - type: text
-          prop: studentNum
-          label: 学号
-        - type: text
-          prop: studentName
-          label: 姓名
-        - type: link
-          prop: courseSelection
-          label: 选课
-        - type: link
-          prop: homework
-          label: 作业
-        - type: link
-          prop: score
-          label: 成绩
-        - type: link
-          prop: checkout
-          label: 考勤
-
-
-    # studentAcademic
-    # 课程相关信息
-
-    # daily
-    # 日常活动相关的信息
-
-    # course
-    # 课程管理
-
-
-    - name: academicActivity
-      type: table
-      title: 教研活动
-      showAdd: 1
-      item:
-        - type: text
-          prop: studentNum
-          label: 学号
-        - type: text
-          prop: studentName
-          label: 姓名
-        - type: link
-          prop: practice
-          label: 社会实践
-        - type: link
-          prop: competition
-          label: 学科竞赛
-        - type: link
-          prop: innovationProject
-          label: 创新创业
-        - type: link
-          prop: internship
-          label: 校外实习
-        - type: link
-          prop: lecture
-          label: 学术讲座
-        - type: link
-          prop: scientificResult
-          label: 科研成果
+    # --------------
+    # --------------
+    # 学生基本信息及编辑
     - name: student
       type: table
       title: 学生管理
@@ -157,6 +91,74 @@ uims:
         - type: text
           prop: educationExperience
           label: 教育经历
+    # -----------------
+
+    # studentAcademic
+    # 课程相关信息
+    # ----------------
+    # ----------------
+    # 入口
+    - name: studentAcademic
+      type: table
+      title: 学生课程
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: link
+          prop: courseSelection
+          label: 选课
+        - type: link
+          prop: homework
+          label: 作业
+        - type: link
+          prop: score
+          label: 成绩
+        - type: link
+          prop: checkout
+          label: 考勤
+
+    # academicActivity
+    # 课程相关信息
+    # -----------------
+    # -----------------
+    # 入口
+    - name: academicActivity
+      type: table
+      title: 教研活动
+      item:
+        - type: text
+          prop: studentNum
+          label: 学号
+        - type: text
+          prop: studentName
+          label: 姓名
+        - type: link
+          prop: practice
+          label: 社会实践
+        - type: link
+          prop: competition
+          label: 学科竞赛
+        - type: link
+          prop: innovationProject
+          label: 创新创业
+        - type: link
+          prop: internship
+          label: 校外实习
+        - type: link
+          prop: lecture
+          label: 学术讲座
+        - type: link
+          prop: scientificResult
+          label: 科研成果
+    # daily
+    # 日常活动相关的信息
+    # ----------------
+    # ----------------
+    # 入口
     - name: daily
       type: table
       title: 日常信息
@@ -182,6 +184,8 @@ uims:
         - type: link
           prop: achievement
           label: 成就
+    # ----------
+    # 学生荣誉
     - name: achievement
       type: table
       title: 学生荣誉
@@ -256,6 +260,8 @@ uims:
         - type: date
           prop: time
           label: 获得日期
+    # ---------------
+    # 日常活动
     - name: activity
       type: table
       title: 日常活动
@@ -310,6 +316,8 @@ uims:
         - type: date
           prop: time
           label: 日期
+    # ------------------
+    # 外出
     - name: leave
       type: table
       title: 外出请假
@@ -355,6 +363,11 @@ uims:
         - type: input
           prop: time
           label: 时间
+    # course
+    # 课程管理
+    # ------------
+    # ------------
+    # 课程信息
     - name: course
       type: table
       title: 课程管理
@@ -619,12 +632,28 @@ uims:
         - type: input
           prop: name
           label: 姓名
-        - type: input
+        - type: select
           prop: relation
           label: 关系
-        - type: input
+          option:
+            - value: 1
+              label: 父亲
+            - value: 2
+              label: 母亲
+            - value: 3
+              label: 兄弟姐妹
+            - value: 4
+              label: 祖辈
+        - type: select
           prop: sex
           label: 性别
+          option:
+            - value: 1
+              label: 男
+            - value: 2
+              label: 女
+            - value: 3
+              label: 第三性
         - type: input
           prop: age
           label: 年龄

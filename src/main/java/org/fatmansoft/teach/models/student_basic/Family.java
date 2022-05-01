@@ -2,8 +2,10 @@ package org.fatmansoft.teach.models.student_basic;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 /**
@@ -23,8 +25,11 @@ public class Family {
     @Column(name = "family_id")
     private Integer familyId;
     @Column(name = "name")
+    @NotBlank(message = "不能没有名字！")
+    @Length(max = 18,message = "名字太长！")
     private String name;
     @Column(name = "relation")
+    @NotBlank(message = "什么关系！")
     private String relation;
     @Column(name = "sex")
     private String sex;

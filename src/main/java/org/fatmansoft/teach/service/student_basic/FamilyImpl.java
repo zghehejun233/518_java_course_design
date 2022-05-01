@@ -18,12 +18,19 @@ import java.util.*;
 @Setter
 @Getter
 public class FamilyImpl {
+    /**
+     * 注入family的DAO层
+     * student的DAO层
+     */
     @Resource
     private FamilyRepository familyRepository;
     @Resource
     private StudentRepository studentRepository;
 
-    public Integer studentId;
+    /**
+     * 用于短时存储操作的对象标识
+     */
+    private Integer studentId;
 
     public List<Object> queryFamilyMapList() {
         List<Object> result = new ArrayList<>();
@@ -38,13 +45,14 @@ public class FamilyImpl {
             tempMap = new HashMap<>();
             tempMap.put("id", family.getFamilyId());
             tempMap.put("name", family.getName());
-            tempMap.put("relation", family.getRelation());
-            tempMap.put("sex", family.getSex());
+            tempMap.put("relation", parseRelation(family.getRelation()));
+            tempMap.put("sex", parseSex(family.getSex()));
             tempMap.put("age", family.getAge());
             result.add(tempMap);
         }
         return result;
     }
+
 
     Map<String, Object> queryFamilyDetail(Integer id) {
         Family family = getFamily(id);
@@ -52,8 +60,9 @@ public class FamilyImpl {
         if (family != null) {
             resultMap.put("id", family.getFamilyId());
             resultMap.put("name", family.getName());
-            resultMap.put("relation", family.getRelation());
-            resultMap.put("sex", family.getSex());
+            // 调用方法编码
+            resultMap.put("relation", parseRelation(family.getRelation()));
+            resultMap.put("sex", parseSex(family.getSex()));
             resultMap.put("age", family.getAge());
             resultMap.put("description", family.getDescription());
         }
@@ -63,6 +72,7 @@ public class FamilyImpl {
     public Integer insertFamily(Family familyData) {
         Family family = getFamily(familyData.getFamilyId());
         Integer maxFamilyId = null;
+        // 判断是否为添加新数据
         if (family == null) {
             family = new Family();
             maxFamilyId = familyRepository.getMaxId();
@@ -79,6 +89,7 @@ public class FamilyImpl {
         family.setAge(familyData.getAge());
         family.setDescription(familyData.getDescription());
 
+        // 获取相关的学生对象
         Student relatedStudent;
         Optional<Student> opStudent = studentRepository.findById(studentId);
         if (opStudent.isPresent()) {
@@ -100,6 +111,7 @@ public class FamilyImpl {
         familyRepository.delete(family);
     }
 
+    // 获取对象
     private Family getFamily(Integer familyId) {
         Family family = null;
         Optional<Family> op;
@@ -110,5 +122,49 @@ public class FamilyImpl {
             }
         }
         return family;
+    }
+
+    // 解码关系
+    private String parseRelation(String relationCode) {
+        String relation;
+        switch (relationCode) {
+            case "1": {
+                relation = "父亲";
+                break;
+            }
+            case "2": {
+                relation = "母亲";
+                break;
+            }
+            case "3": {
+                relation = "兄弟姐妹";
+                break;
+            }
+            case "4": {
+                relation = "祖辈";
+                break;
+            }
+            default:
+                relation = "不明";
+        }
+        return relation;
+    }
+
+    // 编码性别
+    private String parseSex(String sexCode) {
+        String sex;
+        switch (sexCode) {
+            case "1": {
+                sex = "男";
+                break;
+            }
+            case "2": {
+                sex = "女";
+                break;
+            }
+            default:
+                sex = "第三性别";
+        }
+        return sex;
     }
 }

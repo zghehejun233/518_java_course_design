@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 import java.util.List;
 import java.util.Map;
 
@@ -41,8 +42,19 @@ public class FamilyController {
     @PostMapping("/familyEditSubmit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse familyEditSubmit(@Valid @RequestBody DataRequest dataRequest) {
-        Integer result = familyService.saveFamily(dataRequest);
-        return CommonMethod.getReturnData(result);
+        // 进行填充异常的捕获
+        try {
+            Integer result = familyService.saveFamily(dataRequest);
+            return CommonMethod.getReturnData(result);
+        } catch (ValidationException validationException) {
+            String temp = validationException.getLocalizedMessage();
+            // 如果填充字段有问题则抛出400
+            // 通过字符串运算调整返回信息的内容
+            return CommonMethod.getReturnMessage("400", temp.substring(temp.substring(0, temp.indexOf(":")).length() + 2));
+        } catch (Exception e) {
+            //  捕获所有异常并直接抛出
+            return CommonMethod.getReturnMessage("500", "Uncaught");
+        }
     }
 
     @PostMapping("/familyDelete")
