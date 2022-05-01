@@ -714,9 +714,18 @@ uims:
         - type: input
           prop: schoolName
           label: 学校名称
-        - type: input
+        - type: select
           prop: level
           label: 学段
+          option:
+            - label: 幼儿园
+              value: 1
+            - label: 小学
+              value: 2
+            - label: 初中
+              value: 3
+            - label: 高中
+              value: 4
         - type: date
           prop: startTime
           label: 开始年月

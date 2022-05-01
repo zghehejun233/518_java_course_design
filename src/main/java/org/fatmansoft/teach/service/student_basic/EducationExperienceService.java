@@ -21,6 +21,7 @@ public class EducationExperienceService {
      * @return List
      */
     public List<Object> getAllEducationExperience(DataRequest dataRequest) {
+        // 暂存studentId
         educationExperience.setStudentId(dataRequest.getInteger("studentId"));
         return educationExperience.queryEducationExperienceMapList();
     }

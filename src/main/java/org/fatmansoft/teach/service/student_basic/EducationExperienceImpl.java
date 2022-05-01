@@ -21,6 +21,10 @@ public class EducationExperienceImpl {
     @Resource
     private StudentRepository studentRepository;
 
+    /**
+     * 保存相关studentId
+     *
+     */
     private Integer studentId;
 
     public List<Object> queryEducationExperienceMapList() {
@@ -37,7 +41,9 @@ public class EducationExperienceImpl {
             tempMap = new HashMap<>();
             tempMap.put("id", educationExperience.getEducationExperienceId());
             tempMap.put("schoolName", educationExperience.getSchoolName());
-            tempMap.put("level", educationExperience.getLevel());
+            tempMap.put("level", parseLevel(educationExperience.getLevel()));
+            tempMap.put("startTime", DateTimeTool.parseDateTime(educationExperience.getStartTime(), "yyyy-MM"));
+            tempMap.put("endTime", DateTimeTool.parseDateTime(educationExperience.getEndTime(), "yyyy-MM"));
             tempMap.put("description", educationExperience.getDescription());
             result.add(tempMap);
         }
@@ -50,7 +56,7 @@ public class EducationExperienceImpl {
         if (educationExperience != null) {
             resultMap.put("id", educationExperience.getEducationExperienceId());
             resultMap.put("schoolName", educationExperience.getSchoolName());
-            resultMap.put("level", educationExperience.getLevel());
+            resultMap.put("level", parseLevel(educationExperience.getLevel()));
             resultMap.put("startTime", DateTimeTool.parseDateTime(educationExperience.getStartTime(), "yyyy-MM"));
             resultMap.put("endTime", DateTimeTool.parseDateTime(educationExperience.getEndTime(), "yyyy-MM"));
             resultMap.put("description", educationExperience.getDescription());
@@ -108,5 +114,31 @@ public class EducationExperienceImpl {
             }
         }
         return educationExperience;
+    }
+
+    // 编码学历层次
+    private String parseLevel(String levelCode) {
+        String level;
+        switch (levelCode) {
+            case "1": {
+                level = "幼儿园";
+                break;
+            }
+            case "2": {
+                level = "小学";
+                break;
+            }
+            case "3": {
+                level = "初中";
+                break;
+            }
+            case "4": {
+                level = "高中";
+                break;
+            }
+            default:
+                level = "其他";
+        }
+        return level;
     }
 }
