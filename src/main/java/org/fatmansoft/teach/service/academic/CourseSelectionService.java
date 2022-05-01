@@ -44,11 +44,11 @@ public class CourseSelectionService {
     public Integer saveCourseSelection(DataRequest dataRequest) {
         Map<String, Object> form = dataRequest.getMap("form");
         CourseSelection courseSelectionData = new CourseSelection();
-        String courseName = CommonMethod.getString(form, "courseName");
-        String studentName = CommonMethod.getString(form, "studentName");
+        Integer courseId = CommonMethod.getInteger(form, "courseId");
+        Integer studentId = CommonMethod.getInteger(form, "studentId");
         courseSelectionData.setCourseSelectionId(CommonMethod.getInteger(form, "id"));
         courseSelectionData.setType(CommonMethod.getString(form, "type"));
-        return courseSelection.saveCourseSelection(courseSelectionData, courseName, studentName);
+        return courseSelection.saveCourseSelection(courseSelectionData, courseId, studentId);
     }
 
     public void deleteCourseSelection(DataRequest dataRequest) {

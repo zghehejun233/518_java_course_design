@@ -451,15 +451,24 @@ uims:
       type: form
       title: 选课编辑
       item:
-        - type: input
-          prop: studentName
+        - type: select
+          prop: studentId
           label: 姓名
-        - type: input
-          prop: courseName
+        - type: select
+          prop: courseId
           label: 课程名称
-        - type: input
+        - type: select
           prop: type
           label: 类型
+          option:
+            - label: 必修
+              value: 1
+            - label: 选修
+              value: 2
+            - label: 补修
+              value: 3
+            - label: 辅修
+              value: 4
     - name: reference
       type: table
       title: 参考材料
