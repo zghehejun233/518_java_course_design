@@ -76,10 +76,31 @@ public class CourseSelectionImpl {
         // 则说明是处于查看详情的状态
         // 这个时候只需要直接填充数据即可
         if (courseSelection != null) {
-            resultMap.put("courseID", courseSelection.getCourse().getName());
-            resultMap.put("studentId", courseSelection.getStudent().getStudentName());
             resultMap.put("id", courseSelection.getCourseSelectionId());
             resultMap.put("type", courseSelection.getType());
+            resultMap.put("studentNum",courseSelection.getStudent().getStudentId());
+            List studentIdList = new ArrayList<>();
+            List<Student> studentList = studentRepository.findAll();
+            Map map;
+            for (Student value : studentList) {
+                map = new HashMap<>();
+                map.put("label", value.getStudentName());
+                map.put("value", value.getStudentId());
+                studentIdList.add(map);
+            }
+            resultMap.put("studentId", "");
+            resultMap.put("studentIdList", studentIdList);
+
+            List courseIdList = new ArrayList();
+            List<Course> courseList = courseRepository.findAll();
+            for (Course value : courseList) {
+                map = new HashMap<>();
+                map.put("label", value.getName());
+                map.put("value", value.getCourseId());
+                courseIdList.add(map);
+            }
+            resultMap.put("courseId", "");
+            resultMap.put("courseIdList", courseIdList);
         } else {
             // 此时实在建立新的记录
             // 下面首先判断studentId是否存在

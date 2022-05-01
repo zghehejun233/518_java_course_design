@@ -441,6 +441,9 @@ uims:
         - type: text
           prop: courseName
           label: 课程名称
+        - type: text
+          prop: type
+          label: 类型
         - type: opers
           label: 操作
           opers:
