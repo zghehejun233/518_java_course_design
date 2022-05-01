@@ -70,9 +70,8 @@ uims:
               label: 男
             - value: 2
               label: 女
-        - type: input
-          prop: age
-          label: 年龄
+            - value: 3
+              label: 第三性
         - type: input
           prop: phoneNumber
           label: 联系电话

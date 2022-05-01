@@ -1,10 +1,12 @@
 package org.fatmansoft.teach.service.student_basic;
 
+import org.assertj.core.util.DateUtil;
 import org.fatmansoft.teach.models.student_basic.EducationExperience;
 import org.fatmansoft.teach.models.student_basic.Family;
 import org.fatmansoft.teach.models.student_basic.SocialRelation;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;
+import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -37,8 +39,8 @@ public class StudentImpl {
             tempMap.put("id", student.getStudentId());
             tempMap.put("studentNum", student.getStudentNum());
             String studentNameParas = "model=introduce&studentId=" + student.getStudentId();
-            tempMap.put("studentName",student.getStudentName());
-            tempMap.put("studentNameParas",studentNameParas);
+            tempMap.put("studentName", student.getStudentName());
+            tempMap.put("studentNameParas", studentNameParas);
 
             if (Integer.valueOf(1).equals(student.getSex())) {
                 tempMap.put("sex", "男");
@@ -87,7 +89,7 @@ public class StudentImpl {
             for (SocialRelation socialRelation : student.getSocialRelations()) {
                 socialRelationString.append(socialRelation.toString());
             }
-            resultMap.put("socialRelation",socialRelationString.toString());
+            resultMap.put("socialRelation", socialRelationString.toString());
 
             StringBuilder familyString = new StringBuilder();
             for (Family family : student.getFamilies()) {
@@ -99,7 +101,7 @@ public class StudentImpl {
             for (EducationExperience educationExperience : student.getEducationExperiences()) {
                 educationExperienceString.append(educationExperience.toString());
             }
-            resultMap.put("educationExperience",educationExperienceString.toString());
+            resultMap.put("educationExperience", educationExperienceString.toString());
 
         }
         return resultMap;
@@ -122,7 +124,10 @@ public class StudentImpl {
         student.setStudentNum(studentData.getStudentNum());
         student.setStudentName(studentData.getStudentName());
         student.setSex(studentData.getSex());
-        student.setAge(studentData.getAge());
+        Date birthday = studentData.getBirthday();
+        Date current = DateUtil.now();
+        int age = Integer.parseInt(DateUtil.formatTimeDifference(birthday, current).substring(0, 4));
+        student.setAge(age / 365);
         student.setPhoneNumber(studentData.getPhoneNumber());
         student.setBirthday(studentData.getBirthday());
         student.setEmail(studentData.getEmail());

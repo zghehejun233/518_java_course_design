@@ -65,7 +65,6 @@ public class StudentService {
         studentData.setStudentNum(CommonMethod.getString(form,"studentNum"));
         studentData.setStudentName(CommonMethod.getString(form,"studentName"));
         studentData.setSex(CommonMethod.getInteger(form,"sex"));
-        studentData.setAge(CommonMethod.getInteger(form,"age"));
         studentData.setPhoneNumber(CommonMethod.getString(form,"phoneNumber"));
         studentData.setBirthday(CommonMethod.getDate(form,"birthday"));
         studentData.setEmail(CommonMethod.getString(form,"email"));

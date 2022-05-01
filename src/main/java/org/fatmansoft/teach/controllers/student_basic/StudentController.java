@@ -56,8 +56,6 @@ public class StudentController {
         } catch (ValidationException validationException) {
             String temp = validationException.getLocalizedMessage();
             return CommonMethod.getReturnMessage("400", temp.substring(temp.substring(0, temp.indexOf(":")).length() + 2));
-        } catch (Exception e) {
-            return CommonMethod.getReturnMessage("500", "Uncaught");
         }
     }
 
