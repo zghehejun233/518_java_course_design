@@ -61,16 +61,72 @@ public class HomeworkImpl {
             }
         }
 
-        Map<String, Object> ressultMap = new HashMap<>();
+        Map<String, Object> resultMap = new HashMap<>();
         if (homeWork != null) {
-            ressultMap.put("id", homeWork.getHomeworkId());
-            ressultMap.put("content", homeWork.getContent());
-            ressultMap.put("score", homeWork.getScore());
+            resultMap.put("id", homeWork.getHomeworkId());
+            resultMap.put("content", homeWork.getContent());
+            resultMap.put("score", homeWork.getScore());
+            resultMap.put("courseId", homeWork.getCourse().getName());
+            resultMap.put("studentId", homeWork.getStudent().getStudentName());
+        } else {
+            List studentIdList = new ArrayList<>();
+            if (studentId != null) {
+                Optional<Student> optionalStudent = studentRepository.findById(studentId);
+                if (optionalStudent.isPresent()) {
+                    Student student = optionalStudent.get();
+                    Map map = new HashMap<>();
+                    map.put("label", student.getStudentName());
+                    map.put("value", student.getStudentId());
+                    studentIdList.add(map);
+                    resultMap.put("studentId", "");
+                    resultMap.put("studentIdList", studentIdList);
+                }
+            } else {
+                List<Student> studentList = studentRepository.findAll();
+                Map map;
+                for (Student value : studentList) {
+                    map = new HashMap<>();
+                    map.put("label", value.getStudentName());
+                    map.put("value", value.getStudentId());
+                    studentIdList.add(map);
+                }
+                resultMap.put("studentId", "");
+                resultMap.put("studentIdList", studentIdList);
+            }
+
+            // 以下对课程使用同样的逻辑
+            List<Object> courseIdList = new ArrayList<>();
+            if (courseId != null) {
+                // 存在就开始寻找目标对象
+                Course course;
+                Optional<Course> optionalCourse = courseRepository.findById(courseId);
+                if (optionalCourse.isPresent()) {
+                    course = optionalCourse.get();
+                    Map map = new HashMap<>();
+                    map.put("label", course.getName());
+                    map.put("value", course.getCourseId());
+                    courseIdList.add(map);
+                    resultMap.put("courseId", course.getName());
+                    resultMap.put("courseIdList", courseIdList);
+                }
+            } else {
+                // 不存在说明从另一个入口进入，这里开始查找所有的数据
+                List<Course> courseList = courseRepository.findAll();
+                Map map;
+                for (Course value : courseList) {
+                    map = new HashMap<>();
+                    map.put("label", value.getName());
+                    map.put("value", value.getCourseId());
+                    courseIdList.add(map);
+                }
+                resultMap.put("courseId", "");
+                resultMap.put("courseIdList", courseIdList);
+            }
         }
-        return ressultMap;
+        return resultMap;
     }
 
-    public Integer insertHomework(HomeWork homeWorkData, String courseName, String studentName) {
+    public Integer insertHomework(HomeWork homeWorkData, Integer courseIdData, Integer studentIdData) {
         HomeWork homeWork = null;
         Optional<HomeWork> op;
         if (homeWorkData.getHomeworkId() != null) {
@@ -93,49 +149,20 @@ public class HomeworkImpl {
         }
 
         Course course = null;
-        Optional<Course> opCourse;
+        Optional<Course> optionalCourse = courseRepository.findById(courseIdData);
+        if (optionalCourse.isPresent()) {
+            course = optionalCourse.get();
+            homeWork.setCourse(course);
+        }
         Student student = null;
-        Optional<Student> opStudent;
-        if ((courseId == null && courseName != null)) {
-            course = courseRepository.findFirstByName(courseName);
-            SystemApplicationListener.logger.info("[Homework]" + "找到关联的课程信息");
-        } else {
-            try {
-                opCourse = courseRepository.findById(courseId);
-                if (opCourse.isPresent()) {
-                    course = opCourse.get();
-                    SystemApplicationListener.logger.info("[Homework]" + "找到关联的课程信息");
-                }
-            } catch (Exception e) {
-                SystemApplicationListener.logger.warn(e.toString());
-                SystemApplicationListener.logger.error("[Homework]" + "没有找到关联的课程信息");
-                return 1;
-            }
+        Optional<Student> optionalStudent = studentRepository.findById(studentIdData);
+        if (optionalStudent.isPresent()) {
+            student = optionalStudent.get();
+            homeWork.setStudent(student);
         }
-        if (studentId == null && studentName != null) {
-            student = studentRepository.findFirstByStudentNameOrStudentNum(studentName, studentName);
-            SystemApplicationListener.logger.info("[Homework]" + "找到关联的学生信息");
-
-        } else {
-            try {
-                opStudent = studentRepository.findById(studentId);
-                if (opStudent.isPresent()) {
-                    student = opStudent.get();
-                    SystemApplicationListener.logger.info("[Homework]" + "找到关联的学生信息");
-                }
-            } catch (Exception e) {
-                SystemApplicationListener.logger.warn(e.toString());
-                SystemApplicationListener.logger.error("[Homework]" + "没有找到关联的学生信息");
-                return 1;
-            }
-        }
-
-        homeWork.setCourse(course);
-        homeWork.setStudent(student);
         homeWork.setContent(homeWorkData.getContent());
         homeWork.setScore(homeWorkData.getScore());
         homeWorkRepository.save(homeWork);
-        SystemApplicationListener.logger.info("[Homework]" + "成功保存作业信息！");
         return maxHomeworkId;
 
     }

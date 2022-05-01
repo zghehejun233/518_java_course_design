@@ -30,12 +30,13 @@ public class HomeworkService {
     public Integer saveHomework(DataRequest dataRequest) {
         Map<String, Object> form = dataRequest.getMap("form");
         HomeWork homeWorkData = new HomeWork();
-        String courseName = CommonMethod.getString(form, "courseName");
-        String studentName = CommonMethod.getString(form, "studentName");
+        // 获取id
+        Integer courseId = CommonMethod.getInteger(form,"courseId");
+        Integer studentId = CommonMethod.getInteger(form,"studentId");
         homeWorkData.setHomeworkId(CommonMethod.getInteger(form,"id"));
         homeWorkData.setContent(CommonMethod.getString(form, "content"));
         homeWorkData.setScore(CommonMethod.getInteger(form, "score"));
-        return homework.insertHomework(homeWorkData, courseName, studentName);
+        return homework.insertHomework(homeWorkData, courseId, studentId);
     }
 
     public void deleteHomework(DataRequest dataRequest) {

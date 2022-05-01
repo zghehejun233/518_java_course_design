@@ -765,15 +765,18 @@ uims:
       type: form
       title: 作业
       item:
+        - type: select
+          prop: studentId
+          label: 学生
+        - type: select
+          prop: courseId
+          label: 课程
         - type: input
           prop: content
           label: 内容
         - type: input
           prop: score
           label: 成绩
-        - type: input
-          prop: courseName
-          label: 课程名称
     - name: score
       type: table
       title: 成绩
