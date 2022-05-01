@@ -51,8 +51,8 @@ public class CheckoutImpl {
             checkout = value;
             tempMap = new HashMap<>();
             tempMap.put("id", checkout.getCheckoutId());
-            tempMap.put("method", checkout.getMethod());
-            tempMap.put("state", checkout.getState());
+            tempMap.put("method", parseMethod(checkout.getMethod()));
+            tempMap.put("state", parseState(checkout.getState()));
             tempMap.put("time", checkout.getTime());
             result.add(tempMap);
         }
@@ -69,17 +69,93 @@ public class CheckoutImpl {
             }
         }
 
-        Map<String, Object> ressultMap = new HashMap<>();
+        Map<String, Object> resultMap = new HashMap<>();
         if (checkout != null) {
-            ressultMap.put("id", checkout.getCheckoutId());
-            ressultMap.put("method", checkout.getMethod());
-            ressultMap.put("state", checkout.getState());
-            ressultMap.put("time", checkout.getTime());
+            resultMap.put("id", checkout.getCheckoutId());
+            resultMap.put("method", checkout.getMethod());
+            resultMap.put("state", checkout.getState());
+            resultMap.put("time", checkout.getTime());
+            List studentIdList = new ArrayList<>();
+            List<Student> studentList = studentRepository.findAll();
+            Map map;
+            for (Student value : studentList) {
+                map = new HashMap<>();
+                map.put("label", value.getStudentName());
+                map.put("value", value.getStudentId());
+                studentIdList.add(map);
+            }
+            resultMap.put("studentId", "");
+            resultMap.put("studentIdList", studentIdList);
+
+            List courseIdList = new ArrayList();
+            List<Course> courseList = courseRepository.findAll();
+            for (Course value : courseList) {
+                map = new HashMap<>();
+                map.put("label", value.getName());
+                map.put("value", value.getCourseId());
+                courseIdList.add(map);
+            }
+            resultMap.put("courseId", "");
+            resultMap.put("courseIdList", courseIdList);
+        } else {
+            List studentIdList = new ArrayList<>();
+            if (studentId != null) {
+                Optional<Student> optionalStudent = studentRepository.findById(studentId);
+                if (optionalStudent.isPresent()) {
+                    Student student = optionalStudent.get();
+                    Map map = new HashMap<>();
+                    map.put("label", student.getStudentName());
+                    map.put("value", student.getStudentId());
+                    studentIdList.add(map);
+                    resultMap.put("studentId", "");
+                    resultMap.put("studentIdList", studentIdList);
+                }
+            } else {
+                List<Student> studentList = studentRepository.findAll();
+                Map map;
+                for (Student value : studentList) {
+                    map = new HashMap<>();
+                    map.put("label", value.getStudentName());
+                    map.put("value", value.getStudentId());
+                    studentIdList.add(map);
+                }
+                resultMap.put("studentId", "");
+                resultMap.put("studentIdList", studentIdList);
+            }
+
+            // 以下对课程使用同样的逻辑
+            List<Object> courseIdList = new ArrayList<>();
+            if (courseId != null) {
+                // 存在就开始寻找目标对象
+                Course course;
+                Optional<Course> optionalCourse = courseRepository.findById(courseId);
+                if (optionalCourse.isPresent()) {
+                    course = optionalCourse.get();
+                    Map map = new HashMap<>();
+                    map.put("label", course.getName());
+                    map.put("value", course.getCourseId());
+                    courseIdList.add(map);
+                    resultMap.put("courseId", course.getName());
+                    resultMap.put("courseIdList", courseIdList);
+                }
+            } else {
+                // 不存在说明从另一个入口进入，这里开始查找所有的数据
+                List<Course> courseList = courseRepository.findAll();
+                Map map;
+                for (Course value : courseList) {
+                    map = new HashMap<>();
+                    map.put("label", value.getName());
+                    map.put("value", value.getCourseId());
+                    courseIdList.add(map);
+                }
+                resultMap.put("courseId", "");
+                resultMap.put("courseIdList", courseIdList);
+            }
         }
-        return ressultMap;
+        return resultMap;
     }
 
-    public Integer insertCheckout(Checkout checkoutData, String courseName, String studentName) {
+    public Integer insertCheckout(Checkout checkoutData, Integer courseIdData, Integer studentIdData) {
         Checkout checkout = null;
         Optional<Checkout> op;
         if (checkoutData.getCheckoutId() != null) {
@@ -101,47 +177,19 @@ public class CheckoutImpl {
             checkout.setCheckoutId(maxCheckoutId);
         }
 
-        Course course = null;
-        Optional<Course> opCourse;
-        Student student = null;
-        Optional<Student> opStudent;
-        if ((courseId == null && courseName != null)) {
-            course = courseRepository.findFirstByName(courseName);
-            SystemApplicationListener.logger.info("[Checkout]" + "找到关联的课程信息");
-
-        } else {
-            try {
-                opCourse = courseRepository.findById(courseId);
-                if (opCourse.isPresent()) {
-                    course = opCourse.get();
-                    SystemApplicationListener.logger.info("[Checkout]" + "找到关联的课程信息");
-                }
-            } catch (Exception e) {
-                SystemApplicationListener.logger.warn(e.toString());
-                SystemApplicationListener.logger.error("[Checkout]" + "没有找到关联的课程信息");
-                return 1;
-            }
+        Course course;
+        Optional<Course> opCourse = courseRepository.findById(courseIdData);
+        if (opCourse.isPresent()) {
+            course = opCourse.get();
+            checkout.setCourse(course);
         }
-        if (studentId == null && studentName != null) {
-            student = studentRepository.findFirstByStudentNameOrStudentNum(studentName, studentName);
-            SystemApplicationListener.logger.info("[Checkout]" + "找到关联的学生信息");
-
-        } else {
-            try {
-                opStudent = studentRepository.findById(studentId);
-                if (opStudent.isPresent()) {
-                    student = opStudent.get();
-                    SystemApplicationListener.logger.info("[Checkout]" + "找到关联的学生信息");
-                }
-            } catch (Exception e) {
-                SystemApplicationListener.logger.warn(e.toString());
-                SystemApplicationListener.logger.error("[Checkout]" + "没有找到关联的学生信息");
-                return 1;
-            }
+        Student student;
+        Optional<Student> opStudent = studentRepository.findById(studentIdData);
+        if (opStudent.isPresent()) {
+            student = opStudent.get();
+            checkout.setStudent(student);
         }
 
-        checkout.setCourse(course);
-        checkout.setStudent(student);
         checkout.setMethod(checkoutData.getMethod());
         checkout.setState(checkoutData.getState());
         checkout.setTime(checkoutData.getTime());
@@ -180,5 +228,43 @@ public class CheckoutImpl {
                 SystemApplicationListener.logger.info("[Checkout]:删除考勤信息记录成功！");
             }
         }
+    }
+
+    String parseState(Integer stateCode) {
+        String state;
+        switch (stateCode) {
+            case 1: {
+                state = "线下";
+                break;
+            }
+            case 2: {
+                state = "线上";
+                break;
+            }
+            case 3: {
+                state = "室友代签";
+                break;
+            }
+            default:
+                state = "不明";
+        }
+        return state;
+    }
+
+    String parseMethod(String methodCode) {
+        String method;
+        switch (methodCode) {
+            case "1": {
+                method = "成了";
+                break;
+            }
+            case "2": {
+                method = "没成";
+                break;
+            }
+            default:
+                method = "不晓得";
+        }
+        return method;
     }
 }

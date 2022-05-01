@@ -66,8 +66,29 @@ public class HomeworkImpl {
             resultMap.put("id", homeWork.getHomeworkId());
             resultMap.put("content", homeWork.getContent());
             resultMap.put("score", homeWork.getScore());
-            resultMap.put("courseId", homeWork.getCourse().getName());
-            resultMap.put("studentId", homeWork.getStudent().getStudentName());
+
+            List studentIdList = new ArrayList<>();
+            List<Student> studentList = studentRepository.findAll();
+            Map map;
+            for (Student value : studentList) {
+                map = new HashMap<>();
+                map.put("label", value.getStudentName());
+                map.put("value", value.getStudentId());
+                studentIdList.add(map);
+            }
+            resultMap.put("studentId", "");
+            resultMap.put("studentIdList", studentIdList);
+
+            List courseIdList = new ArrayList();
+            List<Course> courseList = courseRepository.findAll();
+            for (Course value : courseList) {
+                map = new HashMap<>();
+                map.put("label", value.getName());
+                map.put("value", value.getCourseId());
+                courseIdList.add(map);
+            }
+            resultMap.put("courseId", "");
+            resultMap.put("courseIdList", courseIdList);
         } else {
             List studentIdList = new ArrayList<>();
             if (studentId != null) {

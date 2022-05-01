@@ -35,14 +35,14 @@ public class ScoreService {
     public Integer saveScore(DataRequest dataRequest) {
         Map<String, Object> form = dataRequest.getMap("form");
         Score scoreData = new Score();
-        String courseName = CommonMethod.getString(form, "courseName");
-        String studentName = CommonMethod.getString(form, "studentName");
+        Integer courseId = CommonMethod.getInteger(form, "courseId");
+        Integer studentId = CommonMethod.getInteger(form, "studentId");
         scoreData.setScoreId(CommonMethod.getInteger(form, "id"));
         scoreData.setScore(CommonMethod.getInteger(form, "score"));
         scoreData.setMethod(CommonMethod.getString(form, "method"));
         scoreData.setDailyScore(CommonMethod.getInteger(form, "dailyScore"));
         scoreData.setExamScore(CommonMethod.getInteger(form, "examScore"));
-        return score.insertScore(scoreData, courseName, studentName);
+        return score.insertScore(scoreData, courseId, studentId);
     }
 
     public void deleteScore(DataRequest dataRequest) {

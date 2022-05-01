@@ -40,13 +40,13 @@ public class CheckoutService {
     public Integer saveCheckout(DataRequest dataRequest) {
         Map<String, Object> form = dataRequest.getMap("form");
         Checkout checkoutData = new Checkout();
-        String courseName = CommonMethod.getString(form, "courseName");
-        String studentName = CommonMethod.getString(form, "studentName");
-        checkoutData.setCheckoutId(CommonMethod.getInteger(form,"id"));
+        Integer courseId = CommonMethod.getInteger(form, "courseId");
+        Integer studentId = CommonMethod.getInteger(form, "studentId");
+        checkoutData.setCheckoutId(CommonMethod.getInteger(form, "id"));
         checkoutData.setMethod(CommonMethod.getString(form, "method"));
         checkoutData.setState(CommonMethod.getInteger(form, "state"));
         checkoutData.setTime(CommonMethod.getTime(form, "time"));
-        return checkout.insertCheckout(checkoutData, courseName, studentName);
+        return checkout.insertCheckout(checkoutData, courseId, studentId);
     }
 
     public void deleteCheckout(DataRequest dataRequest) {

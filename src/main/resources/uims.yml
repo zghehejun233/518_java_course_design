@@ -392,7 +392,7 @@ uims:
           label: 课程时间
         - type: link
           prop: checkout
-          label: 签到
+          label: 考勤
         - type: opers
           label: 操作
           opers:
@@ -540,7 +540,7 @@ uims:
           label: 第几节课
     - name: checkout
       type: table
-      label: 签到
+      label: 考勤
       showAdd: 1
       item:
         - type: text
@@ -560,20 +560,32 @@ uims:
             - name: detail
     - name: checkoutEdit
       type: form
-      label: 签到
+      label: 考勤
       item:
-        - type: input
+        - type: select
+          prop: studentId
+          label: 学生
+        - type: select
+          prop: courseId
+          label: 课程
+        - type: select
           prop: method
           label: 方式
-        - type: input
-          prop: studentName
-          label: 学生姓名
-        - type: input
-          prop: courseName
-          label: 课程名称
-        - type: input
+          option:
+            - label: 线下
+              value: 1
+            - label: 线上
+              value: 2
+            - label: 室友代签
+              value: 3
+        - type: select
           prop: state
           label: 状态
+          option:
+            - label: 成了
+              value: 1
+            - label: 没成
+              value: 2
         - type: date
           prop: time
           label: 时间
@@ -807,21 +819,31 @@ uims:
       type: form
       title: 成绩
       item:
+        - type: select
+          prop: courseId
+          label: 课程
+        - type: select
+          prop: studentId
+          label: 学生
         - type: input
           prop: score
           label: 总成绩
-        - type: input
+        - type: select
           prop: method
           label: 计分方式
+          option:
+            - label: 及格制
+              value: 1
+            - label: 百分制
+              value: 2
+            - label: 五分制
+              value: 3
         - type: input
           prop: dailyScore
           label: 平时分
         - type: input
           prop: examScore
           label: 考试成绩
-        - type: input
-          prop: courseName
-          label: 课程名称
     - name: practice
       type: table
       title: 社会实践
