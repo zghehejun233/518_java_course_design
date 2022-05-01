@@ -31,19 +31,19 @@ public class StudentAcademicVOImpl {
             tempMap.put("studentName", student.getStudentName());
 
             String courseSelectionParas = "model=courseSelection&studentId=" + student.getStudentId();
-            tempMap.put("courseSelection", "选课记录");
+            tempMap.put("courseSelection", "选了"+student.getCourseSelections().size()+"个课");
             tempMap.put("courseSelectionParas", courseSelectionParas);
 
             String homeworkParas = "model=homework&studentId=" + student.getStudentId();
-            tempMap.put("homework", "作业");
+            tempMap.put("homework", "交过"+student.getHomeWork().size()+"次作业");
             tempMap.put("homeworkParas", homeworkParas);
 
             String scoreParas = "model=score&studentId=" + student.getStudentId();
-            tempMap.put("score", "成绩");
+            tempMap.put("score", "有"+student.getScores().size()+"份成绩");
             tempMap.put("scoreParas", scoreParas);
 
             String checkoutParas = "model=checkout&studentId=" + student.getStudentId();
-            tempMap.put("checkout", "作业");
+            tempMap.put("checkout", "上过"+student.getCheckouts().size()+"此课");
             tempMap.put("checkoutParas", checkoutParas);
 
             result.add(tempMap);

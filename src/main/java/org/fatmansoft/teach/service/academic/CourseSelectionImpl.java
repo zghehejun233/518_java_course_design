@@ -31,6 +31,11 @@ public class CourseSelectionImpl {
     @Resource
     private StudentRepository studentRepository;
 
+    /**
+     * 课程id
+     * 学生id
+     *
+     */
     private Integer courseId = null;
     private Integer studentId = null;
 
@@ -77,6 +82,7 @@ public class CourseSelectionImpl {
 
     public Integer saveCourseSelection(CourseSelection courseSelectionData,
                                        String courseName, String studentName) {
+        // 尝试获取选课记录的实例
         CourseSelection courseSelection = null;
         Optional<CourseSelection> op;
         if (courseSelectionData.getCourseSelectionId() != null) {
@@ -86,6 +92,7 @@ public class CourseSelectionImpl {
             }
         }
 
+        // 查找最大id
         Integer maxCourseSelectionId = null;
         if (courseSelection == null) {
             courseSelection = new CourseSelection();
@@ -95,13 +102,16 @@ public class CourseSelectionImpl {
             } else {
                 maxCourseSelectionId += 1;
             }
+            // 设置主键
             courseSelection.setCourseSelectionId(maxCourseSelectionId);
         }
 
+        //  寻找相关的Course和Student
         Course course = null;
         Optional<Course> opCourse;
         Student student = null;
         Optional<Student> opStudent;
+        // 查找课程
         if ((courseId == null && courseName != null)) {
             course = courseRepository.findFirstByName(courseName);
             SystemApplicationListener.logger.info("[CourseSelection]" + "找到关联的课程信息");
@@ -118,10 +128,10 @@ public class CourseSelectionImpl {
                 return 1;
             }
         }
+        // 查找student
         if (studentId == null && studentName != null) {
             student = studentRepository.findFirstByStudentNameOrStudentNum(studentName, studentName);
             SystemApplicationListener.logger.info("[CourseSelection]" + "找到关联的学生信息");
-
         } else {
             try {
                 opStudent = studentRepository.findById(studentId);
