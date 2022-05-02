@@ -38,7 +38,7 @@ public class DailyVOImpl {
             tempMap.put("studentName", student.getStudentName());
 
             String activityParas = "model=activity&studentId=" + student.getStudentId();
-            tempMap.put("activity", "参加"+"次");
+            tempMap.put("activity", "参加"+student.getActivities().size()+"次");
             tempMap.put("activityParas", activityParas);
 
             String outingParas = "model=outing&studentId=" + student.getStudentId();

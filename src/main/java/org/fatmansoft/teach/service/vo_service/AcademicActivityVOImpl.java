@@ -40,27 +40,27 @@ public class AcademicActivityVOImpl {
             tempMap.put("studentName", student.getStudentName());
 
             String practiceParas = "model=practice&studentId=" + student.getStudentId();
-            tempMap.put("practice", "shi");
+            tempMap.put("practice", "实践"+student.getPractices().size());
             tempMap.put("practiceParas", practiceParas);
 
             String competitionParas = "model=competition&studentId=" + student.getStudentId();
-            tempMap.put("competition", "shi");
+            tempMap.put("competition", "参赛"+student.getCompetitions().size()+"次");
             tempMap.put("competitionParas", competitionParas);
 
             String innovationProjectParas = "model=innovationProject&studentId=" + student.getStudentId();
-            tempMap.put("innovationProject", "shi");
+            tempMap.put("innovationProject", "参与"+student.getInnovationProjects().size()+"项项目");
             tempMap.put("innovationProjectParas", innovationProjectParas);
 
             String internshipParas = "model=internship&studentId=" + student.getStudentId();
-            tempMap.put("internship", "shi");
+            tempMap.put("internship", "有"+student.getInternships().size()+"次实习");
             tempMap.put("internshipParas", internshipParas);
 
             String lectureParas = "model=lecture&studentId=" + student.getStudentId();
-            tempMap.put("lecture", "shi");
+            tempMap.put("lecture", "参加"+student.getLectures().size()+"次讲座");
             tempMap.put("lectureParas", lectureParas);
 
             String scientificResultParas = "model=scientificResult&studentId=" + student.getStudentId();
-            tempMap.put("scientificResult", "shi");
+            tempMap.put("scientificResult", "有"+student.getScientificResults()+"项成果");
             tempMap.put("scientificResultParas", scientificResultParas);
 
             result.add(tempMap);
