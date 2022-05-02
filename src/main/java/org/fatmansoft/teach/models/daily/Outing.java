@@ -20,13 +20,13 @@ public class Outing {
     @Id
     @Column(name = "outing_id")
     private Integer outingId;
-    @Column(name = "name")
+    @Column(name = "outing_name")
     private String name;
     @Column(name = "content")
     private String content;
     @Column(name = "location")
     private String location;
-    @Column(name = "time")
+    @Column(name = "outing_time")
     private Date time;
     @ManyToOne
     @JoinColumn(name = "student_id")

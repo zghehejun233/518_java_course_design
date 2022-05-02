@@ -17,11 +17,11 @@ public class Leave {
     private Integer leaveId;
     @Column(name = "reason")
     private String reason;
-    @Column(name = "state")
+    @Column(name = "leave_state")
     private Integer state;
-    @Column(name = "type")
+    @Column(name = "leave_type")
     private Integer type;
-    @Column(name = "time")
+    @Column(name = "leave_time")
     private Date time;
 
     @ManyToOne

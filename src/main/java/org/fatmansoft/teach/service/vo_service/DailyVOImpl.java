@@ -38,23 +38,23 @@ public class DailyVOImpl {
             tempMap.put("studentName", student.getStudentName());
 
             String activityParas = "model=activity&studentId=" + student.getStudentId();
-            tempMap.put("activity", "shi");
+            tempMap.put("activity", "参加"+"次");
             tempMap.put("activityParas", activityParas);
 
             String outingParas = "model=outing&studentId=" + student.getStudentId();
-            tempMap.put("outing", "shi");
+            tempMap.put("outing", "出门"+student.getOutings().size()+"次");
             tempMap.put("outingParas", outingParas);
 
             String leaveParas = "model=leave&studentId=" + student.getStudentId();
-            tempMap.put("leave", "shi");
+            tempMap.put("leave", "请假");
             tempMap.put("leaveParas", leaveParas);
 
             String costParas = "model=cost&studentId=" + student.getStudentId();
-            tempMap.put("cost", "shi");
+            tempMap.put("cost", "消费记录"+student.getCosts().size()+"条");
             tempMap.put("costParas", costParas);
 
             String achievementParas = "model=achievement&studentId=" + student.getStudentId();
-            tempMap.put("achievement", "shi");
+            tempMap.put("achievement", "获得荣誉"+student.getAchievements().size()+"项");
             tempMap.put("achievementParas", achievementParas);
 
             result.add(tempMap);
