@@ -1,18 +1,10 @@
 package org.fatmansoft.teach.service;
 
-import org.fatmansoft.teach.SystemApplicationListener;
-import org.fatmansoft.teach.dto.AverageScoreDTO;
-import org.fatmansoft.teach.dto.CourseRankDTO;
-import org.fatmansoft.teach.dto.StudentScoresDTO;
-import org.fatmansoft.teach.models.academic.Course;
-import org.fatmansoft.teach.models.academic.CourseSelection;
-import org.fatmansoft.teach.models.academic.Score;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.repository.academic.CourseRepository;
 import org.fatmansoft.teach.repository.academic.ScoreRepository;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;
 import org.fatmansoft.teach.service.academic.ScoreImpl;
-import org.fatmansoft.teach.service.student_basic.StudentImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
