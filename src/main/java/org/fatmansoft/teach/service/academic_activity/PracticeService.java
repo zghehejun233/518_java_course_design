@@ -32,6 +32,7 @@ public class PracticeService {
         Practice practiceData = new Practice();
         practiceData.setPracticeId(CommonMethod.getInteger(form,"id"));
         practiceData.setTime(CommonMethod.getTime(form,"time"));
+        practiceData.setContent(CommonMethod.getString(form,"content"));
         practiceData.setPrincipal(CommonMethod.getString(form,"principal"));
         practiceData.setOrganization(CommonMethod.getString(form,"organization"));
         practiceData.setName(CommonMethod.getString(form,"name"));

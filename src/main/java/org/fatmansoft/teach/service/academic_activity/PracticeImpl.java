@@ -40,6 +40,8 @@ public class PracticeImpl {
             practice = value;
             tempMap = new HashMap<>();
             tempMap.put("id", practice.getPracticeId());
+            tempMap.put("studentNum",practice.getStudent().getStudentId());
+            tempMap.put("studentName",practice.getStudent().getStudentName());
             tempMap.put("name", practice.getName());
             tempMap.put("content", practice.getContent());
             tempMap.put("principal", practice.getPrincipal());
@@ -56,12 +58,16 @@ public class PracticeImpl {
         Map<String, Object> resultMap = new HashMap<>();
         if (practice != null) {
             resultMap.put("id", practice.getPracticeId());
+            resultMap.put("studentName",practice.getStudent().getStudentName());
             resultMap.put("name", practice.getName());
             resultMap.put("content", practice.getContent());
             resultMap.put("principal", practice.getPrincipal());
             resultMap.put("organization", practice.getOrganization());
             resultMap.put("location", practice.getLocation());
             resultMap.put("time", practice.getTime());
+        }else {
+            Optional<Student> op = studentRepository.findById(studentId);
+            op.ifPresent(student -> resultMap.put("studentName", student.getStudentName()));
         }
         return resultMap;
     }
