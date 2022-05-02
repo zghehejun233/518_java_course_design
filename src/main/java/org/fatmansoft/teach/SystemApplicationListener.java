@@ -1,5 +1,6 @@
 package org.fatmansoft.teach;
 
+import org.fatmansoft.teach.repository.GlobalScoreRepository;
 import org.fatmansoft.teach.service.SystemService;
 import org.fatmansoft.teach.service.TestService;
 import org.slf4j.Logger;
@@ -18,12 +19,15 @@ public class SystemApplicationListener implements ApplicationListener<Applicatio
     private SystemService systemService;
     @Autowired
     private TestService testService;
+    @Autowired
+    private GlobalScoreRepository globalScoreRepository;
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         logger.info("SystemInitStart");
         systemService.loadUimsFile();
         testService.testMain();
+        globalScoreRepository.setString("a","a");
         logger.info("systemInitEnd");
     }
 

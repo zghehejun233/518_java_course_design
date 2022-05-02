@@ -25,15 +25,12 @@ public class IntroduceService {
 
     //个人简历信息数据准备方法  请同学修改这个方法，请根据自己的数据的希望展示的内容拼接成字符串，放在Map对象里， attachList 可以方多段内容，具体内容有个人决定
     public Map getIntroduceDataMap(Integer studentId) {
-        // 获取学生的所有成绩
-        List<StudentScoresDTO> scoresDTOList = introduce.getScoreData(studentId);
+        // 获取学生的所有成绩，排名为空
+        List<StudentScoresDTO> scoresDTOList = globalScoreService.getScoreData(introduce.getStudent(studentId));
+        // 获得包含排名的成绩，填充组合的对象
+        scoresDTOList = globalScoreService.getCourseRank(studentId,scoresDTOList);
         // 基于所有成绩计算平均成绩
         AverageScoreDTO averageScoreDTO = globalScoreService.getAverage(scoresDTOList);
-
-        scoresDTOList = introduce.getCourseRank(studentId,scoresDTOList);
-        for ( StudentScoresDTO value : scoresDTOList) {
-            SystemApplicationListener.logger.warn(value.getCourseRankDTO().toString());
-        }
 
         Student student = introduce.getStudent(studentId);
         Map data = new HashMap();

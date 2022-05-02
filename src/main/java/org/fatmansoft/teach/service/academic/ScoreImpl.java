@@ -2,9 +2,11 @@ package org.fatmansoft.teach.service.academic;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.assertj.core.util.DateUtil;
 import org.fatmansoft.teach.SystemApplicationListener;
 import org.fatmansoft.teach.dto.CourseRankComparator;
 import org.fatmansoft.teach.dto.CourseRankDTO;
+import org.fatmansoft.teach.dto.CourseRankDTOSerializator;
 import org.fatmansoft.teach.models.academic.Course;
 import org.fatmansoft.teach.models.academic.CourseSelection;
 import org.fatmansoft.teach.models.academic.HomeWork;
@@ -12,6 +14,7 @@ import org.fatmansoft.teach.models.academic.Score;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
+import org.fatmansoft.teach.repository.GlobalScoreRepository;
 import org.fatmansoft.teach.repository.academic.CourseRepository;
 import org.fatmansoft.teach.repository.academic.ScoreRepository;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;
@@ -40,6 +43,8 @@ public class ScoreImpl {
     private CourseRepository courseRepository;
     @Resource
     private StudentRepository studentRepository;
+    @Resource
+    private GlobalScoreRepository globalScoreRepository;
 
     private Integer courseId;
     private Integer studentId;
@@ -59,7 +64,7 @@ public class ScoreImpl {
             tempMap.put("method", parseMethod(score.getMethod()));
             tempMap.put("dailyScore", score.getDailyScore());
             tempMap.put("examScore", score.getExamScore());
-            tempMap.put("score",score.getScore());
+            tempMap.put("score", score.getScore());
             result.add(tempMap);
         }
         return result;
@@ -81,7 +86,7 @@ public class ScoreImpl {
             resultMap.put("method", score.getMethod());
             resultMap.put("dailyScore", score.getDailyScore());
             resultMap.put("examScore", score.getExamScore());
-            resultMap.put("score",score.getScore());
+            resultMap.put("score", score.getScore());
 
             List studentIdList = new ArrayList<>();
             List<Student> studentList = studentRepository.findAll();
@@ -193,7 +198,7 @@ public class ScoreImpl {
             course = opCourse.get();
             score.setCourse(course);
         }
-        Student student ;
+        Student student;
         Optional<Student> opStudent = studentRepository.findById(studentIdData);
         if (opStudent.isPresent()) {
             student = opStudent.get();
@@ -245,7 +250,7 @@ public class ScoreImpl {
      * @param course 课程
      * @return CourseRankDTO的列表，包含排名和百分比
      */
-    public List<CourseRankDTO> getCourseRankList(Course course) {
+    public List<CourseRankDTO>  getCourseRankList(Course course) {
         // 获取这么课程下的所有Score对象
         List<Score> scoreList = new ArrayList<>(course.getScores());
         // 初始化
@@ -258,7 +263,7 @@ public class ScoreImpl {
         // 存储成绩相同的人数和名单长度
         int sameScoreNum = 1;
         int size = courseRankDTOList.size();
-
+        // 遍历这一门课程下的所有成绩记录，从而得到该门课程的排名
         for (int i = 0; i < size; i++) {
             // 排名
             courseRankDTOList.get(i).setRank(i + 1);
@@ -271,8 +276,31 @@ public class ScoreImpl {
             courseRankDTOList.get(i).setSameScoreNum(i);
             // 百分比
             courseRankDTOList.get(i).setPercent((courseRankDTOList.get(i).getRank() + 1 - sameScoreNum + 1) / (double) size);
-            SystemApplicationListener.logger.debug("这一门课下的成绩【" + i + "】：" + courseRankDTOList.get(i).toString());
         }
+        // 将该门课程写入Redis缓存
+        // 首先进行重编码
+        List<String> serializedCourseRankDTO = new ArrayList<>();
+        for (CourseRankDTO value : courseRankDTOList) {
+            serializedCourseRankDTO.add(CourseRankDTOSerializator.serializeCourseRankDTO(value));
+        }
+        // 以course的id为key保存
+        try {
+            globalScoreRepository.drop("course:" + (course.getCourseId() - 1));
+            SystemApplicationListener.logger.info("删除原有key和value");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        globalScoreRepository.leftPushStringList("course:" + (course.getCourseId() - 1), serializedCourseRankDTO);
+        SystemApplicationListener.logger.info("添加新的课程成绩记录");
+        // 保存更改时间
+        try {
+            globalScoreRepository.drop("courseTime:" + (course.getCourseId() - 1));
+            SystemApplicationListener.logger.info("删除原有key和value");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        globalScoreRepository.setString("courseTime:" + (course.getCourseId() - 1), DateUtil.now().toString());
+        SystemApplicationListener.logger.info("添加新的更新时间记录");
         return courseRankDTOList;
     }
 
@@ -280,7 +308,7 @@ public class ScoreImpl {
      * 基于课程的所有排名，根据成绩匹配其排名
      *
      * @param courseRankDTOList 包装后的成绩列表
-     * @param score 需要查询的成绩
+     * @param score             需要查询的成绩
      * @return 返回对应的CourseRankDTO
      */
     public CourseRankDTO getCourseRank(List<CourseRankDTO> courseRankDTOList, Integer score) {
