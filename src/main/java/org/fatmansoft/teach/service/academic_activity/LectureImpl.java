@@ -8,6 +8,7 @@ import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.repository.academic_activity.LectureRepository;
 import org.fatmansoft.teach.repository.academic_activity.PracticeRepository;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;
+import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -37,10 +38,11 @@ public class LectureImpl {
             tempMap = new HashMap<>();
             tempMap.put("id", lecture.getLectureId());
             tempMap.put("theme", lecture.getTheme());
+            tempMap.put("studentName",lecture.getStudent().getStudentName());
             tempMap.put("presenter", lecture.getPresenter());
             tempMap.put("content", lecture.getContent());
             tempMap.put("location", lecture.getLocation());
-            tempMap.put("time", lecture.getTime());
+            tempMap.put("time", DateTimeTool.parseDateTime(lecture.getTime(),"yyyy-MM-dd"));
             result.add(tempMap);
         }
         return result;
@@ -52,10 +54,14 @@ public class LectureImpl {
         if (lecture != null) {
             resultMap.put("id", lecture.getLectureId());
             resultMap.put("theme", lecture.getTheme());
+            resultMap.put("studentName",lecture.getStudent().getStudentName());
             resultMap.put("presenter", lecture.getPresenter());
             resultMap.put("content", lecture.getContent());
             resultMap.put("location", lecture.getLocation());
             resultMap.put("time", lecture.getTime());
+        }else {
+            Optional<Student> op = studentRepository.findById(studentId);
+            op.ifPresent(student -> resultMap.put("studentName",student.getStudentName()));
         }
         return resultMap;
     }
@@ -66,14 +72,14 @@ public class LectureImpl {
         if (lecture == null) {
             lecture = new Lecture();
             maxLectureId = lectureRepository.getMaxId();
-            if (lectureData.getLectureId() == null) {
+            if (maxLectureId == null) {
                 maxLectureId = 1;
             } else {
                 maxLectureId += 1;
             }
             lecture.setLectureId(maxLectureId);
         }
-        lecture.setTheme(lecture.getTheme());
+        lecture.setTheme(lectureData.getTheme());
         lecture.setPresenter(lectureData.getPresenter());
         lecture.setContent(lectureData.getContent());
         lecture.setLocation(lectureData.getLocation());

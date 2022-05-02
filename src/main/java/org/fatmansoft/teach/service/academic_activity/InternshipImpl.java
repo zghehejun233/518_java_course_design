@@ -7,6 +7,7 @@ import org.fatmansoft.teach.models.academic_activity.Practice;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.repository.academic_activity.InternshipRepository;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;
+import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -35,11 +36,12 @@ public class InternshipImpl {
             internship = value;
             tempMap = new HashMap<>();
             tempMap.put("id", internship.getInternshipId());
+            tempMap.put("studentName", internship.getStudent().getStudentName());
             tempMap.put("organization", internship.getOrganization());
             tempMap.put("content", internship.getContent());
             tempMap.put("location", internship.getLocation());
-            tempMap.put("startTime", internship.getStartTime());
-            tempMap.put("endTime", internship.getEndTime());
+            tempMap.put("startTime", DateTimeTool.parseDateTime(internship.getStartTime(), "yyyy-MM"));
+            tempMap.put("endTime", DateTimeTool.parseDateTime(internship.getEndTime(), "yyyy-MM"));
             result.add(tempMap);
         }
         return result;
@@ -50,11 +52,15 @@ public class InternshipImpl {
         Map<String, Object> resultMap = new HashMap<>();
         if (internship != null) {
             resultMap.put("id", internship.getInternshipId());
+            resultMap.put("studentName", internship.getStudent().getStudentName());
             resultMap.put("organization", internship.getOrganization());
             resultMap.put("content", internship.getContent());
             resultMap.put("location", internship.getLocation());
             resultMap.put("startTime", internship.getStartTime());
             resultMap.put("endTime", internship.getEndTime());
+        } else {
+            Optional<Student> op = studentRepository.findById(studentId);
+            op.ifPresent(student -> resultMap.put("studentName", student.getStudentName()));
         }
         return resultMap;
     }

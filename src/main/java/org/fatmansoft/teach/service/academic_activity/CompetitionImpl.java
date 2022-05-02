@@ -37,8 +37,10 @@ public class CompetitionImpl {
             competition = value;
             tempMap = new HashMap<>();
             tempMap.put("id", competition.getCompetitionId());
+            tempMap.put("studentNum", competition.getStudent().getStudentNum());
+            tempMap.put("studentName", competition.getStudent().getStudentName());
             tempMap.put("name", competition.getName());
-            tempMap.put("type", competition.getType());
+            tempMap.put("type", parseType(competition.getType()));
             tempMap.put("organizer", competition.getOrganizer());
             tempMap.put("award", competition.getAward());
             tempMap.put("time", DateTimeTool.parseDateTime(competition.getTime(), "yyyy-MM-dd"));
@@ -63,10 +65,14 @@ public class CompetitionImpl {
         Map<String, Object> resultMap = new HashMap<>();
         if (competition != null) {
             resultMap.put("id", competition.getCompetitionId());
+            resultMap.put("studentName", competition.getStudent().getStudentName());
             resultMap.put("name", competition.getName());
             resultMap.put("type", competition.getType());
             resultMap.put("organizer", competition.getOrganizer());
             resultMap.put("award", competition.getAward());
+        }else {
+            Optional<Student> op = studentRepository.findById(studentId);
+            op.ifPresent(student -> resultMap.put("studentName", student.getStudentName()));
         }
         return resultMap;
     }
@@ -112,5 +118,37 @@ public class CompetitionImpl {
         return competition;
     }
 
-
+    // 对level进行反编码
+    private String parseType(String typeCode) {
+        String type;
+        switch (typeCode) {
+            case "1": {
+                type = "院级竞赛";
+                break;
+            }
+            case "2": {
+                type = "校级竞赛";
+                break;
+            }
+            case "3": {
+                type = "省级竞赛";
+                break;
+            }
+            case "4": {
+                type = "国家级竞赛";
+                break;
+            }
+            case "5": {
+                type = "世界级竞赛";
+                break;
+            }
+            case "6": {
+                type = "宇宙级竞赛";
+                break;
+            }
+            default:
+                type = "究极无敌至高竞赛";
+        }
+        return type;
+    }
 }

@@ -43,7 +43,7 @@ public class LectureController {
     @PostMapping("/lectureDelete")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse lectureDelete(@Valid @RequestBody DataRequest dataRequest) {
-        lectureService.getLectureDetail(dataRequest);
+        lectureService.deleteLecture(dataRequest);
         return CommonMethod.getReturnMessageOk();
     }
 

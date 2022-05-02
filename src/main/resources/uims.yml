@@ -922,18 +922,28 @@ uims:
       type: form
       title: 学科竞赛
       item:
-        - type: input
-          prop: studentNum
-          label: 学号
-        - type: input
+        - type: text
           prop: studentName
           label: 姓名
         - type: input
           prop: name
           label: 名称
-        - type: input
+        - type: select
           prop: type
           label: 类型
+          option:
+            - value: 1
+              label: 院级竞赛
+            - value: 2
+              label: 校级竞赛
+            - value: 3
+              label: 省级竞赛
+            - value: 4
+              label: 国家级竞赛
+            - value: 5
+              label: 世界级竞赛
+            - value: 6
+              label: 宇宙级竞赛
         - type: input
           prop: organizer
           label: 组织方
@@ -956,13 +966,13 @@ uims:
           label: 内容
         - type: text
           prop: principal
-          label: 忘了
+          label: 负责人
         - type: text
           prop: advisor
           label: 指导人
         - type: text
           prop: organization
-          label: 组织
+          label: 筹办方
         - type: text
           prop: description
           label: 备注
@@ -976,18 +986,21 @@ uims:
       type: form
       title: 创新创业
       item:
+        - type: text
+          prop: studentName
+          label: 姓名
         - type: input
           prop: content
           label: 内容
         - type: input
           prop: principal
-          label: 忘了
+          label: 负责人
         - type: input
           prop: advisor
           label: 指导人
         - type: input
           prop: organization
-          label: 组织
+          label: 筹办方
         - type: input
           prop: description
           label: 备注
@@ -1009,10 +1022,10 @@ uims:
           prop: location
           label: 地点
         - type: text
-          prop: start_time
+          prop: startTime
           label: 开始时间
         - type: text
-          prop: end_time
+          prop: endTime
           label: 结束时间
         - type: opers
           label: 操作
@@ -1024,6 +1037,9 @@ uims:
       type: form
       title: 校外实习
       item:
+        - type: text
+          prop: studentName
+          label: 姓名
         - type: input
           prop: organization
           label: 公司
@@ -1044,6 +1060,9 @@ uims:
       title: 学术讲座
       showAdd: 1
       item:
+        - type: text
+          label: 姓名
+          prop: studentName
         - type: text
           prop: theme
           label: 主题
@@ -1066,6 +1085,9 @@ uims:
       type: form
       title: 学术讲座
       item:
+        - type: text
+          label: 姓名
+          prop: studentName
         - type: input
           prop: theme
           label: 主题
@@ -1075,7 +1097,7 @@ uims:
         - type: input
           prop: location
           label: 地点
-        - type: input
+        - type: date
           prop: time
           label: 日期
     - name: scientificResult

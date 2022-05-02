@@ -1,5 +1,6 @@
 package org.fatmansoft.teach.service.academic_activity;
 
+import org.fatmansoft.teach.SystemApplicationListener;
 import org.fatmansoft.teach.models.academic_activity.Lecture;
 import org.fatmansoft.teach.models.academic_activity.Practice;
 import org.fatmansoft.teach.payload.request.DataRequest;
@@ -30,12 +31,16 @@ public class LectureService {
     public Integer saveLecture(DataRequest dataRequest) {
         Map<String, Object> form = dataRequest.getMap("form");
         Lecture lectureData = new Lecture();
+        lectureData.setLectureId(CommonMethod.getInteger(form,"id"));
         lectureData.setTheme(CommonMethod.getString(form,"theme"));
         lectureData.setPresenter(CommonMethod.getString(form,"presenter"));
         lectureData.setContent(CommonMethod.getString(form,"content"));
-        lectureData.setContent(CommonMethod.getString(form,"location"));
+        lectureData.setLocation(CommonMethod.getString(form,"location"));
         lectureData.setTime(CommonMethod.getTime(form,"time"));
         return lecture.insertLecture(lectureData);
     }
-
+    public void deleteLecture(DataRequest dataRequest) {
+        Integer lectureId= dataRequest.getInteger("id");
+        lecture.dropLecture(lectureId);
+    }
 }

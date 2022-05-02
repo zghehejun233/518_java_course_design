@@ -10,6 +10,7 @@ import org.fatmansoft.teach.repository.student_basic.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.swing.text.html.Option;
 import java.util.*;
 
 @Service
@@ -36,6 +37,7 @@ public class InnovationProjectImpl {
             innovationProject = value;
             tempMap = new HashMap<>();
             tempMap.put("id", innovationProject.getInnovationProjectId());
+            tempMap.put("studentName", innovationProject.getStudent().getStudentName());
             tempMap.put("content", innovationProject.getContent());
             tempMap.put("principal", innovationProject.getPrincipal());
             tempMap.put("advisor", innovationProject.getAdvisor());
@@ -51,11 +53,15 @@ public class InnovationProjectImpl {
         Map<String, Object> resultMap = new HashMap<>();
         if (innovationProject != null) {
             resultMap.put("id", innovationProject.getInnovationProjectId());
+            resultMap.put("studentName", innovationProject.getStudent().getStudentName());
             resultMap.put("content", innovationProject.getContent());
             resultMap.put("principal", innovationProject.getPrincipal());
             resultMap.put("advisor", innovationProject.getAdvisor());
             resultMap.put("organization", innovationProject.getOrganization());
             resultMap.put("description", innovationProject.getDescription());
+        } else {
+            Optional<Student> op = studentRepository.findById(studentId);
+            op.ifPresent(student -> resultMap.put("studentName", student.getStudentName()));
         }
         return resultMap;
     }
