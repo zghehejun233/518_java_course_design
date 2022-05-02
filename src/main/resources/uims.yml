@@ -190,9 +190,6 @@ uims:
       title: 学生荣誉
       showAdd: 1
       item:
-        - type: text
-          prop: studentNum
-          label: 学号
         - type: link
           prop: studentName
           label: 姓名
@@ -266,18 +263,18 @@ uims:
       title: 日常活动
       showAdd: 1
       item:
-        - type: text
-          prop: studentNum
-          label: 学号
         - type: link
           prop: studentName
           label: 姓名
         - name: text
-          prop: type
-          label: 活动类型
-        - name: text
           prop: name
           label: 活动名称
+        - type: input
+          prop: principal
+          label: 举办人
+        - type: input
+          prop: content
+          label: 内容
         - type: text
           prop: location
           label: 活动地点
@@ -294,21 +291,18 @@ uims:
       type: form
       title: 活动管理
       item:
-        - type: select
-          prop: type
-          label: 活动类型
-          option:
-            - value: 1
-              label: 体育活动
-            - value: 2
-              label: 外出旅游
-            - value: 3
-              label: 文艺演出
-            - value: 4
-              label: 聚会
+        - type: text
+          prop: studentName
+          label: 学生
         - type: input
           prop: name
           label: 活动名称
+        - type: input
+          prop: principal
+          label: 举办人
+        - type: input
+          prop: content
+          label: 内容
         - type: input
           prop: location
           label: 活动地点
@@ -595,10 +589,16 @@ uims:
       showAdd: 1
       item:
         - type: text
+          label: 学生
+          prop: studentName
+        - type: text
           prop: description
           label: 支出用途
         - type: text
-          prop: amout
+          prop: type
+          label: 类型
+        - type: text
+          prop: amount
           label: 支出
         - type: text
           prop: time
@@ -613,9 +613,32 @@ uims:
       type: form
       title: 消费管理
       item:
+        - type: text
+          label: 学生
+          prop: studentName
         - type: input
           prop: description
           label: 支出用途
+        - type: select
+          prop: type
+          label: 类型
+          option:
+            - value: 1
+              label: 餐饮
+            - value: 2
+              label: 水果
+            - value: 3
+              label: 零食
+            - value: 4
+              label: 购物
+            - value: 5
+              label: 交通
+            - value: 6
+              label: 娱乐
+            - value: 7
+              label: 学习工作
+            - value: 8
+              label: 其他
         - type: input
           prop: amount
           label: 支出
@@ -1139,9 +1162,24 @@ uims:
         - type: input
           prop: author
           label: 作者
-        - type: input
+        # https://mks.swufe.edu.cn/info/1033/1096.htm
+        # 参考资料
+        - type: select
           prop: level
           label: 级别
+          option:
+            - value: 1
+              label: A1
+            - value: 2
+              label: A2
+            - value: 3
+              label: B1
+            - value: 4
+              label: B2
+            - value: 5
+              label: C
+            - value: 6
+              label: D
         - type: date
           prop: time
           label: 日期
@@ -1150,6 +1188,9 @@ uims:
       title: 外出记录
       showAdd: 1
       item:
+        - type: text
+          prop: studentName
+          label: 学生
         - type: text
           prop: name
           label: 名称
@@ -1172,6 +1213,9 @@ uims:
       type: form
       title: 外出记录
       item:
+        - type: text
+          prop: studentName
+          label: 学生
         - type: input
           prop: name
           label: 名称

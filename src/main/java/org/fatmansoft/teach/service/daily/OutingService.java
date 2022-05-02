@@ -1,5 +1,6 @@
 package org.fatmansoft.teach.service.daily;
 
+import org.fatmansoft.teach.SystemApplicationListener;
 import org.fatmansoft.teach.models.daily.Activity;
 import org.fatmansoft.teach.models.daily.Outing;
 import org.fatmansoft.teach.payload.request.DataRequest;
@@ -37,7 +38,8 @@ public class OutingService {
         outingData.setName(CommonMethod.getString(form,"name"));
         outingData.setContent(CommonMethod.getString(form,"content"));
         outingData.setLocation(CommonMethod.getString(form,"location"));
-        outingData.setTime(CommonMethod.getTime(form,"time"));
+        outingData.setTime(CommonMethod.getDate(form,"time"));
+        SystemApplicationListener.logger.warn(outingData.getTime().toString());
         return outing.insertOuting(outingData);
     }
 

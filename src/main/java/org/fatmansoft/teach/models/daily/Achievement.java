@@ -27,6 +27,8 @@ public class Achievement {
     private String name;
     @Column(name = "level")
     private String level;
+    @Column(name = "type")
+    private String type;
     @Column(name = "content")
     private String content;
     @Column(name = "organization")

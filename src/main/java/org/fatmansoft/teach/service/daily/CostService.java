@@ -32,6 +32,7 @@ public class CostService {
         Cost costData = new Cost();
         costData.setCostId(CommonMethod.getInteger(form, "id"));
         costData.setAmount(CommonMethod.getString(form, "amount"));
+        costData.setType(CommonMethod.getInteger(form,"type"));
         costData.setDescription(CommonMethod.getString(form, "description"));
         costData.setTime(CommonMethod.getTime(form, "time"));
         return cost.insertCost(costData);

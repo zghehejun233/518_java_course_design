@@ -39,6 +39,7 @@ public class ActivityImpl {
             tempMap = new HashMap<>();
             tempMap.put("id", activity.getActivityId());
             tempMap.put("name", activity.getName());
+            tempMap.put("studentName",activity.getStudent().getStudentName());
             tempMap.put("principal", activity.getPrincipal());
             tempMap.put("content", activity.getContent());
             tempMap.put("location", activity.getLocation());
@@ -55,9 +56,13 @@ public class ActivityImpl {
             resultMap.put("id", activity.getActivityId());
             resultMap.put("name", activity.getName());
             resultMap.put("principal", activity.getPrincipal());
+            resultMap.put("studentName",activity.getStudent().getStudentName());
             resultMap.put("content", activity.getContent());
             resultMap.put("location", activity.getLocation());
             resultMap.put("time", activity.getTime());
+        } else {
+            Optional<Student> op = studentRepository.findById(studentId);
+            op.ifPresent(student -> resultMap.put("studentName",student.getStudentName()));
         }
         return resultMap;
     }

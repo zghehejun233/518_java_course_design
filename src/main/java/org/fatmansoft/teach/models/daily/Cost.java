@@ -16,6 +16,8 @@ public class Cost {
     @Id
     @Column(name = "cost_id")
     private Integer costId;
+    @Column(name = "type")
+    private Integer type;
     @Column(name = "amount")
     private String amount;
     @Column(name = "description")

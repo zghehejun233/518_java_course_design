@@ -8,6 +8,7 @@ import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.repository.daily.ActivityRepository;
 import org.fatmansoft.teach.repository.daily.CostRepository;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;
+import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -38,23 +39,30 @@ public class CostImpl {
         for (Cost value : costList) {
             cost = value;
             tempMap = new HashMap<>();
-            tempMap.put("id",cost.getCostId());
-            tempMap.put("amount",cost.getAmount());
-            tempMap.put("description",cost.getDescription());
-            tempMap.put("time",cost.getTime());
+            tempMap.put("id", cost.getCostId());
+            tempMap.put("amount", cost.getAmount());
+            tempMap.put("studentName", cost.getStudent().getStudentName());
+            tempMap.put("description", cost.getDescription());
+            tempMap.put("type", parseType(cost.getType()));
+            tempMap.put("time", DateTimeTool.parseDateTime(cost.getTime(),"yyyy-MM-dd"));
             result.add(tempMap);
         }
         return result;
     }
 
-    public Map<String,Object> queryCostDetail(Integer costId) {
+    public Map<String, Object> queryCostDetail(Integer costId) {
         Cost cost = getCost(costId);
-        Map<String,Object> resultMap = new HashMap<>();
-        if (cost!=null){
-            resultMap.put("id",cost.getCostId());
-            resultMap.put("amount",cost.getAmount());
-            resultMap.put("description",cost.getDescription());
-            resultMap.put("time",cost.getTime());
+        Map<String, Object> resultMap = new HashMap<>();
+        if (cost != null) {
+            resultMap.put("id", cost.getCostId());
+            resultMap.put("amount", cost.getAmount());
+            resultMap.put("description", cost.getDescription());
+            resultMap.put("studentName", cost.getStudent().getStudentName());
+            resultMap.put("type", cost.getType());
+            resultMap.put("time", cost.getTime());
+        } else {
+            Optional<Student> op = studentRepository.findById(studentId);
+            op.ifPresent(student -> resultMap.put("studentName", student.getStudentName()));
         }
         return resultMap;
     }
@@ -75,6 +83,7 @@ public class CostImpl {
         cost.setAmount(costData.getAmount());
         cost.setDescription(costData.getDescription());
         cost.setTime(costData.getTime());
+        cost.setType(costData.getType());
 
         Student relatedStudent;
         Optional<Student> opStudent = studentRepository.findById(studentId);
@@ -107,6 +116,47 @@ public class CostImpl {
             }
         }
         return cost;
+    }
+
+    private String parseType(Integer typeCode) {
+        String type;
+        switch (typeCode) {
+            case 1: {
+                type = "餐饮";
+                break;
+            }
+            case 2: {
+                type = "水果";
+                break;
+            }
+            case 3: {
+                type = "零食";
+                break;
+            }
+            case 4: {
+                type = "购物";
+                break;
+            }
+            case 5: {
+                type = "交通";
+                break;
+            }
+            case 6: {
+                type = "娱乐";
+                break;
+            }
+            case 7: {
+                type = "学习工作";
+                break;
+            }
+            case 8: {
+                type = "其他";
+                break;
+            }
+            default:
+                type = "不明";
+        }
+        return type;
     }
 
 }

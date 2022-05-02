@@ -7,6 +7,7 @@ import org.fatmansoft.teach.models.daily.Outing;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.repository.daily.OutingRepository;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;
+import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -40,8 +41,9 @@ public class OutingImpl {
             tempMap.put("id", outing.getOutingId());
             tempMap.put("name", outing.getName());
             tempMap.put("content", outing.getContent());
+            tempMap.put("studentName",outing.getStudent().getStudentName());
             tempMap.put("location", outing.getLocation());
-            tempMap.put("time", outing.getTime());
+            tempMap.put("time", DateTimeTool.parseDateTime(outing.getTime(),"yyyy-MM-dd"));
             result.add(tempMap);
         }
         return result;
@@ -53,9 +55,13 @@ public class OutingImpl {
         if (outing != null) {
             resultMap.put("id", outing.getOutingId());
             resultMap.put("name", outing.getName());
+            resultMap.put("studentName",outing.getStudent().getStudentName());
             resultMap.put("content", outing.getContent());
             resultMap.put("location", outing.getLocation());
             resultMap.put("time", outing.getTime());
+        }else {
+            Optional<Student> op = studentRepository.findById(studentId);
+            op.ifPresent(student -> resultMap.put("studentName",student.getStudentName()));
         }
         return resultMap;
     }

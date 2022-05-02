@@ -34,12 +34,12 @@ public class ScientificResultImpl {
         for (ScientificResult value : scientificResultList) {
             scientificResult = value;
             tempMap = new HashMap<>();
-            tempMap.put("id",scientificResult.getScientificResultId());
-            tempMap.put("name",scientificResult.getName());
-            tempMap.put("content",scientificResult.getContent());
-            tempMap.put("author",scientificResult.getAuthor());
-            tempMap.put("level",scientificResult.getLevel());
-            tempMap.put("time",scientificResult.getTime());
+            tempMap.put("id", scientificResult.getScientificResultId());
+            tempMap.put("name", scientificResult.getName());
+            tempMap.put("content", scientificResult.getContent());
+            tempMap.put("author", scientificResult.getAuthor());
+            tempMap.put("level", parseLevel(scientificResult.getLevel()));
+            tempMap.put("time", scientificResult.getTime());
             result.add(tempMap);
         }
         return result;
@@ -49,26 +49,28 @@ public class ScientificResultImpl {
         ScientificResult scientificResult = getScientificResult(scientificResultId);
         Map<String, Object> resultMap = new HashMap<>();
         if (scientificResult != null) {
-            resultMap.put("id",scientificResult.getScientificResultId());
-            resultMap.put("name",scientificResult.getName());
-            resultMap.put("content",scientificResult.getContent());
-            resultMap.put("author",scientificResult.getAuthor());
-            resultMap.put("level",scientificResult.getLevel());
-            resultMap.put("time",scientificResult.getTime());
+            resultMap.put("id", scientificResult.getScientificResultId());
+            resultMap.put("name", scientificResult.getName());
+            resultMap.put("content", scientificResult.getContent());
+            resultMap.put("author", scientificResult.getAuthor());
+            resultMap.put("level", scientificResult.getLevel());
+            resultMap.put("time", scientificResult.getTime());
         }
         return resultMap;
     }
 
     public Integer insertScientificResult(ScientificResult scientificResultData) {
-       ScientificResult scientificResult = getScientificResult(scientificResultData.getScientificResultId());
+        ScientificResult scientificResult = getScientificResult(scientificResultData.getScientificResultId());
         Integer maxScientificResultId = null;
-        if (scientificResult ==null){
+        if (scientificResult == null) {
             scientificResult = new ScientificResult();
             maxScientificResultId = scientificResultRepository.getMaxId();
-            if (maxScientificResultId==null) {
-                maxScientificResultId=1;
-            }else {maxScientificResultId+=1;}
-        scientificResult.setScientificResultId(maxScientificResultId);
+            if (maxScientificResultId == null) {
+                maxScientificResultId = 1;
+            } else {
+                maxScientificResultId += 1;
+            }
+            scientificResult.setScientificResultId(maxScientificResultId);
         }
 
         scientificResult.setName(scientificResultData.getName());
@@ -110,4 +112,36 @@ public class ScientificResultImpl {
         return scientificResult;
     }
 
+    String parseLevel(String levelCode) {
+        String level;
+        switch (levelCode) {
+            case "1": {
+                level = "A1";
+                break;
+            }
+            case "2": {
+                level = "A2";
+                break;
+            }
+            case "3": {
+                level = "B1";
+                break;
+            }
+            case "4": {
+                level = "B2";
+                break;
+            }
+            case "5": {
+                level = "C";
+                break;
+            }
+            case "6": {
+                level = "D";
+                break;
+            }
+            default:
+                level = "不明";
+        }
+        return level;
+    }
 }
