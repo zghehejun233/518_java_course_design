@@ -58,7 +58,7 @@ public class Student {
     @OneToMany(mappedBy = "student",cascade =CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<EducationExperience> educationExperiences;
 
-    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Set<CourseSelection> courseSelections;
 
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
@@ -67,7 +67,7 @@ public class Student {
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
     private Set<HomeWork> homeWork;
     
-    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)
+    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.EAGER)
     private Set<Score> scores;
 
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch =FetchType.LAZY)

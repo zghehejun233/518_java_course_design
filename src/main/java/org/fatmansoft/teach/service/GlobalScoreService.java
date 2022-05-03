@@ -89,21 +89,22 @@ public class GlobalScoreService {
     public List<CourseScoresDTO> getScoreData(Student student) {
         List<CourseScoresDTO> resultList = new ArrayList<>();
         if (student != null) {
-            for (Score value : student.getScores()) {
-                CourseScoresDTO temp = new CourseScoresDTO();
-                temp.setScore(value.getScore());
-                temp.setCourse(value.getCourse().getName());
-                temp.setCourseId(value.getCourse().getCourseId());
-                temp.setCredit(value.getCourse().getCredit());
+            if (student.getScores() != null && student.getScores().size() != 0) {
+                for (Score value : student.getScores()) {
+                    CourseScoresDTO temp = new CourseScoresDTO();
+                    temp.setScore(value.getScore());
+                    temp.setCourse(value.getCourse().getName());
+                    temp.setCourseId(value.getCourse().getCourseId());
+                    temp.setCredit(value.getCourse().getCredit());
 
-                Set<CourseSelection> tempRelatedCourseSelection = value.getCourse().getCourseSelections();
-                for (CourseSelection relatedCourse : tempRelatedCourseSelection) {
-                    if (student.getStudentId().equals(relatedCourse.getStudent().getStudentId())) {
-                        temp.setType(relatedCourse.getType());
+                    Set<CourseSelection> tempRelatedCourseSelection = value.getCourse().getCourseSelections();
+                    for (CourseSelection relatedCourse : tempRelatedCourseSelection) {
+                        if (student.getStudentId().equals(relatedCourse.getStudent().getStudentId())) {
+                            temp.setType(relatedCourse.getType());
+                        }
                     }
+                    resultList.add(temp);
                 }
-
-                resultList.add(temp);
             }
         }
         SystemApplicationListener.logger.warn("最后找到列表的长度为：" + resultList.size());
@@ -148,54 +149,85 @@ public class GlobalScoreService {
         return courseScoresDTOList;
     }
 
+    /**
+     * 获取所有学生的总成绩
+     *
+     * @return 学生总成绩的列表
+     */
     public List<TotalScoreDTO> getAllStudentsTotalScore() {
         List<TotalScoreDTO> totalScoreDTOList = new ArrayList<>();
         List<Student> studentList = studentRepository.findAll();
         for (Student value : studentList) {
             // 获取学生的所有成绩，排名为空
             List<CourseScoresDTO> scoresDTOList = getScoreData(value);
-            // 获得包含排名的成绩，填充组合的对象
-            // 基于所有成绩计算平均成绩
-            AverageScoreDTO averageScoreDTO = getAverage(getCourseRank(scoresDTOList));
             TotalScoreDTO totalScoreDTO = new TotalScoreDTO();
-            totalScoreDTO.setAverageScore(averageScoreDTO.getAverageScoreForAll());
-            totalScoreDTO.setAverageGPA(averageScoreDTO.getAverageGPAForAll());
+            if (scoresDTOList != null && scoresDTOList.size() != 0) {
+                // 获得包含排名的成绩，填充组合的对象
+                // 基于所有成绩计算平均成绩
+                AverageScoreDTO averageScoreDTO = getAverage(getCourseRank(scoresDTOList));
+                // 封装数据和列表
+                totalScoreDTO.setAverageScore(averageScoreDTO.getAverageScoreForAll());
+                totalScoreDTO.setAverageGPA(averageScoreDTO.getAverageGPAForAll());
+            } else {
+                totalScoreDTO.setAverageGPA(0.0);
+                totalScoreDTO.setAverageScore(0.0);
+            }
             totalScoreDTOList.add(totalScoreDTO);
         }
         return totalScoreDTOList;
     }
 
+    /**
+     * 获得所有学生的排名
+     *
+     * @param totalScoreDTOList 学生总成绩的列表
+     * @return 加入排名信息后的学生总成绩的列表
+     */
     public List<TotalScoreDTO> getTotalRank(List<TotalScoreDTO> totalScoreDTOList) {
+        // 根绝自定义Comparator排序
         totalScoreDTOList.sort(new TotalScoreComparator());
         int size = totalScoreDTOList.size();
         int sameScoreNum = 1;
+        // 遍历总成绩的列表
         for (int i = 0; i < totalScoreDTOList.size(); i++) {
+            // 建立排名信息DTO并赋值
             TotalRankDTO totalRankDTO = new TotalRankDTO();
             totalRankDTO.setRank(i + 1);
             totalRankDTO.setPercent((i + 1) / (double) size);
             totalRankDTO.setAverageScore(totalRankDTO.getAverageScore());
+            // 判断是否为相同成绩
             if (i > 0 && (totalScoreDTOList.get(i).getAverageScore().equals(totalScoreDTOList.get(i - 1).getAverageScore()))) {
                 sameScoreNum += 1;
             } else {
                 sameScoreNum = 1;
             }
+            // 设置相同成绩的人数
             totalRankDTO.setSameScoreNum(sameScoreNum);
             totalScoreDTOList.get(i).setTotalRankDTO(totalRankDTO);
         }
         try {
+            // 清理缓存
             globalScoreRepository.drop("totalRank");
             SystemApplicationListener.logger.info("清空原有全部排名");
         } catch (Exception e) {
             SystemApplicationListener.logger.info(e.toString());
         }
+        // 序列化列表，准备写入缓存
         List<String> totalRankDTOList = new ArrayList<>();
         for (TotalScoreDTO value : totalScoreDTOList) {
             totalRankDTOList.add(TotalRankSerializator.serializeTotalRank(value.getTotalRankDTO()));
         }
+        // 写入缓存
         globalScoreRepository.leftPushStringList("totalRank", totalRankDTOList);
         return totalScoreDTOList;
     }
 
+    /**
+     * 获取某个学生的排名信息
+     *
+     * @param score 学生的成绩
+     * @return 排名信息DTO
+     */
     public TotalRankDTO getStudentTotalRank(Integer score) {
         List<TotalRankDTO> totalRankDTOList = new ArrayList<>();
         List<String> serializedTotalRank = globalScoreRepository.getAllRange("totalRank");
