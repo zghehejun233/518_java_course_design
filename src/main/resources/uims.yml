@@ -52,6 +52,9 @@ uims:
         - type: input
           prop: numName
           label: 请输入学号或姓名
+        - type: select
+          prop: numName
+          label: 请输入学号或姓名
     - name: studentEdit
       type: form
       title: 学生信息
@@ -119,7 +122,6 @@ uims:
         - type: link
           prop: checkout
           label: 考勤
-
     # academicActivity
     # 课程相关信息
     # -----------------
@@ -1228,3 +1230,10 @@ uims:
         - type: date
           prop: time
           label: 时间
+
+    - name: show
+      type: form
+      title: 信息
+      item:
+        - type: text
+          name: 绩点

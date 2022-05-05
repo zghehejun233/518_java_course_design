@@ -10,10 +10,13 @@ import org.junit.Test;
 
 import javax.annotation.Resource;
 
+
 public class RedisRepositoryTest {
     @Test
     public void test(){
         GlobalScoreRepository globalScoreRepository  = new GlobalScoreRepository();
         globalScoreRepository.setString("test","test");
     }
+
+
 }
