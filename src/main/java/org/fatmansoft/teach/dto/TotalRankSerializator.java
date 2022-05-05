@@ -16,7 +16,7 @@ public class TotalRankSerializator {
         TotalRankDTO totalRankDTO = new TotalRankDTO();
         String stringDelimiter = ":";
         String[] temp = str.split(stringDelimiter);
-        totalRankDTO.setAverageScore(Integer.parseInt(temp[0]));
+        totalRankDTO.setAverageScore(Double.parseDouble(temp[0]));
         totalRankDTO.setRank(Integer.parseInt(temp[1]));
         totalRankDTO.setPercent(Double.parseDouble(temp[2]));
         totalRankDTO.setSameScoreNum(Integer.parseInt(temp[3]));

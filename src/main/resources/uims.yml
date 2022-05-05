@@ -20,6 +20,7 @@ uims:
       type: table
       title: 学生管理
       showAdd: 1
+      showPagination: 1
       item:
         - type: text
           prop: studentNum

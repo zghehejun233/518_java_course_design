@@ -13,7 +13,7 @@ import lombok.*;
 public class TotalRankDTO {
     private Integer rank;
     private Double percent;
-    private Integer averageScore;
+    private Double averageScore;
     private Integer sameScoreNum;
 
     @Override

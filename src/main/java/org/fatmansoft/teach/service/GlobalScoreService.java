@@ -194,7 +194,7 @@ public class GlobalScoreService {
             TotalRankDTO totalRankDTO = new TotalRankDTO();
             totalRankDTO.setRank(i + 1);
             totalRankDTO.setPercent((i + 1) / (double) size);
-            totalRankDTO.setAverageScore(totalRankDTO.getAverageScore());
+            totalRankDTO.setAverageScore(totalScoreDTOList.get(i).getAverageScore());
             // 判断是否为相同成绩
             if (i > 0 && (totalScoreDTOList.get(i).getAverageScore().equals(totalScoreDTOList.get(i - 1).getAverageScore()))) {
                 sameScoreNum += 1;
@@ -204,6 +204,7 @@ public class GlobalScoreService {
             // 设置相同成绩的人数
             totalRankDTO.setSameScoreNum(sameScoreNum);
             totalScoreDTOList.get(i).setTotalRankDTO(totalRankDTO);
+            SystemApplicationListener.logger.warn(totalScoreDTOList.get(i).toString());
         }
         try {
             // 清理缓存
@@ -228,7 +229,7 @@ public class GlobalScoreService {
      * @param score 学生的成绩
      * @return 排名信息DTO
      */
-    public TotalRankDTO getStudentTotalRank(Integer score) {
+    public TotalRankDTO getStudentTotalRank(Double score) {
         List<TotalRankDTO> totalRankDTOList = new ArrayList<>();
         List<String> serializedTotalRank = globalScoreRepository.getAllRange("totalRank");
         for (String str : serializedTotalRank) {

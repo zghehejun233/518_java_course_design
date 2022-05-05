@@ -50,8 +50,20 @@ public class ScheduledService {
     public void refreshTotalRank() {
         SystemApplicationListener.logger.info("Begin refresh total rank>>>" + DateUtil.now());
         List<Student> studentList = studentRepository.findAll();
+        SystemApplicationListener.logger.info("打印所有学生");
+        for (Student value : studentList) {
+            SystemApplicationListener.logger.info(value.toString());
+        }
         List<TotalScoreDTO > totalScoreDTOList = globalScoreService.getAllStudentsTotalScore();
+        SystemApplicationListener.logger.info("打印没有排名的成绩");
+        for (TotalScoreDTO value : totalScoreDTOList) {
+            SystemApplicationListener.logger.info(value.toString());
+        }
         totalScoreDTOList = globalScoreService.getTotalRank(totalScoreDTOList);
+        SystemApplicationListener.logger.info("打印带有排名的成绩");
+        for (TotalScoreDTO value : totalScoreDTOList) {
+            SystemApplicationListener.logger.info(value.toString());
+        }
         SystemApplicationListener.logger.info("Finish refresh total rank>>>" + DateUtil.now());
     }
 }

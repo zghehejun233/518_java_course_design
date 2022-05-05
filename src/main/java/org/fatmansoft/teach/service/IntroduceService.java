@@ -2,6 +2,8 @@ package org.fatmansoft.teach.service;
 
 import org.fatmansoft.teach.dto.AverageScoreDTO;
 import org.fatmansoft.teach.dto.CourseScoresDTO;
+import org.fatmansoft.teach.dto.TotalRankDTO;
+import org.fatmansoft.teach.dto.TotalScoreDTO;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.springframework.stereotype.Service;
 
@@ -27,21 +29,24 @@ public class IntroduceService {
         scoresDTOList = globalScoreService.getCourseRank(scoresDTOList);
         // 基于所有成绩计算平均成绩
         AverageScoreDTO averageScoreDTO = globalScoreService.getAverage(scoresDTOList);
-
+        TotalRankDTO totalRankDTO = globalScoreService.getStudentTotalRank(averageScoreDTO.getAverageScoreForAll());
         Student student = introduce.getStudent(studentId);
         Map data = new HashMap();
         data.put("myName", student.getStudentName());   // 学生信息
         data.put("overview", "Hello!");
-        data.put("img_url","");//学生基本信息综述
         List<Object> attachList = new ArrayList<>();
         Map m;
         m = new HashMap<>();
-        m.put("title", "学习成绩");   //
+        m.put("title", "平均成绩");   //
         m.put("content", averageScoreDTO.getAverageScoreForAll().toString());  // 学生成绩综述
+        attachList.add(m);
+
+        m.put("title", "总排名");   //
+        m.put("content", totalRankDTO.getRank().toString());  // 学生成绩综述
         attachList.add(m);
         m = new HashMap<>();
         m.put("title", "自拍");
-        m.put("content", "或许可以用字符画实现<br/> sdadas");  // 社会实践综述
+        m.put("content", "或许可以用字符画实现");  // 社会实践综述
 
 
         attachList.add(m);
