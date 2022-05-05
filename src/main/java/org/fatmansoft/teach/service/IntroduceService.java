@@ -40,7 +40,7 @@ public class IntroduceService {
         m.put("title", "平均成绩");   //
         m.put("content", averageScoreDTO.getAverageScoreForAll().toString());  // 学生成绩综述
         attachList.add(m);
-
+        m = new HashMap();
         m.put("title", "总排名");   //
         m.put("content", totalRankDTO.getRank().toString());  // 学生成绩综述
         attachList.add(m);
