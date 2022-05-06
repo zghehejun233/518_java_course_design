@@ -1,9 +1,6 @@
 package org.fatmansoft.teach.models.academic_activity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.fatmansoft.teach.models.student_basic.Student;
 
 import javax.persistence.*;
@@ -17,6 +14,7 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class Internship {
     @Id
     @Column(name = "internship_id")

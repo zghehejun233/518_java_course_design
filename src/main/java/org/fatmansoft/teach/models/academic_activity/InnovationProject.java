@@ -5,8 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.fatmansoft.teach.models.student_basic.Student;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "innovation_project", uniqueConstraints = {@UniqueConstraint(columnNames = "innovation_project_id")})
@@ -32,4 +34,17 @@ public class InnovationProject {
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        InnovationProject that = (InnovationProject) o;
+        return innovationProjectId != null && Objects.equals(innovationProjectId, that.innovationProjectId);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

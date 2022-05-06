@@ -5,10 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.fatmansoft.teach.models.student_basic.Student;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
+import java.util.Objects;
 
 @Entity
 @Table(name = "competition", uniqueConstraints = {@UniqueConstraint(columnNames = "competition_id")})
@@ -34,4 +35,17 @@ public class Competition {
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Competition that = (Competition) o;
+        return competitionId != null && Objects.equals(competitionId, that.competitionId);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

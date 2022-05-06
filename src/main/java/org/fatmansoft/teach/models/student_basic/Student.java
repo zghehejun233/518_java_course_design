@@ -9,8 +9,11 @@ import org.fatmansoft.teach.models.academic_activity.*;
 import org.fatmansoft.teach.models.daily.*;
 import org.fatmansoft.teach.service.academic_activity.InnovationProjectImpl;
 import org.hibernate.Hibernate;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.Objects;
@@ -39,14 +42,17 @@ public class Student {
     @NotBlank(message = "姓名不能为空！")
     private String studentName;
     @Column(name = "sex")
+    @Range(min = 1, max = 3, message = "性别的选择是有限的！")
     private Integer sex;
     @Column(name = "age")
+    @Min(value = 0, message = "年龄为非负整数！")
     private Integer age;
     @Column(name = "phone_number")
     private String phoneNumber;
     @Column(name = "birthday")
     private Date birthday;
     @Column(name = "email")
+    @Email
     private String email;
 
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch = FetchType.LAZY)

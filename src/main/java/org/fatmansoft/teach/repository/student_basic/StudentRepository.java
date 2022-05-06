@@ -18,9 +18,13 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     @Query(value = "select max(studentId) from Student  ")
     Integer getMaxId();
 
+    /**
+     * 根据学号或姓名查询对象
+     *
+     * @param numName 学号或者姓名
+     * @return 对象数组
+     */
     @Query(value = "from Student where ?1='' or studentNum like %?1% or studentName like %?1% ")
     List<Student> findStudentListByNumName(String numName);
-
-    Student findFirstByStudentNameOrStudentNum(String name,String num);
 
 }
