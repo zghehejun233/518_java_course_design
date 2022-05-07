@@ -8,13 +8,10 @@ import org.fatmansoft.teach.models.student_basic.Student;
 import org.fatmansoft.teach.repository.academic.CourseRepository;
 import org.fatmansoft.teach.repository.student_basic.StudentRepository;
 import org.fatmansoft.teach.service.academic.ScoreImpl;
-import org.fatmansoft.teach.util.DateTimeTool;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 @Component
@@ -54,12 +51,12 @@ public class ScheduledService {
         for (Student value : studentList) {
             SystemApplicationListener.logger.info(value.toString());
         }
-        List<TotalScoreDTO > totalScoreDTOList = globalScoreService.getAllStudentsTotalScore();
+        List<TotalScoreDTO > totalScoreDTOList = globalScoreService.getScoresForAllStudents();
         SystemApplicationListener.logger.info("打印没有排名的成绩");
         for (TotalScoreDTO value : totalScoreDTOList) {
             SystemApplicationListener.logger.info(value.toString());
         }
-        totalScoreDTOList = globalScoreService.getTotalRank(totalScoreDTOList);
+        totalScoreDTOList = globalScoreService.getRanksForAllStudents(totalScoreDTOList);
         SystemApplicationListener.logger.info("打印带有排名的成绩");
         for (TotalScoreDTO value : totalScoreDTOList) {
             SystemApplicationListener.logger.info(value.toString());

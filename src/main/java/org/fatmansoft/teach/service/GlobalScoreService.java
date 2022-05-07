@@ -39,28 +39,30 @@ public class GlobalScoreService {
      * @param courseScoresDTOList 学生所有成绩DTO列表
      * @return 返回平均成绩DTO
      */
-    public AverageScoreDTO getAverage(List<CourseScoresDTO> courseScoresDTOList) {
-        final int BASE_SCORE = 50;
+    public AverageScoreDTO getAverageScoreForCoursesForStudent(List<CourseScoresDTO> courseScoresDTOList) {
+        // final int BASE_SCORE = 50;
 
         double averageScoreForAll = 0;
-        double averageScoreForMajor = 0;
+        // double averageScoreForMajor = 0;
         double fullCreditsForAll = 0;
-        double fullCreditsForMajor = 0;
+        // double fullCreditsForMajor = 0;
 
         for (CourseScoresDTO value : courseScoresDTOList) {
             fullCreditsForAll += value.getCredit();
-            try {
+/*            try {
                 if ("1".equals(value.getType())) {
                     fullCreditsForMajor += value.getCredit();
                 }
             } catch (Exception e) {
                 SystemApplicationListener.logger.warn(e.toString());
             }
+
+ */
         }
 
         for (CourseScoresDTO value : courseScoresDTOList) {
             averageScoreForAll += value.getScore() * (value.getCredit() / fullCreditsForAll);
-
+/*
             try {
                 if ("1".equals(value.getType())) {
                     averageScoreForMajor += value.getScore() * (value.getCredit() / fullCreditsForMajor);
@@ -71,12 +73,14 @@ public class GlobalScoreService {
             } catch (Exception e) {
                 SystemApplicationListener.logger.warn(e.toString());
             }
+
+ */
         }
         return new AverageScoreDTO(
-                averageScoreForAll,
-                0.1 * (averageScoreForAll - BASE_SCORE),
-                averageScoreForMajor,
-                0.1 * (averageScoreForMajor - BASE_SCORE)
+                averageScoreForAll
+                // 0.1 * (averageScoreForAll - BASE_SCORE),
+                // averageScoreForMajor,
+                // 0.1 * (averageScoreForMajor - BASE_SCORE)
         );
     }
 
@@ -86,7 +90,7 @@ public class GlobalScoreService {
      * @param student 学生
      * @return 返回学生的成绩DTO列表
      */
-    public List<CourseScoresDTO> getScoreData(Student student) {
+    public List<CourseScoresDTO> getScoresForStudent(Student student) {
         List<CourseScoresDTO> resultList = new ArrayList<>();
         if (student != null) {
             if (student.getScores() != null && student.getScores().size() != 0) {
@@ -117,7 +121,7 @@ public class GlobalScoreService {
      * @param courseScoresDTOList 学生的成绩DTO列表
      * @return 更新后的成绩DTO列表
      */
-    public List<CourseScoresDTO> getCourseRank(List<CourseScoresDTO> courseScoresDTOList) {
+    public List<CourseScoresDTO> getRankForCoursesForStudent(List<CourseScoresDTO> courseScoresDTOList) {
         // 遍历学生的所有成绩
         for (CourseScoresDTO courseScoresDTO : courseScoresDTOList) {
             // 先获取某个课程的成绩单
@@ -154,20 +158,20 @@ public class GlobalScoreService {
      *
      * @return 学生总成绩的列表
      */
-    public List<TotalScoreDTO> getAllStudentsTotalScore() {
+    public List<TotalScoreDTO> getScoresForAllStudents() {
         List<TotalScoreDTO> totalScoreDTOList = new ArrayList<>();
         List<Student> studentList = studentRepository.findAll();
         for (Student value : studentList) {
             // 获取学生的所有成绩，排名为空
-            List<CourseScoresDTO> scoresDTOList = getScoreData(value);
+            List<CourseScoresDTO> scoresDTOList = getScoresForStudent(value);
             TotalScoreDTO totalScoreDTO = new TotalScoreDTO();
             if (scoresDTOList != null && scoresDTOList.size() != 0) {
                 // 获得包含排名的成绩，填充组合的对象
                 // 基于所有成绩计算平均成绩
-                AverageScoreDTO averageScoreDTO = getAverage(getCourseRank(scoresDTOList));
+                AverageScoreDTO averageScoreDTO = getAverageScoreForCoursesForStudent(getRankForCoursesForStudent(scoresDTOList));
                 // 封装数据和列表
                 totalScoreDTO.setAverageScore(averageScoreDTO.getAverageScoreForAll());
-                totalScoreDTO.setAverageGPA(averageScoreDTO.getAverageGPAForAll());
+                // totalScoreDTO.setAverageGPA(averageScoreDTO.getAverageGPAForAll());
             } else {
                 totalScoreDTO.setAverageGPA(0.0);
                 totalScoreDTO.setAverageScore(0.0);
@@ -183,7 +187,7 @@ public class GlobalScoreService {
      * @param totalScoreDTOList 学生总成绩的列表
      * @return 加入排名信息后的学生总成绩的列表
      */
-    public List<TotalScoreDTO> getTotalRank(List<TotalScoreDTO> totalScoreDTOList) {
+    public List<TotalScoreDTO> getRanksForAllStudents(List<TotalScoreDTO> totalScoreDTOList) {
         // 根绝自定义Comparator排序
         totalScoreDTOList.sort(new TotalScoreComparator());
         int size = totalScoreDTOList.size();
@@ -229,7 +233,7 @@ public class GlobalScoreService {
      * @param score 学生的成绩
      * @return 排名信息DTO
      */
-    public TotalRankDTO getStudentTotalRank(Double score) {
+    public TotalRankDTO getStudentForStudent(Double score) {
         List<TotalRankDTO> totalRankDTOList = new ArrayList<>();
         List<String> serializedTotalRank = globalScoreRepository.getAllRange("totalRank");
         for (String str : serializedTotalRank) {

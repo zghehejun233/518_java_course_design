@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class AverageScoreDTO {
     private Double averageScoreForAll;
-    private Double averageGPAForAll;
-    private Double averageScoreForMajor;
-    private Double averageGPAForMajor;
+    // private Double averageGPAForAll;
+    // private Double averageScoreForMajor;
+    // private Double averageGPAForMajor;
 }

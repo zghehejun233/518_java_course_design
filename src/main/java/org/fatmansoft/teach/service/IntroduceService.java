@@ -1,9 +1,9 @@
 package org.fatmansoft.teach.service;
 
+import org.fatmansoft.teach.SystemApplicationListener;
 import org.fatmansoft.teach.dto.AverageScoreDTO;
 import org.fatmansoft.teach.dto.CourseScoresDTO;
 import org.fatmansoft.teach.dto.TotalRankDTO;
-import org.fatmansoft.teach.dto.TotalScoreDTO;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +24,13 @@ public class IntroduceService {
     //个人简历信息数据准备方法  请同学修改这个方法，请根据自己的数据的希望展示的内容拼接成字符串，放在Map对象里， attachList 可以方多段内容，具体内容有个人决定
     public Map getIntroduceDataMap(Integer studentId) {
         // 获取学生的所有成绩，排名为空
-        List<CourseScoresDTO> scoresDTOList = globalScoreService.getScoreData(introduce.getStudent(studentId));
+        List<CourseScoresDTO> scoresDTOList = globalScoreService.getScoresForStudent(introduce.getStudent(studentId));
         // 获得包含排名的成绩，填充组合的对象
-        scoresDTOList = globalScoreService.getCourseRank(scoresDTOList);
+        scoresDTOList = globalScoreService.getRankForCoursesForStudent(scoresDTOList);
         // 基于所有成绩计算平均成绩
-        AverageScoreDTO averageScoreDTO = globalScoreService.getAverage(scoresDTOList);
-        TotalRankDTO totalRankDTO = globalScoreService.getStudentTotalRank(averageScoreDTO.getAverageScoreForAll());
+        AverageScoreDTO averageScoreDTO = globalScoreService.getAverageScoreForCoursesForStudent(scoresDTOList);
+        SystemApplicationListener.logger.warn("average score： "+averageScoreDTO.getAverageScoreForAll());
+        TotalRankDTO totalRankDTO = globalScoreService.getStudentForStudent(averageScoreDTO.getAverageScoreForAll());
         Student student = introduce.getStudent(studentId);
         Map data = new HashMap();
         data.put("myName", student.getStudentName());   // 学生信息
