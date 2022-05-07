@@ -2,6 +2,7 @@ package org.fatmansoft.teach.service;
 
 import org.fatmansoft.teach.SystemApplicationListener;
 import org.fatmansoft.teach.dto.AverageScoreDTO;
+import org.fatmansoft.teach.dto.ChartInformationDTO;
 import org.fatmansoft.teach.dto.CourseScoresDTO;
 import org.fatmansoft.teach.dto.TotalRankDTO;
 import org.fatmansoft.teach.models.student_basic.Student;
@@ -24,18 +25,28 @@ public class IntroduceService {
     //个人简历信息数据准备方法  请同学修改这个方法，请根据自己的数据的希望展示的内容拼接成字符串，放在Map对象里， attachList 可以方多段内容，具体内容有个人决定
     public Map getIntroduceDataMap(Integer studentId) {
         // 获取学生的所有成绩，排名为空
-        List<CourseScoresDTO> scoresDTOList = globalScoreService.getScoresForStudent(introduce.getStudent(studentId));
+        List<CourseScoresDTO> courseScoresDTOList = globalScoreService.getScoresForStudent(introduce.getStudent(studentId));
         // 获得包含排名的成绩，填充组合的对象
-        scoresDTOList = globalScoreService.getRankForCoursesForStudent(scoresDTOList);
+        courseScoresDTOList = globalScoreService.getRankForCoursesForStudent(courseScoresDTOList);
         // 基于所有成绩计算平均成绩
-        AverageScoreDTO averageScoreDTO = globalScoreService.getAverageScoreForCoursesForStudent(scoresDTOList);
-        SystemApplicationListener.logger.warn("average score： "+averageScoreDTO.getAverageScoreForAll());
+        AverageScoreDTO averageScoreDTO = globalScoreService.getAverageScoreForCoursesForStudent(courseScoresDTOList);
+        SystemApplicationListener.logger.warn("average score： " + averageScoreDTO.getAverageScoreForAll());
         TotalRankDTO totalRankDTO = globalScoreService.getStudentForStudent(averageScoreDTO.getAverageScoreForAll());
         Student student = introduce.getStudent(studentId);
         Map data = new HashMap();
         data.put("myName", student.getStudentName());   // 学生信息
         data.put("overview", "Hello!");
         List<Object> attachList = new ArrayList<>();
+
+        ChartInformationDTO studyChartInformation = introduce.getStudyChartInformation(student, courseScoresDTOList);
+        data.put("studyChartLabels", studyChartInformation.getLabels());
+        data.put("studyChartData", studyChartInformation.getDatasets());
+
+        ChartInformationDTO lifeChartInformation = introduce.getLifeChartInformation(student);
+        data.put("lifeChartLabels", lifeChartInformation.getLabels());
+        data.put("lifeChartData", lifeChartInformation.getDatasets());
+        data.put("lifeChartColors",lifeChartInformation.getColors());
+
         Map m;
         m = new HashMap<>();
         m.put("title", "平均成绩");   //
