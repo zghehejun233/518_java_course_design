@@ -122,13 +122,13 @@ public class AuthController {
     @PostMapping("/getUimsConfig")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public DataResponse getUimsConfig(@Valid @RequestBody DataRequest dataRequest) {
-        Map data = new HashMap();;
+        Map data = new HashMap();
         InputStream in = null;
         try {
             Yaml yaml = new Yaml();
             Resource resource = resourceLoader.getResource("classpath:uims.yml");
             in = resource.getInputStream();
-            data =(Map)yaml.load(in);
+            data = yaml.load(in);
         }catch(Exception e){
 
         }

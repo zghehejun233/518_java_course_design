@@ -34,7 +34,7 @@ public class HtmlController {
     //  http://localhost:9090/test.html
     @Autowired
     private ResourceLoader resourceLoader;
-    private FSDefaultCacheStore fSDefaultCacheStore = new FSDefaultCacheStore();
+    private final FSDefaultCacheStore fSDefaultCacheStore = new FSDefaultCacheStore();
 
 
     public String getHtmlString() {
@@ -51,7 +51,7 @@ public class HtmlController {
     public ResponseEntity<StreamingResponseBody> htmlGetBaseHtmlPage(HttpServletRequest request) {
         MediaType mType = new MediaType(MediaType.TEXT_HTML, StandardCharsets.UTF_8);
         try {
-            byte data[] = getHtmlString().getBytes();
+            byte[] data = getHtmlString().getBytes();
             StreamingResponseBody stream = outputStream -> {
                 outputStream.write(data);
             };
@@ -72,7 +72,7 @@ public class HtmlController {
     public ResponseEntity<StreamingResponseBody> getResponseObject(String content){
         MediaType mType = new MediaType(MediaType.TEXT_HTML, StandardCharsets.UTF_8);
         try {
-            byte data[] = content.getBytes();
+            byte[] data = content.getBytes();
             StreamingResponseBody stream = outputStream -> {
                 outputStream.write(data);
             };
@@ -87,7 +87,7 @@ public class HtmlController {
     public ResponseEntity<StreamingResponseBody> getResponseData(String content){
         MediaType mType = new MediaType(MediaType.TEXT_HTML, StandardCharsets.UTF_8);
         try {
-            byte data[] = content.getBytes();
+            byte[] data = content.getBytes();
             StreamingResponseBody stream = outputStream -> {
                 outputStream.write(data);
             };

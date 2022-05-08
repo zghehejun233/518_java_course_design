@@ -1,5 +1,6 @@
 package org.fatmansoft.teach.service;
 
+import org.fatmansoft.teach.SystemApplicationListener;
 import org.fatmansoft.teach.dto.ChartInformationDTO;
 import org.fatmansoft.teach.dto.CourseScoresDTO;
 import org.fatmansoft.teach.models.student_basic.Student;
@@ -41,13 +42,12 @@ public class IntroduceImpl {
      * @return 返回对象
      */
     public Student getStudent(Integer studentId) {
+        SystemApplicationListener.logger.warn("getStudent:" +studentId.toString());
         Student student = null;
         Optional<Student> op;
-        if (studentId != null) {
-            op = studentRepository.findById(studentId);
-            if (op.isPresent()) {
-                student = op.get();
-            }
+        op = studentRepository.findById(studentId);
+        if (op.isPresent()) {
+            student = op.get();
         }
         return student;
     }

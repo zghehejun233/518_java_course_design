@@ -7,6 +7,7 @@ package org.fatmansoft.teach.controllers;
 import com.openhtmltopdf.extend.FSSupplier;
 import com.openhtmltopdf.extend.impl.FSDefaultCacheStore;
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
+import org.fatmansoft.teach.SystemApplicationListener;
 import org.fatmansoft.teach.payload.request.DataRequest;
 import org.fatmansoft.teach.payload.response.DataResponse;
 import org.fatmansoft.teach.repository.academic.CourseRepository;
@@ -40,16 +41,10 @@ import java.util.Map;
 @RequestMapping("/api/teach")
 public class IntroduceController {
     @Autowired
-    private StudentRepository studentRepository;
-    @Autowired
-    private CourseRepository courseRepository;
-    @Autowired
-    private ScoreRepository scoreRepository;
-    @Autowired
     private IntroduceService introduceService;
     @Autowired
     private ResourceLoader resourceLoader;
-    private FSDefaultCacheStore fSDefaultCacheStore = new FSDefaultCacheStore();
+    private final FSDefaultCacheStore fSDefaultCacheStore = new FSDefaultCacheStore();
 
 
 
@@ -71,12 +66,7 @@ public class IntroduceController {
             builder.useCacheStore(PdfRendererBuilder.CacheStore.PDF_FONT_METRICS, fSDefaultCacheStore);
             Resource resource = resourceLoader.getResource("classpath:font/SourceHanSansSC-Regular.ttf");
             InputStream fontInput = resource.getInputStream();
-            builder.useFont(new FSSupplier<InputStream>() {
-                @Override
-                public InputStream supply() {
-                    return fontInput;
-                }
-            }, "SourceHanSansSC");
+            builder.useFont(() -> fontInput, "SourceHanSansSC");
             StreamingResponseBody stream = outputStream -> {
                 builder.toStream(outputStream);
                 builder.run();
@@ -92,8 +82,10 @@ public class IntroduceController {
         }
     }
     @PostMapping("/getStudentIntroducePdf")
-    public ResponseEntity<StreamingResponseBody> getStudentIntroducePdf(Map dataRequest) {
-        Integer studentId = CommonMethod.getInteger(dataRequest,"studentId");
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<StreamingResponseBody> getStudentIntroducePdf(@RequestBody DataRequest dataRequest) {
+        Integer studentId = dataRequest.getInteger("studentId");
+        SystemApplicationListener.logger.warn(studentId.toString());
         Map data = introduceService.getIntroduceDataMap(studentId);
         String content= "<!DOCTYPE html>";
         content += "<html>";
@@ -112,7 +104,7 @@ public class IntroduceController {
 //        content += getHtmlString();
         content += "<body>";
 
-        content += "<table style='width: 100%;'>";
+        content += "<table style='width: 100%;color: #a0cfff'>";
         content += "   <thead >";
         content += "     <tr style='text-align: center;font-size: 32px;font-weight:bold;'>";
         content += "        "+myName+" </tr>";
@@ -137,6 +129,8 @@ public class IntroduceController {
             content += "            "+attachList.get(i).get("content")+" ";
             content += "     </tr>";
         }
+
+
         content +=   " </tbody>";
         content += "   </table>";
 
