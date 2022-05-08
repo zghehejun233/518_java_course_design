@@ -26,7 +26,7 @@ public class StudentService {
      * @return 学生数组
      */
     public List<Object> getAllStudent(DataRequest dataRequest) {
-        return student.queryStudentMapList("");
+        return student.queryStudentMapList("", "");
     }
 
     /**
@@ -36,8 +36,9 @@ public class StudentService {
      * @return 数组
      */
     public List<Object> getSelectedMapList(DataRequest dataRequest) {
-        String requirement = dataRequest.getString("numName");
-        return student.queryStudentMapList(requirement);
+        String content = dataRequest.getString("content");
+        String type = dataRequest.getString("type");
+        return student.queryStudentMapList(content, type);
     }
 
 
@@ -58,16 +59,16 @@ public class StudentService {
      * @param dataRequest 接受请求内容
      * @return 返回建立的学生id
      */
-    public Integer saveStudent(DataRequest dataRequest){
-        Map<String,Object> form = dataRequest.getMap("form");
+    public Integer saveStudent(DataRequest dataRequest) {
+        Map<String, Object> form = dataRequest.getMap("form");
         Student studentData = new Student();
-        studentData.setStudentId(CommonMethod.getInteger(form,"id"));
-        studentData.setStudentNum(CommonMethod.getString(form,"studentNum"));
-        studentData.setStudentName(CommonMethod.getString(form,"studentName"));
-        studentData.setSex(CommonMethod.getInteger(form,"sex"));
-        studentData.setPhoneNumber(CommonMethod.getString(form,"phoneNumber"));
-        studentData.setBirthday(CommonMethod.getDate(form,"birthday"));
-        studentData.setEmail(CommonMethod.getString(form,"email"));
+        studentData.setStudentId(CommonMethod.getInteger(form, "id"));
+        studentData.setStudentNum(CommonMethod.getString(form, "studentNum"));
+        studentData.setStudentName(CommonMethod.getString(form, "studentName"));
+        studentData.setSex(CommonMethod.getInteger(form, "sex"));
+        studentData.setPhoneNumber(CommonMethod.getString(form, "phoneNumber"));
+        studentData.setBirthday(CommonMethod.getDate(form, "birthday"));
+        studentData.setEmail(CommonMethod.getString(form, "email"));
         return student.insertStudent(studentData);
     }
 
@@ -76,7 +77,7 @@ public class StudentService {
      *
      * @param dataRequest 请求内容
      */
-    public void deleteStudent(DataRequest dataRequest){
+    public void deleteStudent(DataRequest dataRequest) {
         Integer id = dataRequest.getInteger("id");
         student.deleteStudent(id);
     }

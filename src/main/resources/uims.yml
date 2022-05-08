@@ -21,6 +21,13 @@ uims:
       title: 学生管理
       showAdd: 1
       showPagination: 1
+      description:
+        - title: hello
+          content:
+            - hello
+            - dasds
+        - title: hello
+          content: dsd
       item:
         - type: text
           prop: studentNum
@@ -51,11 +58,16 @@ uims:
             - name: detail
       query:
         - type: input
-          prop: numName
-          label: 请输入学号或姓名
+          prop: content
+          label: 请输入内容
         - type: select
-          prop: numName
-          label: 请输入学号或姓名
+          prop: type
+          label: 选择
+          option:
+            - label: 姓名
+              value: name
+            - label: 学号
+              value: num
     - name: studentEdit
       type: form
       title: 学生信息

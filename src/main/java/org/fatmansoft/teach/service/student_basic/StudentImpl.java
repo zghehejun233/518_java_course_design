@@ -25,9 +25,17 @@ public class StudentImpl {
     @Resource
     private StudentRepository studentRepository;
 
-    public List<Object> queryStudentMapList(String numName) {
+    public List<Object> queryStudentMapList(String content, String type) {
         List<Object> result = new ArrayList<>();
-        List<Student> studentList = studentRepository.findStudentListByNumName(numName);
+        List<Student> studentList = null;
+        if ("num".equals(type)) {
+            studentList = studentRepository.findStudentsByStudentNumContains(content);
+        } else if ("name".equals(type)) {
+            studentList = studentRepository.findStudentsByStudentNameContains(content);
+        } else {
+            studentList = studentRepository.findAll();
+        }
+
         if (studentList == null || studentList.size() == 0) {
             return result;
         }
