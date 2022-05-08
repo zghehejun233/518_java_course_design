@@ -50,19 +50,19 @@ public class CourseImpl {
             tempMap.put("teacher", course.getTeacher());
 
             String courseSelectionParas = "model=courseSelection&courseId=" + course.getCourseId();
-            tempMap.put("courseSelection", "test");
+            tempMap.put("courseSelection", "有" + course.getCourseSelections().size() + "人选择");
             tempMap.put("courseSelectionParas", courseSelectionParas);
 
             String referenceParas = "model=reference&courseId=" + course.getCourseId();
-            tempMap.put("reference", "reference");
+            tempMap.put("reference", course.getReferences().size() + "份资料");
             tempMap.put("referenceParas", referenceParas);
 
             String courseTimeParas = "model=courseTime&courseId=" + course.getCourseId();
-            tempMap.put("courseTime", "courseTime");
+            tempMap.put("courseTime", "每周" + course.getCourseTimes().size() + "次");
             tempMap.put("courseTimeParas", courseTimeParas);
 
             String checkoutParas = "model=checkout&courseId=" + course.getCourseId();
-            tempMap.put("checkout", "check!");
+            tempMap.put("checkout", course.getCheckouts().size() + "次考勤");
             tempMap.put("checkoutParas", checkoutParas);
 
 
