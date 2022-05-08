@@ -15,6 +15,12 @@ public class StudentAcademicVOService {
     private StudentAcademicVOImpl studentAcademic;
 
     public List<Object> getAllStudentAcademic(DataRequest dataRequest) {
-        return studentAcademic.queryAllStudentAcademic("");
+        return studentAcademic.queryAllStudentAcademic("", "");
+    }
+
+    public List<Object> getSelectedStudentAcademic(DataRequest dataRequest) {
+        String content = dataRequest.getString("content");
+        String type = dataRequest.getString("type");
+        return studentAcademic.queryAllStudentAcademic(content, type);
     }
 }

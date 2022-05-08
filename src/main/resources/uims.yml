@@ -135,6 +135,18 @@ uims:
         - type: link
           prop: checkout
           label: 考勤
+      query:
+        - type: input
+          prop: content
+          label: 请输入内容
+        - type: select
+          prop: type
+          label: 选择
+          option:
+            - label: 姓名
+              value: name
+            - label: 学号
+              value: num
     # academicActivity
     # 课程相关信息
     # -----------------
@@ -168,6 +180,18 @@ uims:
         - type: link
           prop: scientificResult
           label: 科研成果
+      query:
+        - type: input
+          prop: content
+          label: 请输入内容
+        - type: select
+          prop: type
+          label: 选择
+          option:
+            - label: 姓名
+              value: name
+            - label: 学号
+              value: num
     # daily
     # 日常活动相关的信息
     # ----------------
@@ -198,6 +222,18 @@ uims:
         - type: link
           prop: achievement
           label: 成就
+      query:
+        - type: input
+          prop: content
+          label: 请输入内容
+        - type: select
+          prop: type
+          label: 选择
+          option:
+            - label: 姓名
+              value: name
+            - label: 学号
+              value: num
     # ----------
     # 学生荣誉
     - name: achievement

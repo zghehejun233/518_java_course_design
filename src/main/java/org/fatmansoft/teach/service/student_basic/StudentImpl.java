@@ -27,7 +27,7 @@ public class StudentImpl {
 
     public List<Object> queryStudentMapList(String content, String type) {
         List<Object> result = new ArrayList<>();
-        List<Student> studentList = null;
+        List<Student> studentList ;
         if ("num".equals(type)) {
             studentList = studentRepository.findStudentsByStudentNumContains(content);
         } else if ("name".equals(type)) {

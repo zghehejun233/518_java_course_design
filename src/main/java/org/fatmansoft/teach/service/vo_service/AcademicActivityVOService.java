@@ -13,6 +13,12 @@ public class AcademicActivityVOService {
 
     public List<Object> findAllAcademicActivity(DataRequest dataRequest) {
         academicActivity.setStudentId(dataRequest.getInteger("studentId"));
-        return academicActivity.queryAllAcademicActivity();
+        return academicActivity.queryAcademicActivity("", "");
+    }
+
+    public List<Object> findSelectedAcademicActivity(DataRequest dataRequest) {
+        String content = dataRequest.getString("content");
+        String type = dataRequest.getString("type");
+        return academicActivity.queryAcademicActivity(content, type);
     }
 }

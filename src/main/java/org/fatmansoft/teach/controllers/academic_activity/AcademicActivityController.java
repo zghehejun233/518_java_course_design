@@ -24,4 +24,11 @@ public class AcademicActivityController {
         List<Object> result = academicActivityVOService.findAllAcademicActivity(dataRequest);
         return CommonMethod.getReturnData(result);
     }
+
+    @PostMapping("/academicActivityQuery")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse academicActivityQuery(@Valid @RequestBody DataRequest dataRequest) {
+        List<Object> result = academicActivityVOService.findAllAcademicActivity(dataRequest);
+        return CommonMethod.getReturnData(result);
+    }
 }

@@ -22,9 +22,18 @@ public class DailyVOImpl {
     private Integer studentId;
 
 
-    public List<Object> queryAllDaily() {
+    public List<Object> queryAllDaily(String content, String type) {
         List<Object> result = new ArrayList<>();
-        List<Student> studentList = studentRepository.findStudentListByNumName("");
+
+        List<Student> studentList;
+        if ("num".equals(type)) {
+            studentList = studentRepository.findStudentsByStudentNumContains(content);
+        } else if ("name".equals(type)) {
+            studentList = studentRepository.findStudentsByStudentNameContains(content);
+        } else {
+            studentList = studentRepository.findAll();
+        }
+
         if (studentList == null || studentList.size() == 0) {
             return result;
         }
@@ -38,11 +47,11 @@ public class DailyVOImpl {
             tempMap.put("studentName", student.getStudentName());
 
             String activityParas = "model=activity&studentId=" + student.getStudentId();
-            tempMap.put("activity", "参加"+student.getActivities().size()+"次");
+            tempMap.put("activity", "参加" + student.getActivities().size() + "次");
             tempMap.put("activityParas", activityParas);
 
             String outingParas = "model=outing&studentId=" + student.getStudentId();
-            tempMap.put("outing", "出门"+student.getOutings().size()+"次");
+            tempMap.put("outing", "出门" + student.getOutings().size() + "次");
             tempMap.put("outingParas", outingParas);
 
             String leaveParas = "model=leave&studentId=" + student.getStudentId();
@@ -50,11 +59,11 @@ public class DailyVOImpl {
             tempMap.put("leaveParas", leaveParas);
 
             String costParas = "model=cost&studentId=" + student.getStudentId();
-            tempMap.put("cost", "消费记录"+student.getCosts().size()+"条");
+            tempMap.put("cost", "消费记录" + student.getCosts().size() + "条");
             tempMap.put("costParas", costParas);
 
             String achievementParas = "model=achievement&studentId=" + student.getStudentId();
-            tempMap.put("achievement", "获得荣誉"+student.getAchievements().size()+"项");
+            tempMap.put("achievement", "获得荣誉" + student.getAchievements().size() + "项");
             tempMap.put("achievementParas", achievementParas);
 
             result.add(tempMap);

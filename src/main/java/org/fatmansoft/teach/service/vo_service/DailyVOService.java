@@ -13,6 +13,12 @@ public class DailyVOService {
 
     public List<Object> getAllDaily(DataRequest dataRequest) {
         daily.setStudentId(dataRequest.getInteger("studentId"));
-        return daily.queryAllDaily();
+        return daily.queryAllDaily("", "");
+    }
+
+    public List<Object> getSelectedDaily(DataRequest dataRequest) {
+        String content = dataRequest.getString("content");
+        String type = dataRequest.getString("type");
+        return daily.queryAllDaily(content, type);
     }
 }

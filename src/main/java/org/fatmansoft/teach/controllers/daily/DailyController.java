@@ -24,4 +24,11 @@ public class DailyController {
         List<Object> result = dailyVOService.getAllDaily(dataRequest);
         return CommonMethod.getReturnData(result);
     }
+
+    @PostMapping("/dailyQuery")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse dailyQuery(@Valid @RequestBody DataRequest dataRequest) {
+        List<Object> result = dailyVOService.getSelectedDaily(dataRequest);
+        return CommonMethod.getReturnData(result);
+    }
 }

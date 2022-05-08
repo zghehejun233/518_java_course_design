@@ -25,6 +25,12 @@ public class StudentAcademicVOController {
         return CommonMethod.getReturnData(result);
     }
 
+    @PostMapping("/studentAcademicQuery")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse studentAcademicQuery(@Valid @RequestBody DataRequest dataRequest) {
+        List<Object> result = studentAcademicVOService.getSelectedStudentAcademic(dataRequest);
+        return CommonMethod.getReturnData(result);
+    }
     @PostMapping("/studentAcademicEditInit")
     @PreAuthorize("hasRole('ADMIN')")
     public DataResponse studentAcademicEditInit(@Valid @RequestBody DataRequest dataRequest) {
