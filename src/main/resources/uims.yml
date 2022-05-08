@@ -22,12 +22,12 @@ uims:
       showAdd: 1
       showPagination: 1
       description:
-        - title: hello
+        - title: 基本功能
           content:
-            - hello
-            - dasds
-        - title: hello
-          content: dsd
+            - 本模块用于记录学生的基本信息，包括性别、年龄、学院、年级等等
+            - 配备了基本的增删改查能力，查询可以使用两种模式选择
+            - 点击每个学生的姓名可以跳转到该学生的个人简历页面
+            - 个人简历将会根据该学生的信息生成两个图表便于展示
       item:
         - type: text
           prop: studentNum
@@ -116,6 +116,12 @@ uims:
     - name: studentAcademic
       type: table
       title: 学生课程
+      showPagination: 1
+      description:
+        - title: 基本功能
+          content:
+            - 本模块用于记录学生与课程相关的信息，比如选课、作业完成情况等等
+            - 配备了基本的增删改查能力，查询可以使用两种模式选择
       item:
         - type: text
           prop: studentNum
@@ -155,6 +161,12 @@ uims:
     - name: academicActivity
       type: table
       title: 教研活动
+      showPagination: 1
+      description:
+        - title: 基本功能
+          content:
+            - 本模块用于记录学生与各种教学活动，包含课内课外的相关的信息
+            - 配备了基本的增删改查能力，查询可以使用两种模式选择
       item:
         - type: text
           prop: studentNum
@@ -200,6 +212,12 @@ uims:
     - name: daily
       type: table
       title: 日常信息
+      showPagination: 1
+      description:
+        - title: 基本功能
+          content:
+            - 本模块用于记录学生的日常活动，如支出、消费等等
+            - 配备了基本的增删改查能力，查询可以使用两种模式选择
       item:
         - type: text
           prop: studentNum
@@ -416,6 +434,12 @@ uims:
       type: table
       title: 课程管理
       showAdd: 1
+      showPagination: 1
+      description:
+        - title: 基本功能
+          content:
+            - 本模块用于记录课程的内容，与学生查询课程内容的结果相似
+            - 配备了基本的增删改查能力，查询可以使用三种模式选择
       item:
         - type: text
           prop: num
