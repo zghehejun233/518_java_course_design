@@ -69,6 +69,9 @@ public class StudentService {
         studentData.setPhoneNumber(CommonMethod.getString(form, "phoneNumber"));
         studentData.setBirthday(CommonMethod.getDate(form, "birthday"));
         studentData.setEmail(CommonMethod.getString(form, "email"));
+        studentData.setMajor(CommonMethod.getString(form,"major"));
+        studentData.setSchool(CommonMethod.getString(form,"school"));
+        studentData.setClassName(CommonMethod.getString(form,"className"));
         return student.insertStudent(studentData);
     }
 

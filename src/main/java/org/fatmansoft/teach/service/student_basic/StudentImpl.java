@@ -27,7 +27,7 @@ public class StudentImpl {
 
     public List<Object> queryStudentMapList(String content, String type) {
         List<Object> result = new ArrayList<>();
-        List<Student> studentList ;
+        List<Student> studentList;
         if ("num".equals(type)) {
             studentList = studentRepository.findStudentsByStudentNumContains(content);
         } else if ("name".equals(type)) {
@@ -59,6 +59,9 @@ public class StudentImpl {
             }
             tempMap.put("age", student.getAge());
             tempMap.put("phoneNumber", student.getPhoneNumber());
+            tempMap.put("school", parseSchool(student.getSchool()));
+            tempMap.put("major", student.getMajor());
+            tempMap.put("className", student.getClassName());
 
             String familyParas = "model=family&studentId=" + student.getStudentId();
             Set<Family> families = student.getFamilies();
@@ -92,6 +95,9 @@ public class StudentImpl {
             resultMap.put("phoneNumber", student.getPhoneNumber());
             resultMap.put("birthday", student.getBirthday());
             resultMap.put("email", student.getEmail());
+            resultMap.put("school", parseSchool(student.getSchool()));
+            resultMap.put("major", student.getMajor());
+            resultMap.put("className", student.getClassName());
 
             StringBuilder socialRelationString = new StringBuilder();
             for (SocialRelation socialRelation : student.getSocialRelations()) {
@@ -132,6 +138,9 @@ public class StudentImpl {
         student.setStudentNum(studentData.getStudentNum());
         student.setStudentName(studentData.getStudentName());
         student.setSex(studentData.getSex());
+        student.setSchool(studentData.getSchool());
+        student.setMajor(studentData.getMajor());
+        student.setClassName(studentData.getClassName());
         Date birthday = studentData.getBirthday();
         Date current = DateUtil.now();
         int age = Integer.parseInt(DateUtil.formatTimeDifference(birthday, current).substring(0, 4));
@@ -160,5 +169,23 @@ public class StudentImpl {
             }
         }
         return student;
+    }
+
+    private String parseSchool(String schoolCode) {
+        String school;
+        switch (schoolCode) {
+            case "1": {
+                school = "软件学院";
+                break;
+            }
+            case "2": {
+                school = "其他学院";
+                break;
+            }
+            default: {
+                school = "其他学院";
+            }
+        }
+        return school;
     }
 }

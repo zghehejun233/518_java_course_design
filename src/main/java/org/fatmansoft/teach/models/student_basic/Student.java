@@ -54,6 +54,12 @@ public class Student {
     @Column(name = "email")
     @Email
     private String email;
+    @Column(name = "school")
+    private String school;
+    @Column(name = "major")
+    private String major;
+    @Column(name = "class_name")
+    private String className;
 
     @OneToMany(mappedBy = "student",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<Family> families;

@@ -91,6 +91,20 @@ uims:
         - type: input
           prop: phoneNumber
           label: 联系电话
+        - type: select
+          prop: school
+          label: 学院
+          option:
+            - value: 1
+              label: 软件学院
+            - value: 2
+              label: 其他学院
+        - type: input
+          prop: major
+          label: 专业
+        - type: input
+          prop: className
+          label: 班级
         - type: date
           prop: birthday
           label: 出生日期
