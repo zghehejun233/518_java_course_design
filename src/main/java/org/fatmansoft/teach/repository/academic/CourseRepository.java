@@ -15,5 +15,8 @@ public interface CourseRepository extends JpaRepository<Course,Integer> {
     @Query(value = "select max(courseId) from Course ")
     Integer getMaxId();
 
+    List<Course> findCoursesByNameContains(String name);
+    List<Course> findCoursesByNumContains(String num);
+    List<Course> findCoursesByTeacherContains(String teacher);
 
 }

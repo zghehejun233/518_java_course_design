@@ -20,13 +20,22 @@ import java.util.*;
  */
 @Service
 public class CourseImpl {
-    private static final Logger logger = LoggerFactory.getLogger(SpringBootSecurityJwtApplication.class);
     @Resource
     private CourseRepository courseRepository;
 
-    public List<Object> getCourseMapList(String numName) {
+    public List<Object> getCourseMapList(String content, String type) {
         List<Object> result = new ArrayList<>();
-        List<Course> courseList = courseRepository.findAll();
+        List<Course> courseList;
+        if ("name".equals(type)) {
+            courseList = courseRepository.findCoursesByNameContains(content);
+        } else if ("num".equals(type)) {
+            courseList = courseRepository.findCoursesByNumContains(content);
+        } else if ("teacher".equals(type)) {
+            courseList = courseRepository.findCoursesByTeacherContains(content);
+        } else {
+            courseList = courseRepository.findAll();
+        }
+
         if (courseList == null || courseList.size() == 0) {
             return result;
         }

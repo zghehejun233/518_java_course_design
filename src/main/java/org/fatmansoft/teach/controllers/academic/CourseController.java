@@ -34,6 +34,12 @@ public class CourseController {
         SystemApplicationListener.logger.debug("courseInitEnd");
         return CommonMethod.getReturnData(result);
     }
+    @PostMapping("/courseQuery")
+    @PreAuthorize("hasRole('ADMIN')")
+    public DataResponse courseQuery(@Valid @RequestBody DataRequest dataRequest) {
+        List<Object> result = courseService.getSelectedCourse(dataRequest);
+        return CommonMethod.getReturnData(result);
+    }
 
     @PostMapping("/courseEditInit")
     @PreAuthorize("hasRole('ADMIN')")

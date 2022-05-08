@@ -444,6 +444,20 @@ uims:
             - name: edit
             - name: delete
             - name: detail
+      query:
+        - type: input
+          prop: content
+          label: 请输入内容
+        - type: select
+          prop: type
+          label: 选择
+          option:
+            - label: 课程名称
+              value: name
+            - label: 课程号
+              value: num
+            - label: 教师
+              value: teacher
     - name: courseEdit
       type: form
       title: 课程编辑
