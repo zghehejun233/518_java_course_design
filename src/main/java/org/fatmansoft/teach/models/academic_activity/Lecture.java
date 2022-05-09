@@ -12,6 +12,7 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Lecture {
     @Id
     @Column(name = "lecture_id")

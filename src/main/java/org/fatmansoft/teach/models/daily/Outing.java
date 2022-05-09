@@ -1,9 +1,6 @@
 package org.fatmansoft.teach.models.daily;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +13,7 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Outing {
     @Id
     @Column(name = "outing_id")

@@ -99,7 +99,7 @@ public class IntroduceController {
 
         String myName = (String) data.get("myName");
         String overview = (String) data.get("overview");
-        List<Map> attachList = (List) data.get("attachList");
+        List<Map> attachList = (List) data.get("pdfInfo");
 
 //        content += getHtmlString();
         content += "<body>";
@@ -121,14 +121,20 @@ public class IntroduceController {
         content += "<table style='width: 100%;border-collapse: collapse;border: 1px solid black;'>";
         content +=   " <tbody>";
 
-        for(int i = 0; i <attachList.size(); i++ ){
+
+        // for(int i = 0; i <attachList.size(); i++ ){
+        for(int i = 0; i <3; i++ ){
+            SystemApplicationListener.logger.warn(attachList.get(i).get("title").toString());
+            SystemApplicationListener.logger.warn(attachList.get(i).get("content").toString());
             content += "     <tr style='text-align: center;border: 1px solid black;font-size: 14px;'>";
             content += "      "+attachList.get(i).get("title")+" ";
             content += "     </tr>";
             content += "     <tr style='text-align: center;border: 1px solid black; font-size: 14px;'>";
             content += "            "+attachList.get(i).get("content")+" ";
             content += "     </tr>";
+            SystemApplicationListener.logger.warn("结束"+i+"次");
         }
+
 
 
         content +=   " </tbody>";

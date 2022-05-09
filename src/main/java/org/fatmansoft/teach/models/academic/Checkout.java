@@ -1,9 +1,6 @@
 package org.fatmansoft.teach.models.academic;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.hibernate.Hibernate;
 
@@ -17,6 +14,7 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Checkout {
     @Id
     @Column(name = "checkout_id")

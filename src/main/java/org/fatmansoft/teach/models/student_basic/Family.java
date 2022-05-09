@@ -20,6 +20,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @AllArgsConstructor
+@ToString
 public class Family {
     @Id
     @Column(name = "family_id")

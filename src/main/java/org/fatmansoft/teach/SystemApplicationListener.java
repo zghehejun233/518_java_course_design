@@ -27,7 +27,6 @@ public class SystemApplicationListener implements ApplicationListener<Applicatio
         logger.info("SystemInitStart");
         systemService.loadUimsFile();
         testService.testMain();
-        globalScoreRepository.setString("a","a");
         logger.info("systemInitEnd");
     }
 

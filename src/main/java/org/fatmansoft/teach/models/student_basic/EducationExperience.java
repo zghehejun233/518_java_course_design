@@ -19,6 +19,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class EducationExperience {
     @Id
     @Column(name = "education_experience_id")

@@ -1,9 +1,6 @@
 package org.fatmansoft.teach.models.academic_activity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.hibernate.Hibernate;
 
@@ -19,6 +16,7 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Practice {
     @Id
     @Column(name = "practice_id")

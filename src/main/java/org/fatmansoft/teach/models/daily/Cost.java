@@ -2,6 +2,7 @@ package org.fatmansoft.teach.models.daily;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -12,6 +13,7 @@ import java.util.Date;
 @Table(name = "cost", uniqueConstraints = {@UniqueConstraint(columnNames = "cost_id")})
 @Setter
 @Getter
+@ToString
 public class Cost {
     @Id
     @Column(name = "cost_id")

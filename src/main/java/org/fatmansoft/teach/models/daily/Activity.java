@@ -1,9 +1,6 @@
 package org.fatmansoft.teach.models.daily;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.fatmansoft.teach.models.student_basic.Student;
 
 import javax.persistence.*;
@@ -18,6 +15,7 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Activity {
     @Id
     @Column(name = "activity_id")

@@ -3,6 +3,7 @@ package org.fatmansoft.teach.models.academic;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.hibernate.Hibernate;
 
@@ -13,6 +14,7 @@ import java.util.Objects;
 @Table(name = "score",uniqueConstraints = {})
 @Setter
 @Getter
+@ToString
 public class Score {
     @Id
     @Column(name = "score_id")

@@ -1,9 +1,6 @@
 package org.fatmansoft.teach.models.academic_activity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.fatmansoft.teach.models.student_basic.Student;
 import org.hibernate.Hibernate;
 
@@ -16,6 +13,7 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class InnovationProject {
     @Id
     @Column(name = "innovation_project_id")

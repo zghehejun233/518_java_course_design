@@ -2,6 +2,7 @@ package org.fatmansoft.teach.models.student_basic;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -18,6 +19,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @AllArgsConstructor
+@ToString
 public class SocialRelation {
     @Id
     @Column(name = "social_relation_id")
@@ -42,8 +44,4 @@ public class SocialRelation {
         return getClass().hashCode();
     }
 
-    @Override
-    public String toString() {
-        return "[社会关系：" + description + "]";
-    }
 }

@@ -1,10 +1,8 @@
 package org.fatmansoft.teach.models.academic;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.Hibernate;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -15,6 +13,7 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Reference {
     @Id
     @Column(name = "reference_id")

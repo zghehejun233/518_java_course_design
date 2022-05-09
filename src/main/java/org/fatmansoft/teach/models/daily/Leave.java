@@ -2,6 +2,7 @@ package org.fatmansoft.teach.models.daily;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.fatmansoft.teach.models.student_basic.Student;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.Date;
 @Table(name = "leave", uniqueConstraints = {@UniqueConstraint(columnNames = "leave_id")})
 @Setter
 @Getter
+@ToString
 public class Leave {
     @Id
     @Column(name = "leave_id")
